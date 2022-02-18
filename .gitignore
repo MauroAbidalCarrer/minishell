@@ -1,1 +1,5 @@
 en.subject.pdf
+*.o
+.*.swp
+minishell
+!minishell/

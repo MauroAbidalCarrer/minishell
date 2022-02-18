@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/18 14:54:42 by maabidal         ###   ########.fr       */
+/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
+/*   Updated: 2022/02/18 15:07:53 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-       #include <stdio.h>
-       #include <readline/readline.h>
-       #include <readline/history.h>
+#ifndef MAIN_H
+# define MAIN_H
+# include <stdio.h>
+# include <stdlib.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
-int	 main()
-{
-	char *line = readline("salut: ");
-	while (line != NULL)
-	{
-		//parse
-		//exec
-		printf("%s\n", line);
-		free(line);
-		line = readline("salut: ");
-	}
-}
+int	get_env_var(char *key, char **dst, char **env);
+#endif

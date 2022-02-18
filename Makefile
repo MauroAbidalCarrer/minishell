@@ -1,4 +1,4 @@
-NAME		=
+NAME		=	minishell
 
 SRCS		=	main.c
 
@@ -8,7 +8,8 @@ OBJS		=	$(addprefix build/, $(_OBJS))
 CC			=	cc
 CFLAGS		=	-Wall -Werror -Wextra
 INCLUDE		=	-I includes/
-LIBS		=
+LIBS		=	
+LIBS_EXT	=	-lreadline
 
 
 all		:	$(NAME)
@@ -20,7 +21,7 @@ build/%.o	:	srcs/%.c
 	$(CC) ${CFLAGS} ${INCLUDE} -c $< -o $@
 
 $(NAME)	:	$(OBJS) | libs
-	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBS_EXT) -o $(NAME)
 
 libs	:
 	@for lib in $(LIBS); do\
