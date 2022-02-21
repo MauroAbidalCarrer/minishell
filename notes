@@ -4,8 +4,36 @@ utiliser minishell de facon recursive pour gerer les parenthese et les pipes(voi
 https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe
 D'abord on check les builtin et ensuite les commandes
 
+On aurait une struct comme ca
+{
+	type	operator;
+	char	*pipeline;
+}	ops;
+
+Pour l'avoir on split sur && et ||, en faisant gaffe a pas être dans une parenthèse\guillemet\etc
+
+Du coup, on aurait une liste de ops, qu'on viendrait traiter une par une
+La premìere ops a pour operator = NULL
+
+Ca nous donne un truc comme ca
+
+int	exit_status;
+
+// ICI ON VIENT CHOPPER NOS OPS
+
+while (op)
+{
+	Si (operator NULL ou ((operator  == 'ET') == (exit_status == 0))) 
+		exit_status = exec_pipeline(pipeline)
+	op = op->next;
+}
+
+//exec_pipeline
+On aurait une liste de commandes séparés par des pipes
+On execute tout en même temps
 
 
+-------
 
-
-
+Au tout début, on vient copier la variable externe environ dans une liste/tableau un truc comme ça
+et c'est ça qu'on passera a execve
