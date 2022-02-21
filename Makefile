@@ -1,6 +1,7 @@
 NAME		=	minishell
 
-SRCS		=	main.c
+SRCS		=	handle_signals.c \
+				main.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
