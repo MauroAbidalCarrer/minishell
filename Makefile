@@ -9,7 +9,7 @@ OBJS		=	$(addprefix build/, $(_OBJS))
 CC			=	cc
 CFLAGS		=	-Wall -Werror -Wextra
 INCLUDE		=	-I includes/ -I ./srcs/libft
-LIBS		=	
+LIBS		=	srcs/libft/libft.a
 LIBS_EXT	=	-lreadline
 
 
@@ -56,7 +56,11 @@ fcleanall	:	fclean fcleanlibs
 
 re		:	fclean ${NAME}
 
-relibs	:
+relibs	:	
+	@for lib in $(LIBS); do\
+		echo make -C $$(dirname $$lib) re;\
+		make -C $$(dirname $$lib) re;\
+	done
 
 reall	: relibs re
 
