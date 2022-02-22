@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   signal_handling.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 14:11:50 by maabidal         ###   ########.fr       */
+/*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
+/*   Updated: 2022/02/21 17:12:39 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <stdio.h>
-# include <stdlib.h>
+#ifndef SIGNAL_HANDLING_H
+# define SIGNAL_HANDLING_H
+
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "signal_handling.h"
+# include <stdio.h>
+# include <unistd.h>
 
-# ifndef PROMPT
-#  define PROMPT "minishell: "
-# endif
+# include "signal.h"
 
-void	exec(void);
+void	init_signal_handling(void);
 
 #endif
