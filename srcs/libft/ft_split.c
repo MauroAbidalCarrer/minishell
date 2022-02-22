@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 21:24:55 by maabidal          #+#    #+#             */
-/*   Updated: 2021/12/16 18:58:27 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:17:56 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	*dup_until_sep(char const*str, char sep)
 	len = 0;
 	while (str[len] && str[len] != sep)
 		len++;
-	word = malloc(sizeof(char) * (len + 1));
+	word = ft_malloc(sizeof(char) * (len + 1));
 	if (word == NULL)
 		return (NULL);
 	word[len] = 0;
@@ -62,8 +62,8 @@ static char	**cancel(char **words, size_t nb_words)
 
 	i = 0;
 	while (i < nb_words)
-		free(words[i++]);
-	free(words);
+		ft_free(words[i++]);
+	ft_free(words);
 	return (NULL);
 }
 
@@ -76,7 +76,7 @@ char	**ft_split(char const *s, char c)
 	if (s == NULL)
 		return (NULL);
 	nb_words = get_nb_words(s, c);
-	words = malloc(sizeof(char *) * (nb_words + 1));
+	words = ft_malloc(sizeof(char *) * (nb_words + 1));
 	if (words == NULL)
 		return (NULL);
 	words[nb_words] = 0;

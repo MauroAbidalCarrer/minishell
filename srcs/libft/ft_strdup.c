@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strdup.c                                           :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 17:07:07 by maabidal          #+#    #+#             */
-/*   Updated: 2021/12/03 21:15:43 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:24:09 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ char	*ft_strdup(const char *str)
 	length = 0;
 	while (str[length])
 		length++;
-	new = malloc((length + 1) * sizeof(char));
-	if (new == NULL)
-		return (NULL);
+	new = ft_malloc((length + 1) * sizeof(char));
 	while (length >= 0)
 	{
 		new[length] = str[length];

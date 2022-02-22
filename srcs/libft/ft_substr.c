@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   substr.c                                           :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 17:18:35 by maabidal          #+#    #+#             */
-/*   Updated: 2021/12/03 22:56:11 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:25:51 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (s == NULL)
 		return (NULL);
 	len = min((size_t)max((int)ft_strlen(s) - start, 0), len);
-	new = malloc((len + 1) * sizeof(char));
-	if (new == NULL)
-		return (NULL);
+	new = ft_malloc((len + 1) * sizeof(char));
 	new[len] = 0;
 	i = 0;
 	while (i < len)

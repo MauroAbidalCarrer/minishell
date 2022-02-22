@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strtrim.c                                          :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 20:56:14 by maabidal          #+#    #+#             */
-/*   Updated: 2021/12/03 21:18:03 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:25:34 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,11 @@ char	*subsub(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if (start + len > ft_strlen(s) || len == 0)
 	{
-		new = malloc(sizeof(char));
+		new = ft_malloc(sizeof(char));
 		*new = 0;
 		return (new);
 	}
-	new = malloc((len + 1) * sizeof(char));
-	if (new == NULL)
-		return (NULL);
+	new = ft_malloc((len + 1) * sizeof(char));
 	new[len] = 0;
 	while (1)
 	{

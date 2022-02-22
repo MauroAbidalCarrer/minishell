@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strjoin.c                                          :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 19:27:34 by maabidal          #+#    #+#             */
-/*   Updated: 2021/12/03 21:21:07 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:24:25 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	length = ft_strlen(s1) + ft_strlen(s2) + 1;
-	new = malloc(sizeof(char) * length);
-	if (new == NULL)
-		return (NULL);
+	new = ft_malloc(sizeof(char) * length);
 	while (*s1)
 		*new++ = *s1++;
 	while (*s2)

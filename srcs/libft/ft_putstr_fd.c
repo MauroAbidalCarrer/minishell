@@ -6,19 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 20:02:46 by maabidal          #+#    #+#             */
-/*   Updated: 2021/12/13 20:03:04 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:35:39 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-
-	if (s == NULL)
-		return ;
-	i = 0;
-	while (s[i])
-		ft_putchar_fd(s[i++], fd);
+	return (ft_write(fd, (const void *)s, ft_strlen((const char *)s)));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calloc.c                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:29:25 by maabidal          #+#    #+#             */
-/*   Updated: 2021/12/03 21:14:33 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:18:27 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	length = (long)nmemb * (long)size;
 	if (length >= (long)INT_MAX)
 		return (NULL);
-	add = malloc(length);
+	add = ft_malloc(length);
 	if (add == NULL)
 		return (NULL);
 	while (--length >= 0)
