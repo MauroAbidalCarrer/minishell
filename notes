@@ -1,3 +1,37 @@
+# Features
+## Constraints
+- Not use more than one global variable
+- Not interpret unclosed quotes or special characters which are not required by the subject such as \ or ;
+
+## TODO
+- Search and launch the right exeutable (PATH + relative/absolute path)
+- Handle ' which should prevent the shell from interpreting the metacharacters in the quoted sequence.
+- Handle " which should prevent the shell from interpreting the metacharacters in the quoted sequence except for $.
+- Implement redirections (< > << >>)
+	+ >>
+		- Should not update the history
+			=> Just one multiline history entry per instruction, not more
+- Implement pipes
+- Handle $?
+- Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash
+- Implement builtins
+	+ echo with -n
+	+ cd
+	+ pwd
+	+ export
+	+ unset
+	+ env
+	+ exit
+- Implement && and ||
+- Implement * for the current working directory
+
+## DONE
+- Display a prompt when waiting for a new command
+- Have a working history
+- In interactive mode => Handle ctrl-C, ctrl-D, ctrl-\
+
+---------------------------------------
+
 gerer << 'limiter'
 gerer history -c?
 utiliser minishell de facon recursive pour gerer les parenthese et les pipes(voir subshell)
