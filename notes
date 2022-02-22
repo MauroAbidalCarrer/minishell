@@ -15,13 +15,58 @@
 - Handle $?
 - Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash
 - Implement builtins
-	+ echo with -n
-	+ cd
+	+ Descriptions need to be checked, maybe some errors in there
+	+ Making all builtins work like normal commands ?
+		=> int	builtin_name(int ac, char **av);
+	+ echo [-n] [arg...]
+		=> Print args separated by spaces
+		=> Put a newline at the end except when -n provided
+		=> echo with an other letter than n, do not take it as option
+			=> $> echo -a coucou
+			=> -a coucou
+		=> Returns 0 if success, 1 if write error occurs
+	+ cd [dir]
+		=> Change the current directory to dir.
+		=> If dir not provided, use $HOME
+			=> If home not set, then error:
+			=> minshell: cd: HOME not set
+		=> Just need to call: int	chdir(const char *path);
+		=> Returns 0 if success, 1 if directory change not possible
 	+ pwd
-	+ export
-	+ unset
+		=> Print current working directory
+		=> If extra args provided => osef
+		=> To get current working directory, use:
+			=> char *getcwd(char *buf, size_t size);
+			=> With getcwd(0, 0), we get the working directory allocated with malloc to the right side (cf. man)
+	+ export [name[=word]...]
+		=> The supplied names are marked for automatic export to the environment of subsequently executed commands.
+		=> If no args, print all exported variables (declare -x declare variable with export) (In exported order and with " and co)
+			=> $> export
+			=> declare -x OLDPWD
+			=> declare -x PWD="/mnt/nfs/homes/jmaia/cursus/minishell"
+			=> declare -x SHLVL="1"
+		=> If name followed by =, it seems logic to me to what happens
+		=> Returns 0 except if a name is not a valid shell variable name
+			=> bash: export: `2coucou=a': not a valid identifier
+			=> Format of name
+				- Only lowercase, uppercase, digits and _
+					=> $> export 'cou=coucava'=b
+					=> $> export
+					=> ...
+					=> declare -x cou="coucava=b"
+				- Do not begin with a digit
+	+ unset [name...]
+		=> For each name , remove the corresponding variable.
+		=> Hmm, unset without variable do not do anything
 	+ env
+		=> Print all exported variables in this format:
+		=> $> env
+		=> PWD=/mnt/nfs/homes/jmaia/cursus/minishell
+		=> SHLVL=1
+		=> _=/usr/bin/env
+		
 	+ exit
+		=> Exit the shell with the exit status of the last command executed
 - Implement && and ||
 - Implement * for the current working directory
 
