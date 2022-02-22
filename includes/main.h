@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 16:30:36 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:14:43 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@
 # ifndef PROMPT
 #  define PROMPT "minishell: "
 # endif
-
 
 #endif
