@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:32:32 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 17:47:56 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 22:36:07 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void	ft_close(int fd)
 {
 	if (close(fd) == -1)
-		ft_exit(1, NULL);
+	{
+		write_error(NULL);
+		ft_exit(1);
+	}
 }
 
 int	ft_open(const char *pathname, int flags)
@@ -24,14 +27,20 @@ int	ft_open(const char *pathname, int flags)
 
 	fd = open(pathname, flags, CREAT_M);
 	if (fd == -1)
-		ft_exit(1, (char *)pathname);
+	{
+		write_error((char *)pathname);
+		ft_exit(1);
+	}
 	return (fd);
 }
 
 void	ft_dup2(int old_fd, int new_fd)
 {
 	if (dup2(old_fd, new_fd) == -1)
-		ft_exit(1, NULL);
+	{
+		write_error(NULL);
+		ft_exit(1);
+	}
 }
 
 int	ft_fork(void)
@@ -40,12 +49,18 @@ int	ft_fork(void)
 
 	child_pid = fork();
 	if (child_pid == -1)
-		ft_exit(1, NULL);
+	{
+		write_error(NULL);
+		ft_exit(1);
+	}
 	return (child_pid);
 }
 
 void	ft_pipe(int *p_fds)
 {
 	if (pipe(p_fds) == -1)
-		ft_exit(1, NULL);
+	{
+		write_error(NULL);
+		ft_exit(1);
+	}
 }
