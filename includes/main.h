@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/21 12:21:14 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/02/21 15:45:26 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,6 @@
 #  define PROMPT "minishell: "
 # endif
 
-typedef struct s_block
-{
-}	t_block;
-
-enum e_block_operator
-{
-	A
-};
-
-typedef struct s_instruction
-{
-}	t_intruction;
-
-int		get_env_var(char *key, char **dst, char **env);
 void	exec(void);
 
 #endif
