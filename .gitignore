@@ -1,4 +1,5 @@
 en.subject.pdf
+*.a
 *.o
 .*.sw*
 minishell

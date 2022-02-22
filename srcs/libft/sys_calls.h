@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:46:06 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 18:53:39 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 22:33:13 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
 
 int		ft_fork(void);
-void	ft_exit(int status, char *append_msg);
+void	ft_exit(int status);
 
 int		ft_open(const char *pathname, int flags);
 void	ft_close(int fd);

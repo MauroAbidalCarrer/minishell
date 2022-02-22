@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:38:13 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 19:47:26 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/02/22 22:36:27 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	*ft_malloc(size_t size)
 	if (tmp == NULL)
 	{
 		write_error(NULL);
-		ft_exit(1, NULL);
+		ft_exit(1);
 	}
 	node = malloc(sizeof(t_list));
 	if (node == NULL)
 	{
 		free(tmp);
 		write_error(NULL);
-		ft_exit(1, NULL);
+		ft_exit(1);
 	}
 	node->content = tmp;
 	ft_lstadd_front(&g_ptrs_lst, node);
@@ -58,7 +58,7 @@ void	ft_free(void *add)
 	free(add);
 }
 
-void	ft_exit(int status, char *append_msg)
+void	ft_exit(int status)
 {
 	t_list	*next;
 
@@ -69,7 +69,5 @@ void	ft_exit(int status, char *append_msg)
 		free(g_ptrs_lst);
 		g_ptrs_lst = next;
 	}
-	if (status)
-		write_error(append_msg);
 	exit(status);
 }
