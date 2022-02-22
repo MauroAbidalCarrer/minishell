@@ -6,12 +6,14 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:43:27 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/22 15:47:07 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/02/22 17:46:59 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
+# include <stdlib.h>
 
 int	ms_echo(int ac, char **av);
 int	ms_cd(int ac, char **av);

@@ -1,6 +1,7 @@
 NAME		=	minishell
 
-SRCS		=	handle_signals.c \
+SRCS		=	builtins/echo.c \
+				handle_signals.c \
 				main.c
 
 _OBJS		=	${SRCS:.c=.o}
