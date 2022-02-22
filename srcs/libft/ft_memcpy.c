@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 19:14:43 by jmaia            ###   ########.fr       */
+/*   Created: 2021/12/13 19:45:52 by maabidal          #+#    #+#             */
+/*   Updated: 2021/12/16 15:58:11 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "libft.h"
-# include "signal_handling.h"
-# ifndef PROMPT
-#  define PROMPT "minishell: "
-# endif
+#include"libft.h"
 
-#endif
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char	*i1;
+	unsigned char	*i2;
+
+	i1 = (unsigned char *)src;
+	i2 = (unsigned char *)dest;
+	if (i1 == NULL && i2 == NULL)
+		return (NULL);
+	while (n > 0)
+	{
+		*i2 = *i1;
+		i1++;
+		i2++;
+		n--;
+	}
+	return (dest);
+}

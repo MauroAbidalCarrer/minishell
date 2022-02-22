@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 19:14:43 by jmaia            ###   ########.fr       */
+/*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
+/*   Updated: 2022/02/22 19:14:32 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "libft.h"
-# include "signal_handling.h"
-# ifndef PROMPT
-#  define PROMPT "minishell: "
-# endif
+#include "header.h"
 
-#endif
+char	*skip(char *str, char c)
+{
+	while (*str == c && *str)
+		str++;
+	return (str);
+}
+
+int	str_is_valid_list(char *str)
+{
+	str = skip(str, ' ');
+}

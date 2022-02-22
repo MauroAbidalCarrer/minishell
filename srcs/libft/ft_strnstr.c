@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 18:50:20 by maabidal         ###   ########.fr       */
+/*   Created: 2021/12/13 19:37:26 by maabidal          #+#    #+#             */
+/*   Updated: 2021/12/13 19:38:44 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include"libft.h"
 
-t_list	*g_ptrs_lst;
-char	*g_exe_name;
-
-void	exec(void)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-}
+	size_t	i;
+	size_t	j;
+	char	*dastack;
 
-int	main(void)
-{
-	char	*line;
-
-	init_signal_handling();
-	line = readline(PROMPT);
-	while (line != NULL)
+	if (!haystack || !needle)
+		return (0);
+	dastack = (char *)haystack;
+	if (!*needle)
+		return (dastack);
+	i = 0;
+	while (dastack[i] && i < len)
 	{
-		printf("%s\n", line);
-		free(line);
-		line = readline(PROMPT);
+		j = 0;
+		while (dastack[i + j] == needle[j] && i + j < len)
+		{
+			if (!needle[j + 1])
+				return (dastack + i);
+			j++;
+		}
+		i++;
 	}
-	write(1, "exit\n", 5);
+	return (0);
 }

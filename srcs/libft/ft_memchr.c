@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 19:14:43 by jmaia            ###   ########.fr       */
+/*   Created: 2021/12/13 19:47:40 by maabidal          #+#    #+#             */
+/*   Updated: 2021/12/13 19:48:07 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "libft.h"
-# include "signal_handling.h"
-# ifndef PROMPT
-#  define PROMPT "minishell: "
-# endif
+#include"libft.h"
 
-#endif
+void	*ft_memchr(const void *s, int c, size_t n)
+{
+	unsigned char	*buf;
+
+	buf = (unsigned char *)s;
+	while (n-- > 0)
+	{
+		if (*buf == (unsigned char)c)
+			return (buf);
+		buf++;
+	}
+	return (0);
+}

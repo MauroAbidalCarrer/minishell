@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 19:14:43 by jmaia            ###   ########.fr       */
+/*   Created: 2021/12/14 15:21:42 by maabidal          #+#    #+#             */
+/*   Updated: 2021/12/14 19:04:27 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "libft.h"
-# include "signal_handling.h"
-# ifndef PROMPT
-#  define PROMPT "minishell: "
-# endif
+#include"libft.h"
 
-#endif
+void	rec_del(t_list *n, void (*del)(void *))
+{
+	if (!n)
+		return ;
+	(*del)(n->content);
+	rec_del(n->next, del);
+	free(n);
+}
+
+void	ft_lstclear(t_list **lst, void (*del)(void *))
+{
+	if (lst == NULL)
+		return ;
+	rec_del(*lst, del);
+	*lst = NULL;
+}
