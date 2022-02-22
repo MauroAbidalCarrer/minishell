@@ -6,7 +6,7 @@
 #    By: maabidal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 20:08:50 by maabidal          #+#    #+#              #
-#    Updated: 2022/02/22 21:22:20 by jmaia            ###   ########.fr        #
+#    Updated: 2022/02/22 22:36:50 by jmaia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,11 +56,13 @@ SRCS =	ft_atoi.c\
 	file_sys_calls.c\
 	mem_sys_calls.c\
 	write_sys_calls.c\
-	ft_strcmp.c
+	ft_strcmp.c\
+	ft_isnbr.c\
+	ft_isspace.c
 
 NAME	= libft.a
 CC	= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g3
 RM	= rm -f
 OBJS	= $(SRCS:.c=.o)
 
