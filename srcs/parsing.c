@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 18:48:57 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:14:32 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ char	*skip(char *str, char c)
 
 int	str_is_valid_list(char *str)
 {
-	str = skip(str , ' ');
+	str = skip(str, ' ');
 }
