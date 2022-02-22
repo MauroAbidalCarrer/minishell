@@ -1,6 +1,6 @@
 NAME		=	minishell
 
-SRCS		=	builtins/echo.c \
+SRCS		=	builtins/ms_echo.c \
 				handle_signals.c \
 				main.c
 
@@ -8,7 +8,7 @@ _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
 
 CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra -g3
 INCLUDE		=	-I includes/ -I ./srcs/libft
 LIBS		=	srcs/libft/libft.a
 LIBS_EXT	=	-lreadline
