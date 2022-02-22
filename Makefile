@@ -56,7 +56,11 @@ fcleanall	:	fclean fcleanlibs
 
 re		:	fclean ${NAME}
 
-relibs	:
+relibs	:	
+	@for lib in $(LIBS); do\
+		echo make -C $$(dirname $$lib) re;\
+		make -C $$(dirname $$lib) re;\
+	done
 
 reall	: relibs re
 
