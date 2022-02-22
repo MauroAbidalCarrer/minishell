@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 14:12:31 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/22 21:22:02 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/02/22 21:44:26 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	ms_echo(int ac, char **av)
 	msg = ft_malloc(sizeof(*msg) * msg_len);
 	if (!msg)
 		return (1);
+	msg[0] = 0;
 	append_args_to(msg, ac, av);
 	append_newline_if_needed_to(msg, ac, av);
 	err = ft_write(1, msg, ft_strlen(msg));
@@ -41,8 +42,10 @@ static size_t	get_args_size(int ac, char **av)
 	int		i;
 	size_t	size;
 
-	i = 1 + !has_new_line(ac, av);
 	size = 0;
+	i = 1 + !has_new_line(ac, av);
+	if (i >= ac)
+		return (0);
 	while (i < ac)
 	{
 		size += ft_strlen(av[i]);
@@ -71,7 +74,8 @@ static void	append_args_to(char *msg, int ac, char **av)
 		msg[i_msg++] = ' ';
 		i++;
 	}
-	msg[i_msg - 1] = 0;
+	if (i > 1 + !has_new_line(ac, av))
+		msg[i_msg - 1] = 0;
 }
 
 static void	append_newline_if_needed_to(char *msg, int ac, char **av)
