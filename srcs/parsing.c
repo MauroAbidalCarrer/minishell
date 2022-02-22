@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_write_sys_calls.c                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 17:20:45 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 17:44:39 by maabidal         ###   ########.fr       */
+/*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
+/*   Updated: 2022/02/22 18:48:57 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
- char	*exe_name;
- t_list	*ptrs_lst;
+#include "header.h"
 
-int	main(int ac, char **av)
+char	*skip(char *str, char c)
 {
-exe_name = av[0];
-	ft_putstr_fd(av[1], -32);
-printf("openin(av[1]) = %d\n", open(av[1], O_RDONLY));
-printf("printing errror\n");
-	write_error(av[1]);
+	while (*str == c && *str)
+		str++;
+	return (str);
+}
+
+int	str_is_valid_list(char *str)
+{
+	str = skip(str , ' ');
 }

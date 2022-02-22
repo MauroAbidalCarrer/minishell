@@ -6,14 +6,14 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 17:15:02 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:50:20 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-t_list	*ptrs_lst;
-char	*exe_name;
+t_list	*g_ptrs_lst;
+char	*g_exe_name;
 
 void	exec(void)
 {

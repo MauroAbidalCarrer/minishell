@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:05:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 17:34:54 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:53:29 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@
 # include<stdlib.h>
 # include<limits.h>
 # include<unistd.h>
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
-
 # include"sys_calls.h"
 
 int		ft_atoi(const char *nptr);

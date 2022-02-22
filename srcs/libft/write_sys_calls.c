@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:21:27 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 17:44:47 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:54:06 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_write(int fd, const void *buf, size_t count)
 void	small_cat(char *src, char *dst)
 {
 	static int	i;
-	int	j;
+	int			j;
 
 	j = 0;
 	while (src[j])
