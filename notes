@@ -4,6 +4,7 @@
 - Not interpret unclosed quotes or special characters which are not required by the subject such as \ or ;
 
 ## TODO
+- WOW, Space thing => some things are written in stderr but there are not errors like prompt, "exit" at the end of program, etc
 - Delete all comments formated by /* NEED TO BE DELETED */
 - Search and launch the right exeutable (PATH + relative/absolute path)
 - Handle ' which should prevent the shell from interpreting the metacharacters in the quoted sequence.
@@ -19,13 +20,6 @@
 	+ Descriptions need to be checked, maybe some errors in there
 	+ Making all builtins work like normal commands ?
 		=> int	builtin_name(int ac, char **av);
-	+ echo [-n] [arg...]
-		=> Print args separated by spaces
-		=> Put a newline at the end except when -n provided
-		=> echo with an other letter than n, do not take it as option
-			=> $> echo -a coucou
-			=> -a coucou
-		=> Returns 0 if success, 1 if write error occurs
 	+ cd [dir]
 		=> Change the current directory to dir.
 		=> If dir not provided, use $HOME
@@ -66,8 +60,10 @@
 		=> SHLVL=1
 		=> _=/usr/bin/env
 		
-	+ exit
-		=> Exit the shell with the exit status of the last command executed
+	+ exit [n]
+		=> Exit the shell with the exit status n or the last command executed if n not provided
+		=> 0 <= n <= 255. If greeter or lower, go modulo
+		=> Too many arguments = return_code of 1 and "bash: exit: too many arguments\n"
 - Implement && and ||
 - Implement * for the current working directory
 
@@ -75,6 +71,14 @@
 - Display a prompt when waiting for a new command
 - Have a working history
 - In interactive mode => Handle ctrl-C, ctrl-D, ctrl-\
+- Implement builtins
+	+ echo [-n] [arg...]
+		=> Print args separated by spaces
+		=> Put a newline at the end except when -n provided
+		=> echo with an other letter than n, do not take it as option
+			=> $> echo -a coucou
+			=> -a coucou
+		=> Returns 0 if success, 1 if write error occurs
 
 ---------------------------------------
 
