@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 14:12:31 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/22 20:25:03 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/02/22 21:22:02 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,14 @@ static int		has_new_line(int ac, char **av);
 static void		append_args_to(char *msg, int ac, char **av);
 static void		append_newline_if_needed_to(char *msg, int ac, char **av);
 
-/* NEED TO BE DELETED */
-int				ft_write(int fd, const char *buf, size_t count);
-void			ft_free(void *ptr);
-void			*ft_malloc(size_t size);
-size_t			ft_strlen(const char *str);
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
-void			ft_memcpy(char *dest, const char *src, size_t n);
-
 int	ms_echo(int ac, char **av)
 {
 	char	*msg;
 	int		err;
 	size_t	msg_len;
 
+	if (ac == 2 && !ft_strcmp(av[1], "-n"))
+		return (ft_write(1, "\n", 1));
 	msg_len = get_args_size(ac, av) + has_new_line(ac, av) + 1;
 	msg = ft_malloc(sizeof(*msg) * msg_len);
 	if (!msg)
@@ -60,7 +54,7 @@ static size_t	get_args_size(int ac, char **av)
 
 static int	has_new_line(int ac, char **av)
 {
-	return (ac >= 2 && ft_strncmp(av[1], "-n", ft_strlen(av[1])));
+	return (ac < 2 || ft_strcmp(av[1], "-n"));
 }
 
 static void	append_args_to(char *msg, int ac, char **av)
