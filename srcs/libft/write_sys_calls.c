@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:21:27 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 18:54:06 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:47:16 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_write(int fd, const void *buf, size_t count)
 
 	result = write(fd, buf, count);
 	if (result == -1)
-		perror(exe_name);
+		perror(g_exe_name);
 	return (result);
 }
 
@@ -41,7 +41,7 @@ void	write_error(char *app_msg)
 {
 	char	buff[2048];
 
-	small_cat(exe_name, buff);
+	small_cat(g_exe_name, buff);
 	if (app_msg)
 	{
 		small_cat(": ", buff);

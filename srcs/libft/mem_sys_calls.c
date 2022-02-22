@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:38:13 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 18:37:50 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:47:26 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	*ft_malloc(size_t size)
 		ft_exit(1, NULL);
 	}
 	node->content = tmp;
-	ft_lstadd_front(&ptrs_lst, node);
+	ft_lstadd_front(&g_ptrs_lst, node);
 	return (tmp);
 }
 
@@ -44,7 +44,7 @@ void	ft_free(void *add)
 	t_list	*prev;
 
 	prev = NULL;
-	node = ptrs_lst;
+	node = g_ptrs_lst;
 	while (node->content != add)
 	{
 		prev = node;
@@ -53,7 +53,7 @@ void	ft_free(void *add)
 	if (prev)
 		prev->next = node->next;
 	else
-		ptrs_lst = node->next;
+		g_ptrs_lst = node->next;
 	free(node);
 	free(add);
 }
@@ -62,12 +62,12 @@ void	ft_exit(int status, char *append_msg)
 {
 	t_list	*next;
 
-	while (ptrs_lst)
+	while (g_ptrs_lst)
 	{
-		next = ptrs_lst->next;
-		free(ptrs_lst->content);
-		free(ptrs_lst);
-		ptrs_lst = next;
+		next = g_ptrs_lst->next;
+		free(g_ptrs_lst->content);
+		free(g_ptrs_lst);
+		g_ptrs_lst = next;
 	}
 	if (status)
 		write_error(append_msg);
