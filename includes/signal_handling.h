@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signal_handling.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/21 17:16:21 by jmaia            ###   ########.fr       */
+/*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
+/*   Updated: 2022/02/21 17:12:39 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#ifndef SIGNAL_HANDLING_H
+# define SIGNAL_HANDLING_H
 
-void	exec(void)
-{
-}
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdio.h>
+# include <unistd.h>
 
-int	main(void)
-{
-	char	*line;
+# include "signal.h"
 
-	init_signal_handling();
-	line = readline(PROMPT);
-	while (line != NULL)
-	{
-		printf("%s\n", line);
-		free(line);
-		line = readline(PROMPT);
-	}
-	write(1, "exit\n", 5);
-}
+void	init_signal_handling(void);
+
+#endif
