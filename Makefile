@@ -8,7 +8,7 @@ OBJS		=	$(addprefix build/, $(_OBJS))
 
 CC			=	cc
 CFLAGS		=	-Wall -Werror -Wextra
-INCLUDE		=	-I includes/
+INCLUDE		=	-I includes/ -I ./srcs/libft
 LIBS		=	
 LIBS_EXT	=	-lreadline
 
