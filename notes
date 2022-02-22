@@ -109,7 +109,7 @@ while (op)
 On aurait une liste de commandes séparés par des pipes
 On execute tout en même temps
 
-
+& peut etre un fichier/executable valid mais pas | ou < ou >
 -------
 
 Au tout début, on vient copier la variable externe environ dans une liste/tableau un truc comme ça
