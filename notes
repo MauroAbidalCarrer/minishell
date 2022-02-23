@@ -22,6 +22,9 @@
 		=> int	builtin_name(int ac, char **av);
 	+ cd [dir]
 		=> Change the current directory to dir.
+		=> If CDDIR is set, search directory in provided directory separated by :
+			=> Print now pwd if CDDIR used
+		=> Otherwise, search in .
 		=> If dir not provided, use $HOME
 			=> If home not set, then error:
 			=> minshell: cd: HOME not set
