@@ -27,12 +27,6 @@
 			=> minshell: cd: HOME not set
 		=> Just need to call: int	chdir(const char *path);
 		=> Returns 0 if success, 1 if directory change not possible
-	+ pwd
-		=> Print current working directory
-		=> If extra args provided => osef
-		=> To get current working directory, use:
-			=> char *getcwd(char *buf, size_t size);
-			=> With getcwd(0, 0), we get the working directory allocated with malloc to the right size (cf. man)
 	+ export [name[=word]...]
 		=> export under linux add variable in a binary tree. Let's not implement that haha
 		=> The supplied names are marked for automatic export to the environment of subsequently executed commands.
@@ -62,10 +56,6 @@
 		=> SHLVL=1
 		=> _=/usr/bin/env
 		
-	+ exit [n]
-		=> Exit the shell with the exit status n or the last command executed if n not provided
-		=> 0 <= n <= 255. If greeter or lower, go modulo
-		=> Too many arguments = return_code of 1 and "bash: exit: too many arguments\n"
 - Implement && and ||
 - Implement * for the current working directory
 
@@ -81,6 +71,16 @@
 			=> $> echo -a coucou
 			=> -a coucou
 		=> Returns 0 if success, 1 if write error occurs
+	+ pwd
+		=> Print current working directory
+		=> If extra args provided => osef
+		=> To get current working directory, use:
+			=> char *getcwd(char *buf, size_t size);
+			=> With getcwd(0, 0), we get the working directory allocated with malloc to the right size (cf. man)
+	+ exit [n]
+		=> Exit the shell with the exit status n or the last command executed if n not provided
+		=> 0 <= n <= 255. If greeter or lower, go modulo
+		=> Too many arguments = return_code of 1 and "bash: exit: too many arguments\n"
 
 ---------------------------------------
 
