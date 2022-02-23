@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 23:44:13 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:12:39 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 # include <unistd.h>
 # include "libft.h"
 # include "signal_handling.h"
-# ifndef PROMPT
-#  define PROMPT "minishell: "
-# endif
 
-int	str_is_valid_list(char *str);
+int	should_exe_list(char *str);
 
 #endif
