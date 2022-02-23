@@ -1,15 +1,15 @@
 NAME		=	minishell
 
-SRCS		=	handle_signals.c \
+SRCS		=	signals/handle_signals.c \
 			checker.c\
 			main.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
 
-CC			=	cc
-CFLAGS		=	-Wall -Werror -Wextra
-INCLUDE		=	-I includes/ -I ./srcs/libft
+CC		=	cc
+CFLAGS		=	-g3 -Wall -Werror -Wextra
+INCLUDE		=	-I srcs/ -I srcs/execution -I ./srcs/signals -I ./srcs/libft
 LIBS		=	srcs/libft/libft.a
 LIBS_EXT	=	-lreadline
 
