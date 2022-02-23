@@ -52,7 +52,8 @@
 					=> declare -x cou="coucava=b"
 				- Do not begin with a digit
 	+ unset [name...]
-		=> For each name , remove the corresponding variable.
+		=> For each name, remove the corresponding variable.
+		=> Hmm, we do not have to handle basic variable, just env variable. So let's just remove variables from env
 		=> Hmm, unset without variable do not do anything
 	+ env
 		=> Print all exported variables in this format:
