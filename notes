@@ -19,7 +19,7 @@
 - Implement builtins
 	+ Descriptions need to be checked, maybe some errors in there
 	+ Making all builtins work like normal commands ?
-		=> int	builtin_name(int ac, char **av);
+		=> int	builtin_name(int ac, char **av, char ***env);
 	+ cd [dir]
 		=> Change the current directory to dir.
 		=> If CDDIR is set, search directory in provided directory separated by :
