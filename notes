@@ -34,6 +34,7 @@
 			=> char *getcwd(char *buf, size_t size);
 			=> With getcwd(0, 0), we get the working directory allocated with malloc to the right size (cf. man)
 	+ export [name[=word]...]
+		=> export under linux add variable in a binary tree. Let's not implement that haha
 		=> The supplied names are marked for automatic export to the environment of subsequently executed commands.
 		=> If no args, print all exported variables (declare -x declare variable with export) (In exported order and with " and co)
 			=> $> export
