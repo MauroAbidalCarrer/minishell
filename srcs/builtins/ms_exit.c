@@ -6,16 +6,17 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:48:39 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/23 16:03:56 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/02/23 16:31:52 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ms_exit(int ac, char **av)
+int	ms_exit(int ac, char **av, char ***env)
 {
 	int	err;
 
+	(void) env;
 	if (ac == 1)
 	{
 		printf("ALERTE CECI NE DOIT JAMAIS S'AFFICHER,GO ETRE SANS GLOBALES\n");

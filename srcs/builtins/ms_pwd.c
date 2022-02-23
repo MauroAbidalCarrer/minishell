@@ -6,19 +6,20 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:19:42 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/23 15:46:25 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/02/23 16:32:01 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ms_pwd(int ac, char **av)
+int	ms_pwd(int ac, char **av, char ***env)
 {
 	char	*pwd;
 	char	*err_msg;
 	int		err;
 
 	(void) ac;
+	(void) env;
 	pwd = getcwd(0, 0);
 	if (!pwd)
 	{
