@@ -6,12 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 23:41:38 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/23 12:06:03 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
+//#include "libft.h"
 int	is_operator(char **str)
 {
 	int		i;
@@ -30,10 +31,7 @@ int	is_operator(char **str)
 	{
 		tmp = str_starts_by(*str, tests[i]);
 		if (tmp != *str)
-		{
-			*str = tmp;
 			return (1);
-		}
 	}
 	return (0);
 }
@@ -47,7 +45,7 @@ int	check_operators(char *str)
 	{
 		if (is_operator(&str) && op_count++ == 1)
 			return (0);
-		if (!strchr(" \'\"|><", *str))
+		if (!strchr(" \'\"|><\t\11\12\13", *str))
 			op_count = 0;
 		if (*str == '\'' || *str == '\"')
 			str = strchr(str + 1, *str);
@@ -92,7 +90,7 @@ int	check_quotes(char *str)
 	return (1);
 }
 
-int	str_is_valid_list(char *str)
+int	should_exe_list(char *str)
 {
 	if (!check_parentheses(str))
 		return (0);
@@ -102,13 +100,12 @@ int	str_is_valid_list(char *str)
 		return (0);
 	return (1);
 }
-
-/*//& can be considred as a cmd
+/*
+//& can be considred as a cmd
 char	*g_exe_name;
 t_list	*g_ptrs_lst;
 int	main(int ac, char **av)
 {
-
 	char *valid_tests[50] =
 	{
 		"sa\"\"lut",
@@ -118,6 +115,7 @@ int	main(int ac, char **av)
 "sa\"\'\"lut",
 "cmd1 \'\"va\"&&||\'& cmd2||cmd2 etre|(cmd3>>file1)",
 "cmd1 \'\"va\"&&||\'&&&&&&&&& cmd2||cmd2 etre|(cmd3>>file1)",
+	"cmd1 \'\"va\"&&||\'& cmd2||cmd2 etre|(cmd3>>file1) &",
 	NULL
 };
 char *invalid_tests[50] =
@@ -127,23 +125,23 @@ char *invalid_tests[50] =
 	"((((())salut))",
 	"(((((\")\"))salut))",
 	"sa\"\'lut",
-	"cmd1 \'\"va\"&&||\'& cmd2||cmd2 etre|(cmd3>>file1) &",
 	"| cmd1 \'\"va\"&&||\'& cmd2||cmd2 etre|(cmd3>>file1) ",
 	"cmd1 \'\"va\"&&||\'&&&&&&&&& cmd2|||||||||cmd2 etre|(cmd3>>file1)",
+	"cmd1 \'\"va\"&&||\'& cmd2||cmd2 etre|(cmd3>>file1) &&",
+	"cmd1 \'\"va\"&&||\'& cmd2||cmd2 etre|(cmd3>>file1) && ",
+	"<cmd1 \'\"va\"&&||\'& cmd2||cmd2 etre|(cmd3>>file1)",
+	"",
+	"  ",
+	" \t",
 	NULL
 };
 printf("testing valid inputs\n");
 for (int i = 0; valid_tests[i]; i++)
 printf("testing [%s]\n%d\n\n", valid_tests[i], 
-str_is_valid_list(valid_tests[i]));
+should_exe_list(valid_tests[i]));
 printf("-----------\ntesting invalid inputs\n");
 for (int i = 0; invalid_tests[i]; i++)
 printf("testing [%s]\n%d\n\n", invalid_tests[i], 
-str_is_valid_list(invalid_tests[i]));
+should_exe_list(invalid_tests[i]));
 }
-
-tests:
-
-cmd1 '"va"&&||'& cmd2||cmd2 etre|(cmd3>>file1)
-	
 */
