@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:32:32 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 22:36:07 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/27 15:19:43 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_fork(void)
 	return (child_pid);
 }
 
-void	ft_pipe(int *p_fds)
+void	ft_pipe(int p_fds[2])
 {
 	if (pipe(p_fds) == -1)
 	{

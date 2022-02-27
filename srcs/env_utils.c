@@ -6,13 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 15:06:42 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/18 15:15:26 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/02/27 15:27:10 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-int	get_env_var(char *key, char **dst, char **env)
+int	get_env_var(char const *key, char **dst, char **env)
 {
 	int	i;
 	int	j;
@@ -35,4 +35,13 @@ int	get_env_var(char *key, char **dst, char **env)
 		i++;
 	}
 	return (1);
+}
+
+/* NEED TO DELETED */
+/* This function needs to be written */
+int	set_env_var(char const *key, char const *value)
+{
+	(void) key;
+	(void) value;
+	return (0);
 }
