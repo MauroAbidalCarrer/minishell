@@ -42,12 +42,6 @@
 		=> For each name, remove the corresponding variable.
 		=> Hmm, we do not have to handle basic variable, just env variable. So let's just remove variables from env
 		=> Hmm, unset without variable do not do anything
-	+ env
-		=> Print all exported variables in this format in sorted order:
-		=> $> env
-		=> PWD=/mnt/nfs/homes/jmaia/cursus/minishell
-		=> SHLVL=1
-		=> _=/usr/bin/env
 		
 - Implement && and ||
 - Implement * for the current working directory
@@ -80,6 +74,12 @@
 		=> To get current working directory, use:
 			=> char *getcwd(char *buf, size_t size);
 			=> With getcwd(0, 0), we get the working directory allocated with malloc to the right size (cf. man)
+	+ env
+		=> Print all exported variables in this format in sorted order:
+		=> $> env
+		=> PWD=/mnt/nfs/homes/jmaia/cursus/minishell
+		=> SHLVL=1
+		=> _=/usr/bin/env
 	+ exit [n]
 		=> Exit the shell with the exit status n or the last command executed if n not provided
 		=> 0 <= n <= 255. If greeter or lower, go modulo
