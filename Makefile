@@ -1,8 +1,10 @@
 NAME		=	minishell
 
-SRCS		=	builtins/ms_echo.c \
+SRCS		=	builtins/ms_cd.c \
+				builtins/ms_echo.c \
 				builtins/ms_exit.c \
 				builtins/ms_pwd.c \
+				env_utils.c \
 				handle_signals.c \
 				main.c
 
