@@ -20,16 +20,6 @@
 	+ Descriptions need to be checked, maybe some errors in there
 	+ Making all builtins work like normal commands ?
 		=> int	builtin_name(int ac, char **av, char ***env);
-	+ cd [dir]
-		=> Change the current directory to dir.
-		=> If CDDIR is set, search directory in provided directory separated by :
-			=> Print now pwd if CDDIR used
-		=> Otherwise, search in .
-		=> If dir not provided, use $HOME
-			=> If home not set, then error:
-			=> minshell: cd: HOME not set
-		=> Just need to call: int	chdir(const char *path);
-		=> Returns 0 if success, 1 if directory change not possible
 	+ export [name[=word]...]
 		=> export under linux add variable in a binary tree. Let's not implement that haha
 		=> The supplied names are marked for automatic export to the environment of subsequently executed commands.
@@ -67,6 +57,16 @@
 - Have a working history
 - In interactive mode => Handle ctrl-C, ctrl-D, ctrl-\
 - Implement builtins
+	+ cd [dir]
+		=> Change the current directory to dir.
+		=> If CDDIR is set, search directory in provided directory separated by :
+			=> Print now pwd if CDDIR used
+		=> Otherwise, search in .
+		=> If dir not provided, use $HOME
+			=> If home not set, then error:
+			=> minshell: cd: HOME not set
+		=> Just need to call: int	chdir(const char *path);
+		=> Returns 0 if success, 1 if directory change not possible
 	+ echo [-n] [arg...]
 		=> Print args separated by spaces
 		=> Put a newline at the end except when -n provided
