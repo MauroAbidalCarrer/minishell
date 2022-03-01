@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 13:58:52 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/01 14:26:39 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/01 14:30:20 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ms_env(int ac, char **av, char ***env)
 	ft_memcpy(sorted_env, *env, sizeof(**env) * (env_size + 1));
 	sort_array(sorted_env, &ft_strcmp);
 	print_array(sorted_env, env_size);
+	ft_free(sorted_env);
 	return (0);
 }
 
