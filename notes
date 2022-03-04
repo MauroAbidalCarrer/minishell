@@ -5,6 +5,7 @@
 
 ## TODO
 - WOW, Space thing => some things are written in stderr but there are not errors like prompt, "exit" at the end of program, etc
+- Use `nm -u ./minishell` at the end to see all used functions and check if they are protected where they are used
 - If we use `export var` without defining var, export will show it but not env
 - Delete all comments formated by /* NEED TO BE DELETED */
 - Search and launch the right exeutable (PATH + relative/absolute path)
