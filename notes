@@ -5,6 +5,7 @@
 
 ## TODO
 - WOW, Space thing => some things are written in stderr but there are not errors like prompt, "exit" at the end of program, etc
+- If we use `export var` without defining var, export will show it but not env
 - Delete all comments formated by /* NEED TO BE DELETED */
 - Search and launch the right exeutable (PATH + relative/absolute path)
 - Handle ' which should prevent the shell from interpreting the metacharacters in the quoted sequence.

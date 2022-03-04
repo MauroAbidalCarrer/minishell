@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:43:27 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/23 16:31:25 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/04 15:47:23 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdlib.h>
 
 # include "libft.h"
+
+# include "main.h"
 
 int	ms_echo(int ac, char **av, char ***env);
 int	ms_cd(int ac, char **av, char ***env);
