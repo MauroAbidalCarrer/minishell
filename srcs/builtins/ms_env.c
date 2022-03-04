@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 13:58:52 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/04 12:42:51 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/04 16:57:25 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	ms_env(int ac, char **av, char ***env)
 	err = 0;
 	while ((*env)[i] && !err)
 	{
-		err = (printf("%s\n", (*env)[i]) < 0);
+		if (ft_strchr((*env)[i], '='))
+			err = (printf("%s\n", (*env)[i]) < 0);
 		i++;
 	}
 	return (!!err);
