@@ -4,6 +4,7 @@ SRCS		=	builtins/ms_cd.c \
 				builtins/ms_echo.c \
 				builtins/ms_exit.c \
 				builtins/ms_pwd.c \
+				builtins/ms_unset.c \
 				env_utils.c \
 				handle_signals.c \
 				main.c
