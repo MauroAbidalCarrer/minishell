@@ -38,10 +38,6 @@
 					=> ...
 					=> declare -x cou="coucava=b"
 				- Do not begin with a digit
-	+ unset [name...]
-		=> For each name, remove the corresponding variable.
-		=> Hmm, we do not have to handle basic variable, just env variable. So let's just remove variables from env
-		=> Hmm, unset without variable do not do anything
 	+ env
 		=> Print all exported variables in this format in sorted order:
 		=> $> env
@@ -84,6 +80,10 @@
 		=> Exit the shell with the exit status n or the last command executed if n not provided
 		=> 0 <= n <= 255. If greeter or lower, go modulo
 		=> Too many arguments = return_code of 1 and "bash: exit: too many arguments\n"
+	+ unset [name...]
+		=> For each name, remove the corresponding variable.
+		=> Hmm, we do not have to handle basic variable, just env variable. So let's just remove variables from env
+		=> Hmm, unset without variable do not do anything
 
 ---------------------------------------
 
