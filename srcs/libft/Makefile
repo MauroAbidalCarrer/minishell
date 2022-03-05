@@ -6,7 +6,7 @@
 #    By: maabidal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 20:08:50 by maabidal          #+#    #+#              #
-#    Updated: 2022/02/22 23:37:49 by maabidal         ###   ########.fr        #
+#    Updated: 2022/03/06 00:37:52 by maabidal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,9 @@ SRCS =	ft_atoi.c\
 	mem_sys_calls.c\
 	write_sys_calls.c\
 	ft_strcmp.c\
-	ft_str_starts_by.c
+	ft_str_starts_by.c\
+	ft_strnochr.c\
+	is_white.c
 
 NAME	= libft.a
 CC	= gcc

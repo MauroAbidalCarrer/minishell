@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   is_white.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 15:06:42 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/18 15:15:26 by maabidal         ###   ########.fr       */
+/*   Created: 2022/03/06 00:35:47 by maabidal          #+#    #+#             */
+/*   Updated: 2022/03/06 00:44:32 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "libft.h"
 
-int	get_env_var(char *key, char **dst, char **env)
+static int	inrange(char c, char a, char b)
 {
-	int	i;
-	int	j;
+	return (c >= a && c <= b);
+}
 
-	if (env == NULL)
-		return (1);
-	i = 0;
-	while (env[i])
-	{
-		j = 0;
-		while (env[i][j] && key[j] && env[i][j] == key[j])
-		{
-			if (key[j + 1] == 0)
-			{
-				*dst = env[i] + j + 2;
-				return (0);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (1);
+int	is_white(char c)
+{
+	return (c == ' ' || inrange(c, 9, 13));
 }

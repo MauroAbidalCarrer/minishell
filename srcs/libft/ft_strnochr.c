@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   ft_strnochr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/23 15:19:31 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/23 15:23:06 by maabidal         ###   ########.fr       */
+/*   Created: 2022/03/05 17:32:37 by maabidal          #+#    #+#             */
+/*   Updated: 2022/03/06 00:44:49 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTION_H
-# define EXECUTION_H
-typedef struct cmd
-{
-	char	*path;
-	char	**av;
-	int		ac;
-}	t_cmd;
-# define CREAT_M 644
-# define CREAT_F 577
-# define APPEND_F 1089
+#include "libft.h"
 
-#endif
+char	*strnochr(char *str, char c)
+{
+	if (str == NULL)
+		return (NULL);
+	while (*str && *str == c)
+		str++;
+	return (str);
+}
+
+char	*skip_spaces(char *str)
+{
+	while (is_white(*str))
+		str++;
+	return (str);
+}

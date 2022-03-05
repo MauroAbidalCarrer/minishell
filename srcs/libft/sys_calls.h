@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:46:06 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 22:33:13 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/06 00:50:55 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include "libft.h"
 # include <string.h>
-# define CREAT_M 420
+# define CREAT_M 644
 # define CREAT_F  577
 # define APPEND_F  1089
 
