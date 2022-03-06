@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:05:09 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/06 00:43:01 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/06 19:48:52 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ int	check_parentheses(char *str)
 		if (count < 0)
 			return (0);
 		if (*str == '\'' || *str == '\"')
+		{
+			ft_putstr_fd("Error: parentheses not closed\n", 2);
 			str = strchr(str + 1, *str);
+		}
 		str++;
 	}
 	return (count == 0);
@@ -64,7 +67,10 @@ int	check_quotes(char *str)
 		if (*str == '\'' || *str == '\"')
 			str = strchr(str + 1, *str);
 		if (str == NULL)
+		{
+			ft_putstr_fd("Error: quotes not closed\n", 2);
 			return (0);
+		}
 		str++;
 	}
 	return (1);

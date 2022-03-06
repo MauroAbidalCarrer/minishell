@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 19:07:56 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/06 00:43:23 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/06 19:53:32 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CHECKER_H
 # include "libft.h"
 
+extern char	*g_exe_name;
 int	starts_by_f_redi(char **str);
 int	starts_by_sep(char **str);
 int	check_quotes(char *str);
