@@ -74,6 +74,7 @@
 - Display a prompt when waiting for a new command
 - Have a working history
 - In interactive mode => Handle ctrl-C, ctrl-D, ctrl-\
+- Check if the line is correctly formatte and should be executed
 
 ---------------------------------------
 
