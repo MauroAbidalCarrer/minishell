@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/06 19:58:05 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:21:31 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,22 @@ char	*check_cmd_s(char *str)
 	return (0);
 }
 
-void	print_prev_sep(char *str)
+int	there_is_unexpected_token(char *str)
 {
-	ft_putstr_fd(g_exe_name, 2);
-	ft_putstr_fd("syntax error near unexpected token `", 2);
-	ft_putchar_fd(str [-1], 2);
-	if (str[-2] == '|' || str[2] == '&')
-		ft_putchar_fd(str[-2], 2);
-	ft_putstr_fd("\'\n", 2);
+	char	*tmp;
+
+	tmp = str;
+	if (starts_by_sep(&str))
+	{
+		ft_putstr_fd(g_exe_name, 2);
+		ft_putstr_fd("syntax error near unexpected token `", 2);
+		ft_putchar_fd(*tmp, 2);
+		if (tmp[1] == '|' || tmp[1] == '&')
+			ft_putchar_fd(tmp[1], 2);
+		ft_putstr_fd("\'\n", 2);
+		return (1);
+	}
+	return (0);
 }
 
 //skip spaces
@@ -92,8 +100,8 @@ int	should_exe_list(char *str)
 	while (*str)
 	{
 		str = skip_spaces(str);
-		if (starts_by_sep(&str))
-			return (print_prev_sep(str), 0);
+		if (there_is_unexpected_token(str))
+			return (0);
 		if (*str == '(')
 		{
 			i = to_ending_par(str);
@@ -110,6 +118,7 @@ int	should_exe_list(char *str)
 	}
 	return (!i);
 }
+
 /*
 char	*g_exe_name;
 t_list	*g_ptrs_lst;
