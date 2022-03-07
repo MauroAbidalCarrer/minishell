@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   checker.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/06 19:51:18 by maabidal         ###   ########.fr       */
+/*   Created: 2022/03/05 19:07:56 by maabidal          #+#    #+#             */
+/*   Updated: 2022/03/06 19:53:32 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
+#ifndef CHECKER_H
+# define CHECKER_H
 # include "libft.h"
-# include "signal_handling.h"
-# include "checker.h"
+
+extern char	*g_exe_name;
+int	starts_by_f_redi(char **str);
+int	starts_by_sep(char **str);
+int	check_quotes(char *str);
+int	check_parentheses(char *str);
+int	starts_by_f_redi(char **str);
+int	to_ending_par(char *str);
+int	should_exe_list(char *str);
 #endif
