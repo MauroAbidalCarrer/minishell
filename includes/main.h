@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/27 15:18:17 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/04 11:34:41 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@
 
 int	get_env_var(char const *str, char **dest, char **env);
 int	set_env_var(char const *key, char const *value);
+int	delete_env_var(char const *key);
 
 #endif

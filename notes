@@ -11,7 +11,6 @@
 - Search and launch the right exeutable (PATH + relative/absolute path)
 - Handle ' which should prevent the shell from interpreting the metacharacters in the quoted sequence.
 - Handle " which should prevent the shell from interpreting the metacharacters in the quoted sequence except for $.
-- Implement redirections (< > << >>)
 	+ >>
 		- Should not update the history
 			=> Just one multiline history entry per instruction, not more
@@ -40,10 +39,6 @@
 					=> ...
 					=> declare -x cou="coucava=b"
 				- Do not begin with a digit
-	+ unset [name...]
-		=> For each name, remove the corresponding variable.
-		=> Hmm, we do not have to handle basic variable, just env variable. So let's just remove variables from env
-		=> Hmm, unset without variable do not do anything
 		
 - Implement && and ||
 - Implement * for the current working directory
@@ -86,6 +81,10 @@
 		=> Exit the shell with the exit status n or the last command executed if n not provided
 		=> 0 <= n <= 255. If greeter or lower, go modulo
 		=> Too many arguments = return_code of 1 and "bash: exit: too many arguments\n"
+	+ unset [name...]
+		=> For each name, remove the corresponding variable.
+		=> Hmm, we do not have to handle basic variable, just env variable. So let's just remove variables from env
+		=> Hmm, unset without variable do not do anything
 
 ---------------------------------------
 
