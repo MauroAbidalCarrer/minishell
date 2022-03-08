@@ -17,10 +17,44 @@
 - Implement pipes
 - Handle $?
 - Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash
+- Implement && and ||
+- Implement * for the current working directory
+
+## DONE
+- Display a prompt when waiting for a new command
+- Have a working history
+- In interactive mode => Handle ctrl-C, ctrl-D, ctrl-\
 - Implement builtins
 	+ Descriptions need to be checked, maybe some errors in there
 	+ Making all builtins work like normal commands ?
 		=> int	builtin_name(int ac, char **av, char ***env);
+	+ cd [dir]
+		=> Change the current directory to dir.
+		=> If CDDIR is set, search directory in provided directory separated by :
+			=> Print now pwd if CDDIR used
+		=> Otherwise, search in .
+		=> If dir not provided, use $HOME
+			=> If home not set, then error:
+			=> minshell: cd: HOME not set
+		=> Just need to call: int	chdir(const char *path);
+		=> Returns 0 if success, 1 if directory change not possible
+	+ echo [-n] [arg...]
+		=> Print args separated by spaces
+		=> Put a newline at the end except when -n provided
+		=> echo with an other letter than n, do not take it as option
+			=> $> echo -a coucou
+			=> -a coucou
+		=> Returns 0 if success, 1 if write error occurs
+	+ env
+		=> Print all exported variables in this format in sorted order:
+		=> $> env
+		=> PWD=/mnt/nfs/homes/jmaia/cursus/minishell
+		=> SHLVL=1
+		=> _=/usr/bin/env
+	+ exit [n]
+		=> Exit the shell with the exit status n or the last command executed if n not provided
+		=> 0 <= n <= 255. If greeter or lower, go modulo
+		=> Too many arguments = return_code of 1 and "bash: exit: too many arguments\n"
 	+ export [name[=word]...]
 		=> export under linux add variable in a binary tree. Let's not implement that haha
 		=> The supplied names are marked for automatic export to the environment of subsequently executed commands.
@@ -39,48 +73,12 @@
 					=> ...
 					=> declare -x cou="coucava=b"
 				- Do not begin with a digit
-		
-- Implement && and ||
-- Implement * for the current working directory
-
-## DONE
-- Display a prompt when waiting for a new command
-- Have a working history
-- In interactive mode => Handle ctrl-C, ctrl-D, ctrl-\
-- Implement builtins
-	+ cd [dir]
-		=> Change the current directory to dir.
-		=> If CDDIR is set, search directory in provided directory separated by :
-			=> Print now pwd if CDDIR used
-		=> Otherwise, search in .
-		=> If dir not provided, use $HOME
-			=> If home not set, then error:
-			=> minshell: cd: HOME not set
-		=> Just need to call: int	chdir(const char *path);
-		=> Returns 0 if success, 1 if directory change not possible
-	+ echo [-n] [arg...]
-		=> Print args separated by spaces
-		=> Put a newline at the end except when -n provided
-		=> echo with an other letter than n, do not take it as option
-			=> $> echo -a coucou
-			=> -a coucou
-		=> Returns 0 if success, 1 if write error occurs
 	+ pwd
 		=> Print current working directory
 		=> If extra args provided => osef
 		=> To get current working directory, use:
 			=> char *getcwd(char *buf, size_t size);
 			=> With getcwd(0, 0), we get the working directory allocated with malloc to the right size (cf. man)
-	+ env
-		=> Print all exported variables in this format in sorted order:
-		=> $> env
-		=> PWD=/mnt/nfs/homes/jmaia/cursus/minishell
-		=> SHLVL=1
-		=> _=/usr/bin/env
-	+ exit [n]
-		=> Exit the shell with the exit status n or the last command executed if n not provided
-		=> 0 <= n <= 255. If greeter or lower, go modulo
-		=> Too many arguments = return_code of 1 and "bash: exit: too many arguments\n"
 	+ unset [name...]
 		=> For each name, remove the corresponding variable.
 		=> Hmm, we do not have to handle basic variable, just env variable. So let's just remove variables from env
