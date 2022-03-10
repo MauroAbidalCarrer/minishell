@@ -11,7 +11,7 @@ OBJS		=	$(addprefix build/, $(_OBJS))
 CC		=	cc
 CFLAGS		=	-g3 -Wall -Werror -Wextra
 INCLUDE		=	-I srcs/ -I srcs/execution -I ./srcs/signals -I ./srcs/libft
-LIBS		=	srcs/libft/libft.a
+LIBS		=	srcs/libft/libft.a srcs/libdynamic_buffer/libdynammic_buffer.a
 LIBS_EXT	=	-lreadline
 
 
