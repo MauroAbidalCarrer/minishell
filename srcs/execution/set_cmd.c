@@ -6,12 +6,11 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 01:51:08 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:31:05 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
-
 
 //no parenthees are possible here
 void	set_acav(t_cmd *cmd, char *cmd_s)
@@ -66,15 +65,6 @@ void	set_builtin(t_cmd *cmd)
 		cmd->builtin = &ms_exit;
 }
 
-int	set_read(char *cmd_s)
-{
-	if (apply_f_redi(cmd_s, "<<", &here_doc))
-		return (1);
-	if (apply_f_redi(cmd_s, "<", &in_file))
-		return (1);
-	return (0);
-}
-
 int	set_path(t_cmd *cmd, char **env)
 {
 	char	*paths;
@@ -105,16 +95,7 @@ int	set_path(t_cmd *cmd, char **env)
 	ft_putstr_fd(ft_strjoin(cmd->path + (*cmd->path == '/'), CMD_NFOUND), 2);
 	return (1);
 }
-
-int	set_write(char *cmd_s)
-{
-	if (apply_f_redi(cmd_s, ">>", &append_file))
-		return (1);
-	if (apply_f_redi(cmd_s, "<", &out_file))
-		return (1);
-	return (0);
-}
-
+/*
 char	*g_exe_name;
 t_list	*g_ptrs_lst;
 #include<stdio.h>
@@ -184,64 +165,6 @@ void	test_path(char **env)
 	}
 }
 
-void	test_read()
-{
-	char *tests[50] =
-	{
-		"         <set_cmd.c<asdqweq       ",
-		"",
-		"             \t     ",
-		"<set_cmd.c",
-		"          <set_cmd.c",
-		"          <      set_cmd.c",
-		"         asdqweq       <set_cmd.c",
-		"         <asdqweq       <set_cmd.c",
-		"         <set_cmd.c<asdqweq       ",
-		"         <set_cmd.c<set_cmd.c       ",
-		NULL
-	};
-
-	printf("testing set_read just with \"<\"\n");
-	for (int i = 0; tests[i]; i++)
-	{
-		printf("testing [%s]\n", tests[i]);
-		int ret = set_read(tests[i]);
-		printf("set_read = %d\n", ret);
-		char buff[11];
-		if (ret == 0)
-		{
-			ssize_t	nb_read = read(0, buff, 10);
-			buff[nb_read] = 0;
-			printf("read(10) = %ld, buff = [%s]\n", nb_read, buff);
-		}
-		printf("\n");
-	}
-
-	printf("\n\n\n");
-	char	*tests_heredoc[50] =
-	{
-		" <set_cmd.c <<asd",
-		"<<z<<asd",
-		"<<'oui ca va'",
-		NULL
-	};
-	printf("testing here_doc\n");
-	for (int i = 0; tests_heredoc[i]; i++)
-	{
-		printf("testing [%s]\n", tests_heredoc[i]);
-		int ret = set_read(tests_heredoc[i]);
-		printf("set_read = %d\n", ret);
-		char buff[11];
-		if (ret == 0)
-		{
-			ssize_t	nb_read = read(0, buff, 10);
-			buff[nb_read] = 0;
-			printf("read(10) = %ld, buff = [%s]\n", nb_read, buff);
-		}
-	}
-}
-
-
 int	main(int ac, char **av, char **env)
 {
 	g_exe_name = av[0];
@@ -257,3 +180,4 @@ int	main(int ac, char **av, char **env)
 }
 //gcc set_cmd.c file_redirections.c ../parsing_utils/*.c
 //-I ../parsing_utils/ -I ../libft -L../libft -lft -lreadline
+*/

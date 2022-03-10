@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:32:32 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 00:48:18 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:50:27 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ int	ft_open(const char *pathname, int flags)
 	if (fd == -1)
 		write_error((char *)pathname);
 	return (fd);
+}
+
+int	ft_dup(int oldfd)
+{
+	int	new_fd;
+
+	new_fd = dup(oldfd);
+	if (new_fd == -1)
+	{
+		write_error(NULL);
+		ft_exit(1);
+	}
+	return (new_fd);
 }
 
 void	ft_dup2(int old_fd, int new_fd)

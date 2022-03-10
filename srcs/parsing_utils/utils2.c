@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:56:21 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/08 17:14:26 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:09:17 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ char	*strstr_q(char *str, char *needle)
 		str = skip_quotes(str);
 		tmp = str;
 		if (starts_by(&tmp, needle))
+			return (str);
+		str++;
+	}
+	return (NULL);
+}
+
+char	*strchr_q(char *str, char needle)
+{
+	while (*str)
+	{
+		str = skip_quotes(str);
+		if (*str == needle)
 			return (str);
 		str++;
 	}
