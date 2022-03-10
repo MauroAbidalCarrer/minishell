@@ -121,7 +121,9 @@ On execute tout en même temps
 	}
 }
 
-les control operatorsi, redirection, quotes, et parentheses ne sont pas des cle valid pour export
+les control operators, redirection, quotes, et parentheses ne sont pas des cle valid pour export
+gerer les expansions et les signaux dans le here_doc
+faire attention au stac overflow-_-
 -------
 
 Au tout début, on vient copier la variable externe environ dans une liste/tableau un truc comme ça

@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:46:06 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/06 00:50:55 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/09 21:08:21 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdio.h>
 # include "libft.h"
 # include <string.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # define CREAT_M 644
 # define CREAT_F  577
 # define APPEND_F  1089
@@ -31,8 +33,11 @@ extern char		*g_exe_name;
 extern t_list	*g_ptrs_lst;
 void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
+void	ft_freeall(void);
+void	ft_remove(void *add);
 
-int		ft_fork(void);
+pid_t	ft_fork(void);
+int		ft_waitpid(pid_t pid);
 void	ft_exit(int status);
 
 int		ft_open(const char *pathname, int flags);

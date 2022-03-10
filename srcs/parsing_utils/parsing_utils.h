@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   parsing_utils.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/05 19:07:56 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/08 16:23:21 by maabidal         ###   ########.fr       */
+/*   Created: 2022/03/08 15:53:49 by maabidal          #+#    #+#             */
+/*   Updated: 2022/03/09 17:52:52 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
+#ifndef PARSING_UTILS_H
+# define PARSING_UTILS_H
 # include "libft.h"
-# include "parsing_utils.h"
 
-int	check_parentheses(char *str);
-int	check_quotes(char *str);
-int	should_exe_list(char *str);
+int		starts_by_sep(char **str);
+int		starts_by_f_redi(char **str);
+int		to_ending_par(char *str);
+
+char	*strstr_q(char *str, char *needle);
+char	*skip_quotes(char *str);
+
+char	*sub_argument(char *str);
+char	*skip_argument(char *str);
+int	get_env_var(char *key, char **dst, char **env);
 #endif

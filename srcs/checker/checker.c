@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/07 14:21:31 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/08 16:44:52 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,6 @@ int	check_file_redirection(char **str)
 		return (0);
 	}
 	return (1);
-}
-
-//warning: ugly function
-char	*skip_argument(char *str)
-{
-	char	*tmp;
-
-	while (*str && *str != ' ')
-	{
-		tmp = str;
-		if (starts_by_sep(&tmp) || starts_by_f_redi(&tmp))
-			break ;
-		if (*str == '(' && *str == ')')
-			break ;
-		if (*str == '\'' || *str == '\"')
-			str = strchr(str + 1, *str);
-		str++;
-	}
-	return (str);
 }
 
 //check that file redirections are terminated
@@ -173,4 +154,6 @@ printf("testing [%s]\n%d\n\n", invalid_tests[i],
 should_exe_list(invalid_tests[i]));
 ft_exit(0);
 }
+//gcc checker.c utils.c ../parsing_utils/ *.c -I 
+//../parsing_utils -I ../libft/ -L ../libft -l ft && ./a.out
 */
