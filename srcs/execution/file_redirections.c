@@ -6,42 +6,20 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 15:48:14 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/10 20:36:53 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	in_file(char *pathname)
+int	fredi(char *pathname, int flags, int stream)
 {
 	int	fd;
 
-	fd = ft_open(pathname, O_RDONLY);
+	fd = ft_open(pathname, flags);
 	if (fd == -1)
 		return (-1);
-	ft_dup2(fd, READ);
-	return (0);
-}
-
-int	out_file(char *pathname)
-{
-	int	fd;
-
-	fd = ft_open(pathname, CREAT_F);
-	if (fd == -1)
-		return (-1);
-	ft_dup2(fd, WRITE);
-	return (0);
-}
-
-int	append_file(char *pathname)
-{
-	int	fd;
-
-	fd = ft_open(pathname, APPEND_F);
-	if (fd == -1)
-		return (-1);
-	ft_dup2(fd, WRITE);
+	ft_dup2(fd, stream);
 	return (0);
 }
 
@@ -50,7 +28,7 @@ void	here_doc(char *limit)
 	char	*line;
 	int	p_fds[2];
 
-printf("here_doc called on [%s]\n", limit);
+//printf("here_doc called on [%s]\n", limit);
 	ft_pipe(p_fds);
 	line = readline(">");
 	while (line != NULL)
@@ -68,26 +46,23 @@ printf("here_doc called on [%s]\n", limit);
 	}
 	ft_dup2(p_fds[READ], READ);
 	ft_close(p_fds[WRITE]);
+	ft_close(p_fds[READ]);
 }
 
-//fts must be t_fredi_ft[2]
-//needle should be '<' or '>'
-//if needle is encounterd, fts[0] is called
-//if needleneedle is encounterd, fts[1] is called
-int	apply_fredis(char *cmd_s, char needle, t_fredi_ft *fts)
+char	*apply_here_docs(char *cmd_s)
 {
-	int	i;
-	
-	while (strchr_q(cmd_s, needle))
+
+}
+
+char	*apply_infiles(char *cmd_s)
+{
+	char	*tmp;
+
+	while ()
 	{
-		cmd_s = strchr_q(cmd_s, needle);
-		i = (cmd_s[1] == needle); 
-		cmd_s += 1 + i;
-		if ((fts[i])(sub_argument(cmd_s)))
-			return (1);
-		cmd_s = skip_argument(cmd_s);
+		
 	}
-	return (0);
+	return (tmp);
 }
 /*
 char	*g_exe_name;

@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 16:31:05 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/10 20:14:06 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ void	set_builtin(t_cmd *cmd)
 		cmd->builtin = &ms_exit;
 }
 
-int	set_path(t_cmd *cmd, char **env)
+int	set_path(t_cmd *cmd, char *paths)
 {
-	char	*paths;
 	char	*path;
 	char	*err_msg;
 
@@ -76,25 +75,26 @@ int	set_path(t_cmd *cmd, char **env)
 		cmd->path = cmd->av[0];
 		return  (0);
 	}
-	if (!get_env_var("PATH", &paths, env))
+	if (!paths)
 	{
-		cmd->path = ft_strjoin("/", cmd->av[0]);
-		while (paths)
-		{
-			path = ft_substr(paths, 0, ilen_strchr(paths, ':'));
-			path = ft_strjoin(path, cmd->path);
-			if (access(path, F_OK) == 0)
-			{
-				cmd->path = path;
-				return (0);
-			}
-			paths = strchr(paths, ':');
-			paths += (paths != NULL);
-		}
+		ft_putstr_fd(ft_strjoin(cmd->av[0], CMD_NFOUND), 2);
+		return (1);
 	}
-	ft_putstr_fd(ft_strjoin(cmd->path + (*cmd->path == '/'), CMD_NFOUND), 2);
-	return (1);
+	cmd->path = ft_strjoin("/", cmd->av[0]);
+	while (paths)
+	{
+		path = ft_substr(paths, 0, ilen_strchr(paths, ':'));
+		path = ft_strjoin(path, cmd->path);
+		if (access(path, F_OK) == 0)
+		{
+			cmd->path = path;
+			return (0);
+		}
+		paths = strchr(paths, ':');
+		paths += (paths != NULL);
+	}
 }
+
 /*
 char	*g_exe_name;
 t_list	*g_ptrs_lst;
