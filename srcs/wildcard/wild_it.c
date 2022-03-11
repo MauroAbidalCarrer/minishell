@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/11 15:15:15 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/11 15:42:10 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,32 @@ static void	get_space(char const *str, char *space, char **space_pos)
 
 static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 {
-	DIR				*dir;
-	char			space_char;
-	int				is_first;
-	struct dirent	*dirent;
+	DIR		*dir;
+	char	space_char;
+	int		is_first;
+	t_list	*files;
 
 	space_char = ' ';
 	dir = opendir(".");
 	if (!dir)
 		return (1);
-	errno = 0;
-	dirent = readdir(dir);
-	is_first = 1;
-	while (dirent)
+	files = get_sorted_files(dir);
+	if (!files)
 	{
-		if (do_match(dirent->d_name, pattern))
+		closedir(dir);
+		return (1);
+	}
+	is_first = 1;
+	while (files)
+	{
+		if (do_match((char *) files->content, pattern))
 		{
 			if (!is_first)
 				append(buffer, &space_char);
 			is_first = 0;
-			append_word(buffer, dirent->d_name);
+			append_word(buffer, (char *) files->content);
 		}
-		dirent = readdir(dir);
+		files = files->next;
 	}
 	closedir(dir);
 	return (errno != 0);
