@@ -3,15 +3,17 @@ NAME		=	minishell
 SRCS		=	checker.c \
 				main.c \
 				signals/handle_signals.c \
-				wildcard/match.c
+				wildcard/match.c \
+				wildcard/wild_it.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
 
 CC		=	cc
 CFLAGS		=	-g3 -Wall -Werror -Wextra
-INCLUDE		=	-I srcs/ -I srcs/execution -I ./srcs/signals -I ./srcs/libft
-LIBS		=	srcs/libft/libft.a srcs/libdynamic_buffer/libdynammic_buffer.a
+INCLUDE		=	-I srcs/ -I srcs/execution -I ./srcs/libft -I ./srcs/signals \
+				-I srcs/wildcard -I srcs/libdynamic_buffer/includes
+LIBS		=	srcs/libdynamic_buffer/libdynamic_buffer.a srcs/libft/libft.a
 LIBS_EXT	=	-lreadline
 
 
