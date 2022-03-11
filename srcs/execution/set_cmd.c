@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 06:34:40 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:08:44 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	set_read(char *cmd_s)
 	if (last_hd && (!last_if || (last_hd > last_if)))
 		ft_dup2(p_fds[READ], READ);
 	if (last_hd)
-	{
-		ft_close(p_fds[READ]);
 		ft_close(p_fds[WRITE]);
-	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 11:41:44 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:59:28 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	exe_pipeline(char *line, int is_child, char **env)
 	data.p_read = -1;
 	if (strchr_qp(line, '|'))
 		return exe_pipes(data, env);
-printf(";did not found pipe\n");
+printf("did not found pipe\n");
 	return exe_cmd_s(line, is_child, env);
 }
 
@@ -104,19 +104,21 @@ int	exe_list(char *list, int is_child, char **env)
 
 	next_and = strstr_qp(list, "&&");
 	next_or = strstr_qp(list, "||");
+printf("next_and = [%s], next_or = [%s]\n", next_and, next_or);
 	end = list + ft_strlen(list);
-	if (next_and < next_or)
+	if ((!next_or && next_and) || (next_and && next_and < next_or))
 	{
+printf("list = [%s], sub_list = [%s]\n", list, sub(list, next_and));
 		ret = exe_pipeline(sub(list, next_and), is_child, env);
 		if (!ret)
-			return (exe_list(sub(next_and, end), is_child, env));
+			return (exe_list(sub(next_and + 2, end), is_child, env));
 		return (ret); 
 	}
-	else if (next_or < next_and)
+	else if ((next_or && !next_and) || (next_or && next_and > next_or))
 	{
 		ret = exe_pipeline(sub(list, next_and), is_child, env);
 		if (ret)
-			return (exe_list(sub(next_and, end), is_child, env));
+			return (exe_list(sub(next_and + 2, end), is_child, env));
 		return (0); 
 	}
 	return (exe_cmd_s(list, is_child, env));
@@ -128,12 +130,8 @@ t_list	*g_ptrs_lst;
 int	main(int ac, char **av, char **env)
 {
 	g_exe_name = av[0];
-	if (str_equal(av[1], "pipeline"))
-	{
-		printf("testing with [%s]\n", av [2]);
-		int ret = exe_pipeline(av[2], 0, env);
-		printf("ret = %d\n",  ret);
-		ft_exit(ret);
-	}
+	int ret = exe_list(av[1], 0, env);
+	printf("ret = %d\n",  ret);
+	ft_exit(ret);
 	ft_exit(0);
 }

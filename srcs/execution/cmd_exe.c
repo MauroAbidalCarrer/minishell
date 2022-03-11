@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 11:07:54 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:11:15 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ printf("found parentheses\n");
 			return (exe_list(cmd_s, is_child, env));
 	}
 	set_acav(&cmd, cmd_s);
+	cmd.builtin = NULL;
 	if (cmd.ac > 0)
 		set_builtin(&cmd);
 	if (cmd.builtin && is_child)
