@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/11 17:11:34 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/11 17:18:40 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,6 @@ static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 	if (!dir)
 		return (1);
 	files = get_sorted_files(dir);
-	if (!files)
-	{
-		closedir(dir);
-		return (1);
-	}
 	is_first = 1;
 	while (files)
 	{
@@ -85,8 +80,7 @@ static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 	}
 	if (is_first)
 		append_word(buffer, pattern);
-	closedir(dir);
-	return (errno != 0);
+	return (closedir(dir) != 0);
 }
 
 static int	append_word(t_dynamic_buffer *buffer, char const *word)
