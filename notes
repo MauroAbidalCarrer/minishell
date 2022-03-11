@@ -80,6 +80,7 @@
 
 enlever le chemin du exename?
 
+
 utiliser minishell de facon recursive pour gerer les parenthese et les pipes(voir subshell)
 https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe
 D'abord on check les builtin et ensuite les commandes
@@ -122,7 +123,12 @@ On execute tout en même temps
 }
 
 les control operators, redirection, quotes, et parentheses ne sont pas des cle valid pour export
+
+gerer EOF dans hererd
 gerer les expansions et les signaux dans le here_doc
+
+gerer les signaux pour waitpid
+
 faire attention au stac overflow-_-
 -------
 

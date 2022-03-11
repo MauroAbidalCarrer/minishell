@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 15:11:57 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/10 22:58:33 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 void	exe_extern_child(t_cmd cmd, char *cmd_s, char **env)
 {
-	if (set_read(cmd_s))
+	if (set_read(cmd_s) || set_write(cmd_s))
 		ft_exit(1);
 	if (cmd.ac == 0)
 		ft_exit(0);
+	cmd.path = get_path(cmd.av[0], env);
+	if (cmd.path == NULL)
+		ft_exit(1);
 	if (access(cmd->path, X_OK) == -1)
 	{
 		write_error(cmd->path);
 		ft_exit(1);
 	}
-	if (set_write(cmd_s))
-		ft_exit(1);
 	exeve(cmd->path, cmd->av, env);
-	write_error(NULL);
+	write_error(cmd.av[0]);
 	ft_exit(1);
 }
 
@@ -37,18 +38,15 @@ int	exe_extern_pp(t_cmd cm, char *cmd_s, char **env)
 	pid = ft_fork();
 	if (pid)
 		return (ft_waitpid(pid));
-	else
-		exe_extern_child(cmd, cmd_s, env);
+	exe_extern_child(cmd, cmd_s, env);
 }
 
 int	exe_builtin_child(t_cmd cmd, char *cmd_s, char **env)
 {
-	if (set_read(cmd_s))
+	if (set_read(cmd_s) || set_write(cmd_s))
 		return (1);
 	if (cmd.ac == 0)
 		return (0);
-	if (set_write(cmd_s))
-		return (1);
 	return ((*cmd->builtin)(cmd->ac, cmd->av, env));
 }
 
@@ -62,8 +60,8 @@ int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char **env)
 	saved_WRITE = dup(WRITE);
 	ret = ((*cmd->builtin)(cmd->ac, cmd->av, env));
 	ft_dup2(saved_READ, READ);
-	ft_close(saved_READ);
 	ft_dup2(saved_WRITE, WRITE);
+	ft_close(saved_READ);
 	ft_close(saved_WRITE);
 	return (ret);
 }
