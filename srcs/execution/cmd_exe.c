@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 12:11:15 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:51:59 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ int	exe_cmd_s(char *cmd_s, int is_child, char **env)
 	n_p = strchr_q(cmd_s, '(');
 	if (n_p)
 	{
-printf("found parentheses\n");
-		cmd_s = ft_substr(n_p, 1, to_ending_par(n_p));
+		cmd_s = ft_substr(n_p, 1, to_ending_par(n_p) - 1);
 		if (is_child)
 			ft_exit(exe_list(cmd_s, is_child, env));
 		else
