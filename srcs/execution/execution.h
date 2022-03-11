@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 03:07:10 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 05:53:17 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ typedef struct cmd
 	t_builtin	builtin;
 }	t_cmd;
 
-int		exe_cmd_s(char *cmd_s, int is_child, char *paths);
+int		exe_cmd_s(char *cmd_s, int is_child, char **env);
 
 int		set_read(char *cmd_s);
 int		set_write(char *cmd_s);
 void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
-int		set_path(t_cmd *cmd, char *paths);
+char		*get_path(char *name, char **env);
 
 char	*apply_heredocs(char *cmd_s, int *p_fds);
 int	apply_infile(char *cmd_s, char **last_if);

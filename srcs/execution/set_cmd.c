@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 04:37:23 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 06:34:40 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,22 @@ void	set_acav(t_cmd *cmd, char *cmd_s)
 	}
 }
 
-/*
-int ms_echo(int ac, char **av, char **env){return (0);}
+int ms_echo(int ac, char **av, char **env)
+{
+	printf("[%s]\n", av[1]); 
+	char buf[21];
+	ssize_t size = read(READ, buf, 20);
+	buf[size] = 0;
+	printf("READ = [%s]\n", buf);
+	printf("[%s]\n", av[1]); 
+	return (0);
+}
 int ms_cd(int ac, char **av, char **env){return (0);}
 int ms_exit(int ac, char **av, char **env){return (0);}
 int ms_pwd(int ac, char **av, char **env){return (0);}
 int ms_export(int ac, char **av, char **env){return (0);}
 int ms_unset(int ac, char **av, char **env){return (0);}
 int ms_env(int ac, char **av, char **env){return (0);}
-*/
 
 void	set_builtin(t_cmd *cmd)
 {
@@ -110,6 +117,8 @@ void	set_builtin(t_cmd *cmd)
 		cmd->builtin = &ms_env;
 	else if (str_equal(cmd->av[0], "exit"))
 		cmd->builtin = &ms_exit;
+	else
+		cmd->builtin = NULL;
 }
 
 char	*get_path(char *name, char **env)

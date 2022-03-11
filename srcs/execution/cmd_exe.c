@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 22:58:33 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 06:42:05 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void	exe_extern_child(t_cmd cmd, char *cmd_s, char **env)
 	cmd.path = get_path(cmd.av[0], env);
 	if (cmd.path == NULL)
 		ft_exit(1);
-	if (access(cmd->path, X_OK) == -1)
+	if (access(cmd.path, X_OK) == -1)
 	{
-		write_error(cmd->path);
+		write_error(cmd.path);
 		ft_exit(1);
 	}
-	exeve(cmd->path, cmd->av, env);
+	execve(cmd.path, cmd.av, env);
 	write_error(cmd.av[0]);
 	ft_exit(1);
 }
 
-int	exe_extern_pp(t_cmd cm, char *cmd_s, char **env)
+int	exe_extern_pp(t_cmd cmd, char *cmd_s, char **env)
 {
 	pid_t	pid;
 
@@ -39,6 +39,7 @@ int	exe_extern_pp(t_cmd cm, char *cmd_s, char **env)
 	if (pid)
 		return (ft_waitpid(pid));
 	exe_extern_child(cmd, cmd_s, env);
+	return (1);
 }
 
 int	exe_builtin_child(t_cmd cmd, char *cmd_s, char **env)
@@ -47,7 +48,7 @@ int	exe_builtin_child(t_cmd cmd, char *cmd_s, char **env)
 		return (1);
 	if (cmd.ac == 0)
 		return (0);
-	return ((*cmd->builtin)(cmd->ac, cmd->av, env));
+	return ((*cmd.builtin)(cmd.ac, cmd.av, env));
 }
 
 int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char **env)
@@ -58,7 +59,7 @@ int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char **env)
 
 	saved_READ = dup(READ);
 	saved_WRITE = dup(WRITE);
-	ret = ((*cmd->builtin)(cmd->ac, cmd->av, env));
+	ret = exe_builtin_child(cmd, cmd_s, env);
 	ft_dup2(saved_READ, READ);
 	ft_dup2(saved_WRITE, WRITE);
 	ft_close(saved_READ);
@@ -76,15 +77,38 @@ int	exe_cmd_s(char *cmd_s, int is_child, char **env)
 	if (n_p)
 	{
 		cmd_s = ft_substr(n_p, 1, to_ending_par(n_p));
-		return (exe_list(cmd_s, env));
+		//return (exe_list(cmd_s, env));
+		return (0);
 	}
 	set_acav(&cmd, cmd_s);
-	set_builtin(&cmd);
+	if (cmd.ac > 0)
+		set_builtin(&cmd);
 	if (cmd.builtin && is_child)
 		ft_exit(exe_builtin_child(cmd, cmd_s, env));
 	if (cmd.builtin && !is_child)
-		return (exe_builtin_pp(cmd, cmd_s, env);
+		return (exe_builtin_pp(cmd, cmd_s, env));
 	if (!cmd.builtin && is_child)
 		exe_extern_child(cmd, cmd_s, env);
-	return (exe_extern_pp(cmd, cmd_s, env);
+	return (exe_extern_pp(cmd, cmd_s, env));
 }
+
+/*
+char	*g_exe_name;
+t_list	*g_ptrs_lst;
+int	main(int ac, char **av, char **env)
+{
+	g_exe_name = av[0];
+	if (str_equal(av[2], "parent"))
+	{
+		int	ret = exe_cmd_s(av[1], 0, env);
+		printf("ret = %d\n", ret);
+		ft_exit(ret);
+	}
+	else if (str_equal(av[2], "child"))
+	{
+		int	ret = exe_cmd_s(av[1], 1, env);
+		printf("ret = %d\n", ret);
+		ft_exit(ret);
+	}
+}
+*/
