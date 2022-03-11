@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/11 15:42:10 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/11 17:11:34 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 		}
 		files = files->next;
 	}
+	if (is_first)
+		append_word(buffer, pattern);
 	closedir(dir);
 	return (errno != 0);
 }
