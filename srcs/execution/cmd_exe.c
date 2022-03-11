@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 12:51:59 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:06:45 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char **env)
 int	exe_cmd_s(char *cmd_s, int is_child, char **env)
 {
 	t_cmd		cmd;
-	int			pid;
 	char		*n_p;
 
 	n_p = strchr_q(cmd_s, '(');

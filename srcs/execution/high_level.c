@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 12:57:06 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:07:31 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	main(int ac, char **av, char **env)
 	ft_exit(0);
 }
 //MUST BE IN EXECUTION
-//gcc -g3 *.c ../parsing_utils/*.c 
+//gcc -g3 *.c ../parsing_utils/ *.c 
 //-I ../parsing_utils/ -I ../libft -L../libft/ -lft -lreadline 
 //&& valgrind --track-fds=yes -s ./a.out 
 //"ls | cat | cat | cat |cat && echo salut 

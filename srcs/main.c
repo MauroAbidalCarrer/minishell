@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/06 00:53:40 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:03:56 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*g_exe_name;
 
 //il faudra rajouter une fonciton "apply expansion avant exe_line
 //line doit etre free avec free et non pas avec ft_free
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **env)
 {
 	char	*line;
 
@@ -28,7 +28,7 @@ int	main(int ac, char **av)
 	while (line != NULL)
 	{
 		if (should_exe_list(line))
-			printf("%s\n", line);
+			exe_list(line, 0, env);
 		free(line);
 		line = readline(g_exe_name);
 	}

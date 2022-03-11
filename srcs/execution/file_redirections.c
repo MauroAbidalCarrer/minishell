@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 08:39:03 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 13:07:14 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ printf
 	printf("done\n");
 	ft_exit(0);
 }
-//gcc file_redirections.c ../parsing_utils/*.c 
+//gcc file_redirections.c ../parsing_utils/ *.c 
 //-I ../parsing_utils -I../libft -L../libft -l ft -lreadline
 */
 
