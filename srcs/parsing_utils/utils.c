@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:05:09 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 15:05:52 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 04:04:31 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,3 @@ int	get_env_var(char *key, char **dst, char **env)
 	}
 	return (1);
 }
-
-/*
-//only for cmd_s
-char	**split_args(char *cmd_s, char *match1, char *match2)
-{
-	int	ac;
-	char	**av;
-	char	*tmp;
-	
-
-	tmp = cmd_s;
-	while (tmp)
-	{
-		
-	}
-}
-*/

@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 02:26:40 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 04:30:35 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,10 @@ g_exe_name = av[0];
 	ft_pipe(p_fds);
 	for (int i = 0; here_doc_tests[i]; i++)
 	{
-		printf("testing [%s]\n", here_doc_tests[i]);
-		printf("last \"<<\" is at [%s]\n", apply_heredocs(here_doc_tests[i], p_fds[WRITE]));
+printf("testing [%s]\n", here_doc_tests[i]);
+printf
+("last \"<<\" is at [%s]\n"
+, apply_heredocs(here_doc_tests[i], p_fds[WRITE]));
 	}
 	printf("done\n");
 	ft_exit(0);
@@ -134,4 +136,3 @@ char	*apply_fredis(char *cmd_s, char *needle,  int flags,  int stream)
 	return (cmd_s);
 }
 */
-

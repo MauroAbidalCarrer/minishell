@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:05:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/09 21:06:10 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 04:22:54 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
+char	*straddchar(char *str, char c);
 int		i_strchr(char *str, int c);
 int		ilen_strchr(char *str, char c);
 int		str_equal(char *str1, char *str2);

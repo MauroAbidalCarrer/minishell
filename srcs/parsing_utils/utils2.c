@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:56:21 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 00:40:09 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 04:28:17 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*skip_argument(char *str)
 		str = skip_quotes(str);
 		tmp = str;
 		if (starts_by_sep(&tmp) || starts_by_f_redi(&tmp))
-			break;
+			break ;
 		if (*str == '(' || *str == ')')
 			break ;
 		if (*str == '<' || *str == '>')
@@ -67,25 +67,29 @@ char	*skip_argument(char *str)
 	return (str);
 }
 
-//utilse la lib de jeremy a la place
 char	*sub_argument(char *str)
 {
 	char	*arg;
-	int	i;
-	int	len;
+	char	quote;
 
 	str = skip_spaces(str);
 	str = ft_substr(str, 0, skip_argument(str) - str);
-	i = -1;
-	len = 0;
-	while (str[++i])
-		len += (str[i] != '\'' && str[i] != '\"');
-	arg = ft_malloc(sizeof(char) * (len + 1));
-	arg[len] = 0;
-	i = -1;
-	len = 0;
-	while (str[++i])
-		if (str[i] != '\'' && str[i] != '\"')
-			arg[len++] = str[i];
+	quote = 0;
+	arg = "";
+	while (*str)
+	{
+		if (*str == '\'' || *str == '\"')
+		{
+			if (quote == 0)
+				quote = *str;
+			else if (quote == *str)
+				quote = 0;
+			else
+				arg = straddchar(arg, *str);
+		}
+		else
+			arg = straddchar(arg, *str);
+		str++;
+	}
 	return (arg);
-}	
+}

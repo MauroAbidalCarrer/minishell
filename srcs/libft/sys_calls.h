@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:46:06 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 15:44:43 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 04:27:17 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# define CREAT_M 644
+# define CREAT_M 420
 # define CREAT_F  577
 # define APPEND_F  1089
 
@@ -35,7 +35,6 @@ void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
 void	ft_freeall(void);
 void	ft_remove(void *add);
-
 pid_t	ft_fork(void);
 int		ft_waitpid(pid_t pid);
 void	ft_exit(int status);
@@ -43,7 +42,7 @@ void	ft_exit(int status);
 int		ft_open(const char *pathname, int flags);
 void	ft_close(int fd);
 void	ft_pipe(int pipefd[2]);
-int	ft_dup(int oldfd);
+int		ft_dup(int oldfd);
 void	ft_dup2(int oldfd, int newfd);
 
 void	write_error(char *append_msg);
