@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 06:42:05 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 06:44:30 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,30 @@ int	exe_builtin_child(t_cmd cmd, char *cmd_s, char **env)
 int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char **env)
 {
 	int	ret;
-	int	saved_READ;
-	int	saved_WRITE;
+	int	saved_read;
+	int	saved_write;
 
-	saved_READ = dup(READ);
-	saved_WRITE = dup(WRITE);
+	saved_read = dup(READ);
+	saved_write = dup(WRITE);
 	ret = exe_builtin_child(cmd, cmd_s, env);
-	ft_dup2(saved_READ, READ);
-	ft_dup2(saved_WRITE, WRITE);
-	ft_close(saved_READ);
-	ft_close(saved_WRITE);
+	ft_dup2(saved_read, READ);
+	ft_dup2(saved_write, WRITE);
+	ft_close(saved_read);
+	ft_close(saved_write);
 	return (ret);
 }
 
 int	exe_cmd_s(char *cmd_s, int is_child, char **env)
 {
 	t_cmd		cmd;
-	int	pid;
-	char	*n_p;
+	int			pid;
+	char		*n_p;
 
-	n_p = strchr_q(cmd_s, '('); 
+	n_p = strchr_q(cmd_s, '(');
 	if (n_p)
 	{
 		cmd_s = ft_substr(n_p, 1, to_ending_par(n_p));
-		//return (exe_list(cmd_s, env));
+		return (exe_list(cmd_s, env));
 		return (0);
 	}
 	set_acav(&cmd, cmd_s);

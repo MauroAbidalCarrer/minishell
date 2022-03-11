@@ -26,9 +26,9 @@
 typedef int	(*t_builtin)(int ac, char **av, char **env);
 typedef struct cmd
 {
-	char	*path;
-	char	**av;
-	int		ac;
+	char		*path;
+	char		**av;
+	int			ac;
 	t_builtin	builtin;
 }	t_cmd;
 
@@ -38,12 +38,12 @@ int		set_read(char *cmd_s);
 int		set_write(char *cmd_s);
 void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
-char		*get_path(char *name, char **env);
+char	*get_path(char *name, char **env);
 
 char	*apply_heredocs(char *cmd_s, int *p_fds);
-int	apply_infile(char *cmd_s, char **last_if);
+int		apply_infile(char *cmd_s, char **last_if);
 
-int	fredi(char *pathname, int flags, int stream);
+int		fredi(char *pathname, int flags, int stream);
 
 //char	*apply_fredis(char *cmd_s, char *needle,  int flags,  int stream);
 
