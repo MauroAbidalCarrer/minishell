@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:53:49 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 04:21:14 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 08:51:05 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int		to_ending_par(char *str);
 
 char	*strstr_q(char *str, char *needle);
 char	*strchr_q(char *str, char needle);
+char	*strchr_qp(char *str, char needle);
+char	*strstr_qp(char *str, char *needle);
 char	*skip_quotes(char *str);
 
 char	*sub_argument(char *str);

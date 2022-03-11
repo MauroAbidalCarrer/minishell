@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:32:32 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/10 15:50:27 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 08:36:40 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_dup2(int old_fd, int new_fd)
 		write_error(NULL);
 		ft_exit(1);
 	}
+	ft_close(old_fd);
 }
 
 void	ft_pipe(int *p_fds)

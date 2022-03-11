@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 04:30:35 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 08:39:03 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	fredi(char *pathname, int flags, int stream)
 	if (fd == -1)
 		return (-1);
 	ft_dup2(fd, stream);
-	ft_close(fd);
 	return (0);
 }
 

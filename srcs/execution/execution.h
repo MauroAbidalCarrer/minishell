@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 05:53:17 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:44:33 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@
 # define READ_F O_RDONLY
 # define CMD_NFOUND ": command not found\n"
 # define PERM_DEN ": permissioin denied\n"
+
+int	exe_list(char *list, int is_child, char **env);
+
+typedef struct s_pipe_data
+{
+	pid_t	pid;
+	int		p_read;
+	int		p_fds[2];
+	char	*line;
+}	t_p_data;
 
 typedef int	(*t_builtin)(int ac, char **av, char **env);
 typedef struct cmd
@@ -44,18 +54,6 @@ char	*apply_heredocs(char *cmd_s, int *p_fds);
 int		apply_infile(char *cmd_s, char **last_if);
 
 int		fredi(char *pathname, int flags, int stream);
-
-//char	*apply_fredis(char *cmd_s, char *needle,  int flags,  int stream);
-
-/*
-//cant apply here_doc with apply_fredis
-//because it would lose the read_stream for the next heredoc
-typedef int (*t_fredi)(char *);
-char	*apply_fredis(char *cmd_s, char *needle, t_fredi fredi);
-int	in_file(char *pathname);
-int	out_file(char *pathname);
-int	append_file(char *pathname);
-*/
 #endif
 //read
 //	here_doc

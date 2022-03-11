@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 06:44:30 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:07:54 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char **env)
 	ret = exe_builtin_child(cmd, cmd_s, env);
 	ft_dup2(saved_read, READ);
 	ft_dup2(saved_write, WRITE);
-	ft_close(saved_read);
-	ft_close(saved_write);
 	return (ret);
 }
 
@@ -76,9 +74,12 @@ int	exe_cmd_s(char *cmd_s, int is_child, char **env)
 	n_p = strchr_q(cmd_s, '(');
 	if (n_p)
 	{
+printf("found parentheses\n");
 		cmd_s = ft_substr(n_p, 1, to_ending_par(n_p));
-		return (exe_list(cmd_s, env));
-		return (0);
+		if (is_child)
+			ft_exit(exe_list(cmd_s, is_child, env));
+		else
+			return (exe_list(cmd_s, is_child, env));
 	}
 	set_acav(&cmd, cmd_s);
 	if (cmd.ac > 0)

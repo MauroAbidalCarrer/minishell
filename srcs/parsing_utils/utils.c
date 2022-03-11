@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:05:09 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 04:04:31 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:55:55 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,18 @@ int	get_env_var(char *key, char **dst, char **env)
 		i++;
 	}
 	return (1);
+}
+
+char	*strchr_qp(char *str, char c)
+{
+	while (*str)
+	{
+		str = skip_quotes(str);
+		if (*str == '(')
+			str += to_ending_par(str);
+		if (*str == c)
+			return (str);
+		str++;
+	}
+	return (NULL);
 }

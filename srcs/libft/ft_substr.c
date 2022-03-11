@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 17:18:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/02/22 15:25:51 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/11 08:56:17 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		i++;
 	}
 	return (new);
+}
+
+char	*sub(char *start, char *end)
+{
+	return (ft_substr(start, 0, end - start));
 }
 /*
 #include<stdio.h>
