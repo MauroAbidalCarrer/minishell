@@ -3,6 +3,7 @@ NAME		=	minishell
 SRCS		=	checker.c \
 				main.c \
 				signals/handle_signals.c \
+				wildcard/get_sorted_files.c \
 				wildcard/match.c \
 				wildcard/wild_it.c
 
