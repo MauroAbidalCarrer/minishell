@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 13:07:31 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/12 01:29:59 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	exe_list(char *list, int is_child, char **env)
 			return (exe_list(sub(next_or + 2, end), is_child, env));
 		return (0);
 	}
-	return (exe_cmd_s(list, is_child, env));
+	return (exe_pipeline(list, is_child, env));
 }
 
 /*
@@ -124,5 +124,4 @@ int	main(int ac, char **av, char **env)
 //&& valgrind --track-fds=yes -s ./a.out 
 //"ls | cat | cat | cat |cat && echo salut 
 //<<q&& (false || mkdir new_dir)  || ls <set_cmd.c >oui >>non"
-
 */
