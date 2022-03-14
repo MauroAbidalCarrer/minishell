@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 19:07:56 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/08 16:23:21 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:17:12 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 # define CHECKER_H
 # include "libft.h"
 # include "parsing_utils.h"
+# define ERR_PRE "syntax error near unexpected token `"
 
-int	check_parentheses(char *str);
-int	check_quotes(char *str);
-int	should_exe_list(char *str);
+char	*skip_sep(char *str, int expcted);
+int		check_parentheses(char *str);
+int		check_quotes(char *str);
+
+typedef char	(*skip_token)(char *, int);
+
+int		should_exe_list(char *str);
 #endif

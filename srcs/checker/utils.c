@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:40 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/08 16:45:05 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/14 20:16:20 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,34 @@ int	check_quotes(char *str)
 		str++;
 	}
 	return (1);
+}
+
+char	*skip_cmd_s_no_p(char *cmd_s)
+{
+
+}
+
+char	*sub_cmd_s(char *str)
+{
+	char	*begining;;
+	int	is_parentheses;
+
+	str = skip_spaces(str);
+	begining = skip_spaces(str);
+	while (*str && !starts_by_sep(str))
+	{
+		if (*str == '(')
+		{
+			if (is_parentheses)
+				return (sub(begining, --str));
+			else
+			{
+				is_parentheses = 1;
+				str = to_ending_par(str);
+			}
+		}
+		str = skip_argument(str);
+		str = skip_spaces(str);
+	}
+	return (sub(begining, str));
 }

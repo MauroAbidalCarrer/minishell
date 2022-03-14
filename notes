@@ -78,58 +78,31 @@
 
 ---------------------------------------
 
-enlever le chemin du exename?
+enlever le chemin du exename
 
+check dabord les builtins et ensuite les "exteren"
 
-utiliser minishell de facon recursive pour gerer les parenthese et les pipes(voir subshell)
-https://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe
-D'abord on check les builtin et ensuite les commandes
+gerer EOF dans hererdoc
 
-On aurait une struct comme ca
-{
-	type	operator;
-	char	*pipeline;
-}	ops;
-
-Pour l'avoir on split sur && et ||, en faisant gaffe a pas être dans une parenthèse\guillemet\etc
-
-Du coup, on aurait une liste de ops, qu'on viendrait traiter une par une
-La premìere ops a pour operator = NULL
-
-Ca nous donne un truc comme ca
-
-int	exit_status;
-
-// ICI ON VIENT CHOPPER NOS OPS
-
-while (op)
-{
-	Si (operator NULL ou ((operator  == 'ET') == (exit_status == 0))) 
-		exit_status = exec_pipeline(pipeline)
-	op = op->next;
-}
-
-//exec_pipeline
-On aurait une liste de commandes séparés par des pipes
-On execute tout en même temps
-
-& peut etre un fichier/executable valid mais pas | ou < ou >
-{
-	if (should_exe_line)
-	{
-		apply_expensions
-		exe_line
-	}
-}
-
-les control operators, redirection, quotes, et parentheses ne sont pas des cle valid pour export
-
-gerer EOF dans hererd
 gerer les expansions et les signaux dans le here_doc
 
 gerer les signaux pour waitpid
 
-faire attention au stac overflow-_-
+gerer ac = 0
+
+gerer (list) > file >> file2
+
+gerer historique
+
+gerer exit status
+
+faire attention au stack overflow? -_-
+
+gerer aaa'"'qqq dans sub_argument? should be aaa"qqq
+
+gerer les signaux pou ft_waitpid
+
+gerer <<limit (cmd) => should first get here_doc and then print error
 -------
 
 Au tout début, on vient copier la variable externe environ dans une liste/tableau un truc comme ça
