@@ -68,12 +68,12 @@
 	+ exit
 		=> Exit the shell with the exit status of the last command executed
 - Implement && and ||
-- Implement * for the current working directory
 
 ## DONE
 - Display a prompt when waiting for a new command
 - Have a working history
 - In interactive mode => Handle ctrl-C, ctrl-D, ctrl-\
+- Implement * for the current working directory
 
 ---------------------------------------
 
