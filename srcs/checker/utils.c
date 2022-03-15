@@ -6,13 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:40 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/14 20:16:20 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/15 22:02:14 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-int	check_parentheses(char *str)
+int	parentheses_closed(char *str)
 {
 	int		count;
 
@@ -23,7 +23,7 @@ int	check_parentheses(char *str)
 		count -= (*str == ')');
 		if (count < 0)
 		{
-			ft_putstr_fd("Error: parentheses not closed\n", 2);
+			unexpected_err_msg(")");
 			return (0);
 		}
 		if (*str == '\'' || *str == '\"')
@@ -32,13 +32,13 @@ int	check_parentheses(char *str)
 	}
 	if (count)
 	{
-		ft_putstr_fd("Error: parentheses not closed\n", 2);
+		ft_putstr_fd("Error: pqrentheses not closed\n", 2);
 		return (0);
 	}
 	return (1);
 }
 
-int	check_quotes(char *str)
+int	quotes_closed(char *str)
 {
 	while (*str)
 	{
@@ -54,32 +54,66 @@ int	check_quotes(char *str)
 	return (1);
 }
 
-char	*skip_cmd_s_no_p(char *cmd_s)
+void	unexpected_err_msg(char *err)
 {
+	char	*err_msg;
 
+	err_msg = g_exe_name;
+	err_msg = ft_strjoin(err_msg, ERR_PRE);
+	err_msg = ft_strjoin(err_msg, err);
+	err_msg = ft_strjoin(err_msg, "\'\n");
+	ft_putstr_fd(err_msg, 2);
 }
 
-char	*sub_cmd_s(char *str)
+int	check_after_fredi(char *str)
 {
-	char	*begining;;
-	int	is_parentheses;
+	if (!*str)
+		return (unexpected_err_msg("newline"), 0);
+	if (*str == '(')
+		return (unexpected_err_msg("("), 0);
+	if (*str == ')')
+		return (unexpected_err_msg(")"), 0);
+	if (*str == '<' && str[1] != '<')
+		return (unexpected_err_msg("<"), 0);
+	if (*str == '<' && str[1] == '<')
+		return (unexpected_err_msg("<<"), 0);
+	if (*str == '>' && str[1] == '>')
+		return (unexpected_err_msg(">>"), 0);
+	if (*str == '>' && str[1] != '>')
+		return (unexpected_err_msg(">"), 0);
+	if (*str == '|' && str[1] != '|')
+		return (unexpected_err_msg("|"), 0);
+	if (*str == '|' && str[1] == '|')
+		return (unexpected_err_msg("||"), 0);
+	if (*str == '&' && str[1] == '&')
+		return (unexpected_err_msg("&&"), 0);
+	return (1);
+}
 
-	str = skip_spaces(str);
-	begining = skip_spaces(str);
-	while (*str && !starts_by_sep(str))
+int	check_p_in_cmd_s(char **str, int *p, int *nb_arg)
+{
+	if (**str == '(')
 	{
-		if (*str == '(')
-		{
-			if (is_parentheses)
-				return (sub(begining, --str));
-			else
-			{
-				is_parentheses = 1;
-				str = to_ending_par(str);
-			}
-		}
-		str = skip_argument(str);
-		str = skip_spaces(str);
+		if (*p)
+			return (unexpected_err_msg("("), 0);
+		if (!should_exe_list(sub(*str + 1, to_ending_par(*str))))
+			return (0);
+		if (*nb_arg)
+			return (unexpected_err_msg("("), 0);
+		*p = 1;
+		*str = to_ending_par(*str) + 1;
+		printf("arg = %d\n", *nb_arg);
+		(*nb_arg)++;
 	}
-	return (sub(begining, str));
+	*str = skip_spaces(*str);
+	if (**str && **str != ')' && !starts_by_sep(*str) && *p == 1)
+	{
+		if (**str == '(')
+			return (unexpected_err_msg("("), 0);
+		else if (starts_by_f_redi(*str))
+			return (unexpected_err_msg(sub(*str, starts_by_f_redi(*str))), 0);
+		else
+			return (unexpected_err_msg(sub_argument(*str)), 0);
+	}
+	return (1);
 }

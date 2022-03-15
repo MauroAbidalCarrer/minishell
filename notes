@@ -80,8 +80,6 @@
 
 enlever le chemin du exename
 
-check dabord les builtins et ensuite les "exteren"
-
 gerer EOF dans hererdoc
 
 gerer les expansions et les signaux dans le here_doc
@@ -89,8 +87,6 @@ gerer les expansions et les signaux dans le here_doc
 gerer les signaux pour waitpid
 
 gerer ac = 0
-
-gerer (list) > file >> file2
 
 gerer historique
 
@@ -100,9 +96,7 @@ faire attention au stack overflow? -_-
 
 gerer aaa'"'qqq dans sub_argument? should be aaa"qqq
 
-gerer les signaux pou ft_waitpid
-
-gerer <<limit (cmd) => should first get here_doc and then print error
+gerer les signaux pour ft_waitpid
 -------
 
 Au tout début, on vient copier la variable externe environ dans une liste/tableau un truc comme ça

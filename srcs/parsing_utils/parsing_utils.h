@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:53:49 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 08:51:05 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:39:43 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define PARSING_UTILS_H
 # include "libft.h"
 
-int		starts_by_sep(char **str);
-int		starts_by_f_redi(char **str);
-int		to_ending_par(char *str);
+char	*starts_by_sep(char *str);
+char	*starts_by_f_redi(char *str);
+char	*to_ending_par(char *str);
 
 char	*strstr_q(char *str, char *needle);
 char	*strchr_q(char *str, char needle);

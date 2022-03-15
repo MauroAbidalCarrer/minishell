@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:56:21 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 04:28:17 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/15 17:49:57 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,11 @@ char	*strchr_q(char *str, char needle)
 
 char	*skip_argument(char *str)
 {
-	char	*tmp;
-
 	str = skip_spaces(str);
 	while (*str && *str != ' ')
 	{
 		str = skip_quotes(str);
-		tmp = str;
-		if (starts_by_sep(&tmp) || starts_by_f_redi(&tmp))
+		if (starts_by_sep(str) || starts_by_f_redi(str))
 			break ;
 		if (*str == '(' || *str == ')')
 			break ;
