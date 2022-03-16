@@ -6,39 +6,34 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/11 17:18:40 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/16 16:25:32 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard.h"
 
+static int			wild_word(char const *cur_word, int is_not_first,
+						t_dynamic_buffer *buffer);
 static void			get_space(char const *str, char *space, char **space_pos);
 static int			append_pattern(t_dynamic_buffer *buffer,
 						char const *pattern);
 static int			append_word(t_dynamic_buffer *buffer, char const *word);
-static char const	*get_next_word(char const *cur_word);
 
 char	*wild_it(char const *pattern)
 {
-	char				space;
-	char				*space_pos;
 	char				*wilded_str;
 	char const			*cur_word;
 	t_dynamic_buffer	buffer;
+	int					is_not_first;
 
 	buffer = get_buffer(sizeof(char));
 	if (!buffer.buffer)
 		return (0);
 	cur_word = pattern;
+	is_not_first = 0;
 	while (cur_word)
 	{
-		get_space(cur_word, &space, &space_pos);
-		*space_pos = 0;
-		if (ft_strchr(cur_word, '*'))
-			append_pattern(&buffer, cur_word);
-		else
-			append_word(&buffer, cur_word);
-		*space_pos = space;
+		wild_word(cur_word, is_not_first++, &buffer);
 		cur_word = get_next_word(cur_word);
 	}
 	wilded_str = as_str(&buffer);
@@ -46,11 +41,42 @@ char	*wild_it(char const *pattern)
 	return (wilded_str);
 }
 
+static int	wild_word(char const *cur_word, int is_not_first,
+				t_dynamic_buffer *buffer)
+{
+	char	space;
+	char	space_char;
+	char	*space_pos;
+	int		err;
+
+	space_char = ' ';
+	if (is_not_first)
+		append(buffer, &space_char);
+	get_space(cur_word, &space, &space_pos);
+	*space_pos = 0;
+	if (ft_strchr(cur_word, '*') || ft_strchr(cur_word, '"')
+		|| ft_strchr(cur_word, '\''))
+		err = append_pattern(buffer, cur_word);
+	else
+		err = append_word(buffer, cur_word);
+	*space_pos = space;
+	return (err);
+}
+
 static void	get_space(char const *str, char *space, char **space_pos)
 {
+	char	englober;
+
+	englober = 0;
 	*space_pos = (char *) str;
-	while (**space_pos && !ft_isspace(**space_pos))
+	while (**space_pos && (!ft_isspace(**space_pos) || englober))
+	{
+		if (**space_pos == englober)
+			englober = 0;
+		else if (**space_pos == '"' || **space_pos == '\'')
+			englober = **space_pos;
 		(*space_pos)++;
+	}
 	*space = **space_pos;
 }
 
@@ -96,18 +122,4 @@ static int	append_word(t_dynamic_buffer *buffer, char const *word)
 		cur_c++;
 	}
 	return (err);
-}
-
-static char const	*get_next_word(char const *cur_word)
-{
-	char const	*next_word;
-
-	next_word = cur_word;
-	while (*next_word && !ft_isspace(*next_word))
-		next_word++;
-	while (*next_word && ft_isspace(*next_word))
-		next_word++;
-	if (!*next_word)
-		return (0);
-	return (next_word);
 }

@@ -5,7 +5,8 @@ SRCS		=	checker.c \
 				signals/handle_signals.c \
 				wildcard/get_sorted_files.c \
 				wildcard/match.c \
-				wildcard/wild_it.c
+				wildcard/wild_it.c \
+				wildcard/wild_it2_it_is_back.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
