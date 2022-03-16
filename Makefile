@@ -1,8 +1,10 @@
 NAME		=	minishell
 
 SRCS		=	checker.c \
+				execution/env_utils.c \
 				main.c \
 				signals/handle_signals.c \
+				variable_expansion/var_expand.c \
 				wildcard/get_sorted_files.c \
 				wildcard/match.c \
 				wildcard/wild_it.c \

@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   var_expand.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 17:15:16 by jmaia            ###   ########.fr       */
+/*   Created: 2022/03/16 16:44:11 by jmaia             #+#    #+#             */
+/*   Updated: 2022/03/16 17:10:36 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "libft.h"
-# include "signal_handling.h"
+#ifndef VAR_EXPAND_H
+# define VAR_EXPAND_H
 
-int	get_env_var(char *key, char **dst, char **env);
-int	should_exe_list(char *str);
+# include <stdlib.h>
+
+# include "libdynamic_buffer.h"
+
+# include "main.h"
+
+char	*var_expand(char *pattern, char **env);
 
 #endif
