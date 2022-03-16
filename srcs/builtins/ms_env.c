@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handling.h                                  :+:      :+:    :+:   */
+/*   ms_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/27 15:21:24 by jmaia            ###   ########.fr       */
+/*   Created: 2022/03/01 13:58:52 by jmaia             #+#    #+#             */
+/*   Updated: 2022/03/04 16:57:25 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLING_H
-# define SIGNAL_HANDLING_H
+#include "builtins.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
+int	ms_env(int ac, char **av, char ***env)
+{
+	int		i;
+	int		err;
 
-# include "signal.h"
-
-void	init_signal_handling(void);
-
-#endif
+	(void) ac;
+	(void) av;
+	if (!env || !*env)
+		return (0);
+	i = 0;
+	err = 0;
+	while ((*env)[i] && !err)
+	{
+		if (ft_strchr((*env)[i], '='))
+			err = (printf("%s\n", (*env)[i]) < 0);
+		i++;
+	}
+	return (!!err);
+}

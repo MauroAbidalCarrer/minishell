@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:32:32 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 08:36:40 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 17:50:28 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_dup2(int old_fd, int new_fd)
 	ft_close(old_fd);
 }
 
-void	ft_pipe(int *p_fds)
+void	ft_pipe(int p_fds[2])
 {
 	if (pipe(p_fds) == -1)
 	{

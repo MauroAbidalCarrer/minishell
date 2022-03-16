@@ -6,15 +6,20 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 16:36:09 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:06:04 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
+
 # include <readline/readline.h>
+
 # include "libft.h"
+
 # include "parsing_utils.h"
+# include "builtins.h"
+
 # define READ 0
 # define WRITE 1
 # define CREAT_F 577
@@ -23,7 +28,7 @@
 # define CMD_NFOUND ": command not found\n"
 # define PERM_DEN ": permissioin denied\n"
 
-int		exe_list(char *list, int is_child, char **env);
+int		exe_list(char *list, int is_child, char ***env);
 
 typedef struct s_pipe_data
 {
@@ -34,7 +39,7 @@ typedef struct s_pipe_data
 	int		is_child;
 }	t_p_data;
 
-typedef int	(*t_builtin)(int ac, char **av, char **env);
+typedef int	(*t_builtin)(int ac, char **av, char ***env);
 typedef struct cmd
 {
 	char		*path;
@@ -43,7 +48,7 @@ typedef struct cmd
 	t_builtin	builtin;
 }	t_cmd;
 
-int		exe_cmd_s(char *cmd_s, int is_child, char **env);
+int		exe_cmd_s(char *cmd_s, int is_child, char ***env);
 
 int		set_read(char *cmd_s);
 int		set_write(char *cmd_s);

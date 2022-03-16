@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handling.h                                  :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/27 15:21:24 by jmaia            ###   ########.fr       */
+/*   Created: 2021/12/03 12:40:09 by jmaia             #+#    #+#             */
+/*   Updated: 2021/12/06 18:01:34 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLING_H
-# define SIGNAL_HANDLING_H
-
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-
-# include "signal.h"
-
-void	init_signal_handling(void);
-
-#endif
+int	ft_isspace(char c)
+{
+	return ((c >= '\t' && c <= '\r') || c == ' ');
+}

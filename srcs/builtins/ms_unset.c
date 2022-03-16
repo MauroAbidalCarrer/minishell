@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handling.h                                  :+:      :+:    :+:   */
+/*   ms_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/27 15:21:24 by jmaia            ###   ########.fr       */
+/*   Created: 2022/03/04 11:37:00 by jmaia             #+#    #+#             */
+/*   Updated: 2022/03/04 12:07:03 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLING_H
-# define SIGNAL_HANDLING_H
+#include "builtins.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
+int	ms_unset(int ac, char **av, char ***env)
+{
+	int	i;
 
-# include "signal.h"
-
-void	init_signal_handling(void);
-
-#endif
+	(void) env;
+	i = 1;
+	while (i < ac)
+	{
+		delete_env_var(av[i]);
+		i++;
+	}
+	return (0);
+}

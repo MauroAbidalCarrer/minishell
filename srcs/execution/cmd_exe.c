@@ -6,19 +6,19 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 17:12:54 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:06:14 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	exe_extern_child(t_cmd cmd, char *cmd_s, char **env)
+void	exe_extern_child(t_cmd cmd, char *cmd_s, char ***env)
 {
 	if (set_read(cmd_s) || set_write(cmd_s))
 		ft_exit(1);
 	if (cmd.ac == 0)
 		ft_exit(0);
-	cmd.path = get_path(cmd.av[0], env);
+	cmd.path = get_path(cmd.av[0], *env);
 	if (cmd.path == NULL)
 		ft_exit(1);
 	if (access(cmd.path, X_OK) == -1)
@@ -26,12 +26,12 @@ void	exe_extern_child(t_cmd cmd, char *cmd_s, char **env)
 		write_error(cmd.path);
 		ft_exit(1);
 	}
-	execve(cmd.path, cmd.av, env);
+	execve(cmd.path, cmd.av, *env);
 	write_error(cmd.av[0]);
 	ft_exit(1);
 }
 
-int	exe_extern_pp(t_cmd cmd, char *cmd_s, char **env)
+int	exe_extern_pp(t_cmd cmd, char *cmd_s, char ***env)
 {
 	pid_t	pid;
 
@@ -42,7 +42,7 @@ int	exe_extern_pp(t_cmd cmd, char *cmd_s, char **env)
 	return (1);
 }
 
-int	exe_builtin_child(t_cmd cmd, char *cmd_s, char **env)
+int	exe_builtin_child(t_cmd cmd, char *cmd_s, char ***env)
 {
 	if (set_read(cmd_s) || set_write(cmd_s))
 		return (1);
@@ -51,7 +51,7 @@ int	exe_builtin_child(t_cmd cmd, char *cmd_s, char **env)
 	return ((*cmd.builtin)(cmd.ac, cmd.av, env));
 }
 
-int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char **env)
+int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char ***env)
 {
 	int	ret;
 	int	saved_read;
@@ -65,7 +65,7 @@ int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char **env)
 	return (ret);
 }
 
-int	exe_cmd_s(char *cmd_s, int is_child, char **env)
+int	exe_cmd_s(char *cmd_s, int is_child, char ***env)
 {
 	t_cmd		cmd;
 	char		*n_p;

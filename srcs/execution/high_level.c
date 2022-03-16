@@ -6,13 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 17:12:45 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:06:51 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	child_pipe(t_p_data data, char *next_p, char **env)
+void	child_pipe(t_p_data data, char *next_p, char ***env)
 {
 	if (next_p)
 		data.line = sub(data.line, next_p - 1);
@@ -25,9 +25,9 @@ void	child_pipe(t_p_data data, char *next_p, char **env)
 	ft_exit(exe_cmd_s(data.line, 1, env));
 }
 
-int	exe_pipes(t_p_data data, char **env);
+int	exe_pipes(t_p_data data, char ***env);
 
-int	parent_pipe(t_p_data data, char *next_p, char **env)
+int	parent_pipe(t_p_data data, char *next_p, char ***env)
 {
 	int	ret;
 
@@ -47,7 +47,7 @@ int	parent_pipe(t_p_data data, char *next_p, char **env)
 		return (ft_waitpid(data.pid));
 }
 
-int	exe_pipes(t_p_data data, char **env)
+int	exe_pipes(t_p_data data, char ***env)
 {
 	char	*next_p;
 
@@ -68,7 +68,7 @@ int	exe_pipes(t_p_data data, char **env)
 	return (parent_pipe(data, next_p, env));
 }
 
-int	exe_pipeline(char *line, int is_child, char **env)
+int	exe_pipeline(char *line, int is_child, char ***env)
 {
 	t_p_data	data;
 
@@ -80,7 +80,7 @@ int	exe_pipeline(char *line, int is_child, char **env)
 	return (exe_cmd_s(line, is_child, env));
 }
 
-int	exe_list(char *list, int is_child, char **env)
+int	exe_list(char *list, int is_child, char ***env)
 {
 	char	*next_and;
 	char	*next_or;

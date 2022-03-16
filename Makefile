@@ -1,6 +1,12 @@
 NAME		=	minishell
 
-SRCS		=	signals/handle_signals.c \
+SRCS		=	builtins/ms_cd.c \
+			builtins/ms_echo.c \
+			builtins/ms_env.c \
+			builtins/ms_exit.c \
+			builtins/ms_export.c \
+			builtins/ms_pwd.c \
+			builtins/ms_unset.c \
 			checker/checker.c\
 			checker/utils.c\
 			execution/cmd_exe.c\
@@ -10,6 +16,7 @@ SRCS		=	signals/handle_signals.c \
 			parsing_utils/utils2.c\
 			parsing_utils/utils3.c\
 			parsing_utils/utils.c\
+			signals/handle_signals.c \
 			main.c
 
 _OBJS		=	${SRCS:.c=.o}
@@ -19,11 +26,13 @@ CC		=	cc
 CFLAGS		=	-g3 -Wall -Werror -Wextra
 INCLUDE		=	-I srcs/\
 			-I srcs/execution\
+			-I ./srcs/builtins\
 			-I ./srcs/signals\
 			-I ./srcs/libft\
 			-I ./srcs/checker\
 			-I ./srcs/execution\
 			-I ./srcs/parsing_utils
+
 LIBS		=	srcs/libft/libft.a
 LIBS_EXT	=	-lreadline
 

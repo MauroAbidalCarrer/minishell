@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:05:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 08:57:15 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 17:53:49 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,7 @@ int		is_white(char c);
 char	*skip_spaces(char *str);
 void	*pp_tern(int cond, void *add1, void *add2);
 char	*sub(char *start, char *end);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_isnbr(const char *nbr);
+int		ft_isspace(char c);
 #endif

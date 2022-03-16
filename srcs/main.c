@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 17:38:58 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:04:40 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int ac, char **av, char **env)
 	while (line != NULL)
 	{
 		if (should_exe_list(line))
-			exit_status = exe_list(line, 0, env);
+			exit_status = exe_list(line, 0, &env);
 		free(line);
 		line = readline(g_exe_name);
 	}

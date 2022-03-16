@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handling.h                                  :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
+/*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/27 15:21:24 by jmaia            ###   ########.fr       */
+/*   Created: 2022/03/11 04:24:16 by maabidal          #+#    #+#             */
+/*   Updated: 2022/03/11 04:25:05 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLING_H
-# define SIGNAL_HANDLING_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
+#include<stdio.h>
 
-# include "signal.h"
-
-void	init_signal_handling(void);
-
-#endif
+int	main(int ac, char **av)
+{
+	printf("%d\n", CREAT_M);
+}

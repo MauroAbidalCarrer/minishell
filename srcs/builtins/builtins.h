@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handling.h                                  :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/27 15:21:24 by jmaia            ###   ########.fr       */
+/*   Created: 2022/02/22 15:43:27 by jmaia             #+#    #+#             */
+/*   Updated: 2022/03/08 13:59:59 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_HANDLING_H
-# define SIGNAL_HANDLING_H
+#ifndef BUILTINS_H
+# define BUILTINS_H
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
+# include <stdlib.h>
 
-# include "signal.h"
+# include "libft.h"
 
-void	init_signal_handling(void);
+# include "main.h"
+
+int	ms_echo(int ac, char **av, char ***env);
+int	ms_cd(int ac, char **av, char ***env);
+int	ms_pwd(int ac, char **av, char ***env);
+int	ms_export(int ac, char **av, char ***env);
+int	ms_unset(int ac, char **av, char ***env);
+int	ms_env(int ac, char **av, char ***env);
+int	ms_exit(int ac, char **av, char ***env);
 
 #endif
