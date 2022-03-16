@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/16 18:27:27 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 22:47:02 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "main.h"
 
 static char	*get_path_in_cdpath(char *path, char **env);
+static int	is_folder_accessible(char *path);
 static int	ms_chdir(char const *prog_name, char const *path);
 static char	*get_err_msg(char const *prog_name, char const *path);
 
@@ -48,16 +49,19 @@ static char	*get_path_in_cdpath(char *path, char **env)
 	char	*sub_path;
 	char	*paths;
 
+	if (!ft_strcmp(path, "..") || !ft_strcmp(path, "."))
+		return (path);
 	if (strchr(path, '/'))
 		return (path);
 	if (get_env_var("CDPATH", &paths, env))
 		return (path);
-	path = ft_strjoin("/", path);
+	sub_path = ft_strjoin("/", path);
 	while (paths)
 	{
-		path = ft_substr(paths, 0, ilen_strchr(paths, ':'));
-		path = ft_strjoin(sub_path, path);
-//check if path exitsts
+		sub_path = ft_substr(paths, 0, ilen_strchr(paths, ':'));
+		sub_path = ft_strjoin(sub_path, sub_path);
+		if (is_folder_accessible(sub_path))
+			return (sub_path);
 		paths = strchr(paths, ':');
 		paths += (paths != NULL);
 	}
@@ -65,6 +69,16 @@ static char	*get_path_in_cdpath(char *path, char **env)
 	return (path);
 }
 
+static int	is_folder_accessible(char *path)
+{
+	DIR	*dir;
+
+	dir = opendir(path);
+	if (!dir)
+		return (0);
+	closedir(dir);
+	return (1);
+}
 
 static int	ms_chdir(char const *prog_name, char const *path)
 {
