@@ -36,13 +36,13 @@ build/%.o	:	srcs/%.c
 	fi
 	$(CC) ${CFLAGS} ${INCLUDE} -c $< -o $@
 
-$(NAME)	:	$(OBJS) | libs
+$(NAME)	:	$(OBJS) $(LIBS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(LIBS_EXT) -o $(NAME)
 
-libs	:
+$(LIBS)	:	FORCE
 	@for lib in $(LIBS); do\
-		echo make -C $$(dirname $$lib);\
-		make -C $$(dirname $$lib);\
+		echo $(MAKE) -C $$(dirname $$lib);\
+		$(MAKE) -C $$(dirname $$lib);\
 	done
 
 clean	:	
@@ -79,5 +79,4 @@ relibs	:
 
 reall	: relibs re
 
-
-.PHONY	:	all libs clean cleanlibs cleanall fclean fcleanlibs fcleanall re relibs reall
+.PHONY	:	all clean cleanlibs cleanall fclean fcleanlibs fcleanall re relibs reall FORCE
