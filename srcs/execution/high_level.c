@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/12 01:29:59 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 17:12:45 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	exe_pipeline(char *line, int is_child, char **env)
 	t_p_data	data;
 
 	data.line = line;
+	data.is_child = is_child;
 	data.p_read = -1;
 	if (strchr_qp(line, '|'))
 		return (exe_pipes(data, env));
@@ -91,16 +92,16 @@ int	exe_list(char *list, int is_child, char **env)
 	end = list + ft_strlen(list);
 	if ((!next_or && next_and) || (next_and && next_and < next_or))
 	{
-		ret = exe_pipeline(sub(list, next_and), is_child, env);
+		ret = exe_pipeline(sub(list, next_and), 0, env);
 		if (!ret)
-			return (exe_list(sub(next_and + 2, end), is_child, env));
+			return (exe_list(sub(next_and + 2, end), 0, env));
 		return (ret);
 	}
 	else if ((next_or && !next_and) || (next_or && next_and > next_or))
 	{
-		ret = exe_pipeline(sub(list, next_or), is_child, env);
+		ret = exe_pipeline(sub(list, next_or), 0, env);
 		if (ret)
-			return (exe_list(sub(next_or + 2, end), is_child, env));
+			return (exe_list(sub(next_or + 2, end), 0, env));
 		return (0);
 	}
 	return (exe_pipeline(list, is_child, env));

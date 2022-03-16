@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 12:57:34 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 16:36:09 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_pipe_data
 	int		p_read;
 	int		p_fds[2];
 	char	*line;
+	int		is_child;
 }	t_p_data;
 
 typedef int	(*t_builtin)(int ac, char **av, char **env);
