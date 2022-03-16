@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/11 13:28:19 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 17:30:41 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int ac, char **av, char **env)
 	char	*line;
 
 	(void)ac;
+	if (strrchr(av[0], '/'))
+		av[0] = strrchr(av[0], '/') + 1;
 	g_exe_name = ft_strjoin(av[0], ": ");
 	init_signal_handling();
 	line = readline(g_exe_name);
