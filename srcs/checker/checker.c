@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/15 22:07:50 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:20:20 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	should_exe_list(char *str)
 	return (1);
 }
 
-/*
 char	*g_exe_name;
 t_list	*g_ptrs_lst;
 int	main(int ac, char **av)
@@ -133,6 +132,7 @@ char *invalid_tests[50] =
 	"||",
 	"|",
 	"&&",
+	"pwd | cat -e && echo salut ca va 'oui et \"toi\"' | (cat -e && false )"
 //sub shell
 	"(cmd1)cmd2",
 	"(cmd1) cmd2",
@@ -182,4 +182,3 @@ char *invalid_tests[50] =
 }
 //gcc checker.c utils.c ../parsing_utils/ *.c -I 
 //../parsing_utils -I ../libft/ -L ../libft -l ft && ./a.out
-*/

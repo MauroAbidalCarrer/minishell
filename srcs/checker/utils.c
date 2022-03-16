@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:40 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 16:11:42 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 20:45:44 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parentheses_closed(char *str)
 	}
 	if (count)
 	{
-		ft_putstr_fd("Error: pqrentheses not closed\n", 2);
+		ft_putstr_fd("Error: parentheses not closed\n", 2);
 		return (0);
 	}
 	return (1);
