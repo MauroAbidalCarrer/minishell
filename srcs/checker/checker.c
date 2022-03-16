@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/15 22:05:19 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/15 22:07:50 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ char	*skip_cmd_s(char *str)
 
 char	*skip_sep(char *str, int expected)
 {
-	char	*err_msg;
 	char	*tmp;
 
 	str = skip_spaces(str);
@@ -64,7 +63,7 @@ char	*skip_sep(char *str, int expected)
 	str = starts_by_sep(str);
 	if (str)
 	{
-		if (!expected || skip_spaces(str) - str == ft_strlen(str))
+		if (!expected || skip_spaces(str) - str == (long)ft_strlen(str))
 		{
 			if (*tmp == '|' && tmp[1] == '|')
 				unexpected_err_msg("||");

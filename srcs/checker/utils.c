@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:40 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/15 22:02:14 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 16:11:42 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	check_p_in_cmd_s(char **str, int *p, int *nb_arg)
 			return (unexpected_err_msg("("), 0);
 		*p = 1;
 		*str = to_ending_par(*str) + 1;
-		printf("arg = %d\n", *nb_arg);
 		(*nb_arg)++;
 	}
 	*str = skip_spaces(*str);
