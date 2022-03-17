@@ -6,14 +6,16 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 15:43:27 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/08 13:59:59 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/16 22:33:12 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# include <dirent.h>
 # include <stdlib.h>
+# include <sys/types.h>
 
 # include "libft.h"
 

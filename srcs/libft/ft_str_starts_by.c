@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 23:35:48 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 17:52:41 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 22:37:43 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	set_env_var(char const *key, char const *value)
 	return (0);
 }
 
-/* NEED TO DELETED */
+/* NEED TO BE DELETED */
 /* This function needs to be written */
 int	delete_env_var(char const *key)
 {
