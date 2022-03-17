@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:38:13 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 20:42:28 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:27:21 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	free_all(void)
 void	ft_exit(int status)
 {
 	free_all();
-	rl_clear_history();
+	//rl_clear_history();
 	exit(status);
 }
 

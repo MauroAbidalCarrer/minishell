@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 20:44:25 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/17 18:45:25 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,47 @@
 t_list	*g_ptrs_lst;
 char	*g_exe_name;
 
-//il faudra rajouter une fonciton "apply expansion avant exe_line
-//line doit etre free avec free et non pas avec ft_free
+char	*get_line(char *prompt)
+{
+	char	*tmp;
+
+	if (isatty(READ))
+		return (readline(prompt));
+	tmp = get_next_line(READ);
+	if (tmp && ft_strlen(tmp) && tmp[ft_strlen(tmp) - 1] == '\n')
+		tmp[ft_strlen(tmp) - 1] = 0;
+	return (tmp);
+}
+
+char	*set_exename(char *av0)
+{
+	if (strrchr(av0, '/'))
+		av0 = strrchr(av0, '/') + 1;
+	av0 = ft_strjoin(av0, ": ");
+	return (av0);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	int	exit_status;
+	char	*prompt;
+	int		exit_status;
 
+	g_exe_name = set_exename(av[0]);
 	exit_status = 0;
 	(void)ac;
-	if (strrchr(av[0], '/'))
-		av[0] = strrchr(av[0], '/') + 1;
-	g_exe_name = ft_strjoin(av[0], ": ");
 	init_signal_handling();
-	line = readline(g_exe_name);
+	prompt = "";
+	if (isatty(READ))
+		prompt = g_exe_name;
+	line = get_line(prompt);
 	while (line != NULL)
 	{
 		add_history(line);
 		if (should_exe_list(line))
 			exit_status = exe_list(line, 0, &env);
 		free(line);
-		line = readline(g_exe_name);
+		line = get_line(prompt);
 	}
 	write(1, "exit\n", 5);
 	ft_exit(0);

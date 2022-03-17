@@ -17,21 +17,24 @@ SRCS		=	builtins/ms_cd.c \
 			parsing_utils/utils3.c\
 			parsing_utils/utils.c\
 			signals/handle_signals.c \
+			get_next_line/get_next_line.c\
+			get_next_line/get_next_line_utils.c\
 			main.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
 
-CC		=	cc
+CC			=	cc
 CFLAGS		=	-g3 -Wall -Werror -Wextra
 INCLUDE		=	-I srcs/\
-			-I srcs/execution\
-			-I ./srcs/builtins\
-			-I ./srcs/signals\
-			-I ./srcs/libft\
-			-I ./srcs/checker\
-			-I ./srcs/execution\
-			-I ./srcs/parsing_utils
+				-I srcs/execution\
+				-I ./srcs/builtins\
+				-I ./srcs/signals\
+				-I ./srcs/libft\
+				-I ./srcs/checker\
+				-I ./srcs/execution\
+				-I ./srcs/parsing_utils\
+				-I ./srcs/get_next_line
 
 LIBS		=	srcs/libft/libft.a
 LIBS_EXT	=	-lreadline
