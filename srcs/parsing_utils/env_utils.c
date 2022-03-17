@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:57:08 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/17 18:56:05 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/17 22:57:59 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,25 @@ static void	replace_env_var(char **pos, char *key, char *value)
 /* This function needs to be written */
 int	delete_env_var(char *key, char ***env)
 {
-	(void) key;
-	(void) env;
+	char	**new_env;
+	char	*key_ptr;
+	int		i;
+	int		j;
+
+	i = get_env_var(key, &key_ptr, *env);
+	if (i)
+		return (0);
+	new_env = ft_malloc(sizeof(*new_env) * ft_arraylen((void **)*env));
+	i = 0;
+	j = 0;
+	while ((*env)[j])
+	{
+		if ((*env)[j] != key)
+			new_env[i++] = (*env)[j];
+		j++;
+	}
+	new_env[i] = 0;
+	ft_free(*env);
+	*env = new_env;
 	return (0);
 }
