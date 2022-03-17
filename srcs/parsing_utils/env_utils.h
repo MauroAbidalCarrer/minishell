@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   env_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 14:58:10 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/17 22:02:37 by jmaia            ###   ########.fr       */
+/*   Created: 2022/03/17 10:57:57 by jmaia             #+#    #+#             */
+/*   Updated: 2022/03/17 14:04:40 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <stdio.h>
+#ifndef ENV_UTILS_H
+# define ENV_UTILS_H
+
 # include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
 
 # include "libft.h"
-# include "signal_handling.h"
-# include "checker.h"
-# include "execution.h"
 
-typedef struct s_env
-{
-	char	***env;
-	int		exit_status;
-}	t_env;
+int	get_env_var(char *key, char **dst, char **env);
+int	set_env_var(char *key, char *value, char ***env);
+int	delete_env_var(char *key, char ***env);
 
 #endif

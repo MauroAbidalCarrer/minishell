@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_unset.c                                         :+:      :+:    :+:   */
+/*   ft_arraylen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/04 11:37:00 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/17 14:16:17 by jmaia            ###   ########.fr       */
+/*   Created: 2022/03/17 13:04:03 by jmaia             #+#    #+#             */
+/*   Updated: 2022/03/17 13:07:38 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
 
-int	ms_unset(int ac, char **av, char ***env)
+size_t	ft_arraylen(void **array)
 {
-	int	i;
+	size_t	size;
 
-	(void) env;
-	i = 1;
-	while (i < ac)
-	{
-		delete_env_var(av[i], env);
-		i++;
-	}
-	return (0);
+	if (!array)
+		return (0);
+	size = 0;
+	while (array[size])
+		size++;
+	return (size);
 }

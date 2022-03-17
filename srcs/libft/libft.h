@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:05:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 20:44:59 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/17 22:00:23 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ char	*sub(char *start, char *end);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_isnbr(const char *nbr);
 int		ft_isspace(char c);
+size_t	ft_arraylen(void **array);
 #endif

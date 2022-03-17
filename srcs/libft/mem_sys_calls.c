@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:38:13 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 21:27:21 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/17 22:00:07 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,35 @@ void	*ft_malloc(size_t size)
 
 //pas besoin de verifier que le premier node n'est pas NULL
 //car l'address est censee etre presente dans la grace a ft_malloc
-void	ft_remove(void *add)
+int	ft_remove(void *add)
 {
 	t_list	*node;
 	t_list	*prev;
 
 	prev = NULL;
 	node = g_ptrs_lst;
-	while (node->content != add)
+	while (node && node->content != add)
 	{
 		prev = node;
 		node = node->next;
 	}
+	if (!node)
+		return (1);
 	if (prev)
 		prev->next = node->next;
 	else
 		g_ptrs_lst = node->next;
 	free(node);
+	return (0);
 }
 
 void	ft_free(void *add)
 {
-	ft_remove(add);
-	free(add);
+	int	err;
+
+	err = ft_remove(add);
+	if (!err)
+		free(add);
 }
 
 void	free_all(void)
