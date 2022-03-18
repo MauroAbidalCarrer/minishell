@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:05:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 20:44:59 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 14:49:17 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ void	*pp_tern(int cond, void *add1, void *add2);
 char	*sub(char *start, char *end);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_isnbr(const char *nbr);
-int		ft_isspace(char c);
+int		ft_isspace(char const c);
+void	ft_lstsort(t_list *lst, int (*cmp)(void *, void *));
 #endif

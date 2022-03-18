@@ -1,25 +1,31 @@
 NAME		=	minishell
 
 SRCS		=	builtins/ms_cd.c \
-			builtins/ms_echo.c \
-			builtins/ms_env.c \
-			builtins/ms_exit.c \
-			builtins/ms_export.c \
-			builtins/ms_pwd.c \
-			builtins/ms_unset.c \
-			checker/checker.c\
-			checker/utils.c\
-			execution/cmd_exe.c\
-			execution/file_redirections.c\
-			execution/high_level.c\
-			execution/set_cmd.c\
-			parsing_utils/utils2.c\
-			parsing_utils/utils3.c\
-			parsing_utils/utils.c\
-			signals/handle_signals.c \
-			get_next_line/get_next_line.c\
-			get_next_line/get_next_line_utils.c\
-			main.c
+				builtins/ms_echo.c \
+				builtins/ms_env.c \
+				builtins/ms_exit.c \
+				builtins/ms_export.c \
+				builtins/ms_pwd.c \
+				builtins/ms_unset.c \
+				checker/checker.c\
+				checker/utils.c\
+				execution/cmd_exe.c\
+				execution/file_redirections.c\
+				execution/high_level.c\
+				execution/set_cmd.c\
+				parsing_utils/utils2.c\
+				parsing_utils/utils3.c\
+				parsing_utils/utils.c\
+				signals/handle_signals.c \
+				get_next_line/get_next_line.c\
+				get_next_line/get_next_line_utils.c\
+				execution/env_utils.c \
+						variable_expansion/var_expand.c \
+						wildcard/get_sorted_files.c \
+						wildcard/match.c \
+						wildcard/wild_it.c \
+						wildcard/wild_it2_it_is_back.c\
+				main.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
@@ -35,8 +41,10 @@ INCLUDE		=	-I srcs/\
 				-I ./srcs/execution\
 				-I ./srcs/parsing_utils\
 				-I ./srcs/get_next_line
+				-I srcs/wildcard -I srcs/libdynamic_buffer/includes
 
-LIBS		=	srcs/libft/libft.a
+LIBS		=	srcs/libft/libft.a\
+				srcs/libdynamic_buffer/libdynamic_buffer.a
 LIBS_EXT	=	-lreadline
 
 
