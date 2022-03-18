@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 18:06:04 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:50:31 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define PERM_DEN ": permissioin denied\n"
 
 int		exe_list(char *list, int is_child, char ***env);
+int		ms_waitpid(pid_t pid);
 
 typedef struct s_pipe_data
 {

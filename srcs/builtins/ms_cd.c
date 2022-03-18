@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/16 22:47:02 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/18 19:32:58 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ static char	*get_path_in_cdpath(char *path, char **env);
 static int	is_folder_accessible(char *path);
 static int	ms_chdir(char const *prog_name, char const *path);
 static char	*get_err_msg(char const *prog_name, char const *path);
+
+static void	set_env_var(char *key, char *value)
+{
+printf("template set_env_var, ket = [%s], value = [%s]\n", key, value);
+}
 
 int	ms_cd(int ac, char **av, char ***env)
 {

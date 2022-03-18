@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 19:26:29 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 15:44:03 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:39:01 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,17 @@ int	ft_waitpid(pid_t pid)
 
 	if (waitpid(pid, &wstatus, WUNTRACED | WCONTINUED) == -1)
 	{
+		if (errno == EINTR)
+			return (ft_waitpid(pid));
 		write_error(NULL);
 		ft_exit(1);
 	}
 	if (WIFEXITED(wstatus))
 		return (WEXITSTATUS(wstatus));
-	//if (WIFSIGNALED(wstatus) || WIFSTOPPED(wstatus))
+	if (WIFSIGNALED(wstatus))
+		return (128 + WTERMSIG(wstatus));
+	if (WIFSTOPPED(wstatus))
+		return (128 + WSTOPSIG(wstatus));
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 14:48:07 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:53:23 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av, char **env)
 	g_exe_name = set_exename(av[0]);
 	exit_status = 0;
 	(void)ac;
-	init_signal_handling();
+	set_signal_handler(&handle_signal);
 	prompt = "";
 	if (isatty(READ))
 		prompt = g_exe_name;

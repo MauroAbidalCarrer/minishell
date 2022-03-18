@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 12:17:32 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/04 16:42:01 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/18 19:32:10 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,11 @@ static int	has_valid_name(char const *var)
 		i++;
 	}
 	return (1);
+}
+
+static void	set_env_var(char *key, char *value)
+{
+		printf("template set_env_var, ket = [%s], value = [%s]\n", key, value);
 }
 
 static int	export_var(char *var, char ***env)

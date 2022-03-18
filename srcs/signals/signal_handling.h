@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/27 15:21:24 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/18 20:06:56 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 
 # include "signal.h"
 
-void	init_signal_handling(void);
+typedef void (*t_sig_handler)(int, siginfo_t *, void *);
+void	set_signal_handler(t_sig_handler sig_handler);
+void	handle_signal(int sig, siginfo_t *info, void *ucontext);
+void	handle_sig_as_parent(int sig, siginfo_t *info, void *ucontext);
 
 #endif

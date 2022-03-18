@@ -19,12 +19,11 @@ SRCS		=	builtins/ms_cd.c \
 				signals/handle_signals.c \
 				get_next_line/get_next_line.c\
 				get_next_line/get_next_line_utils.c\
-				execution/env_utils.c \
-						variable_expansion/var_expand.c \
-						wildcard/get_sorted_files.c \
-						wildcard/match.c \
-						wildcard/wild_it.c \
-						wildcard/wild_it2_it_is_back.c\
+				variable_expansion/var_expand.c \
+				wildcard/get_sorted_files.c \
+				wildcard/match.c \
+				wildcard/wild_it.c \
+				wildcard/wild_it2_it_is_back.c\
 				main.c
 
 _OBJS		=	${SRCS:.c=.o}
@@ -40,7 +39,7 @@ INCLUDE		=	-I srcs/\
 				-I ./srcs/checker\
 				-I ./srcs/execution\
 				-I ./srcs/parsing_utils\
-				-I ./srcs/get_next_line
+				-I ./srcs/get_next_line\
 				-I srcs/wildcard -I srcs/libdynamic_buffer/includes
 
 LIBS		=	srcs/libft/libft.a\

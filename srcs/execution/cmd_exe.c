@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 18:06:14 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 19:50:43 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	exe_extern_pp(t_cmd cmd, char *cmd_s, char ***env)
 
 	pid = ft_fork();
 	if (pid)
-		return (ft_waitpid(pid));
+		return (ms_waitpid(pid));
 	exe_extern_child(cmd, cmd_s, env);
 	return (1);
 }

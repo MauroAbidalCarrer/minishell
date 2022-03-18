@@ -6,23 +6,20 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 18:06:51 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 20:06:44 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-void	child_pipe(t_p_data data, char *next_p, char ***env)
+int	ms_waitpid(pid_t pid)
 {
-	if (next_p)
-		data.line = sub(data.line, next_p - 1);
-	if (data.p_fds[READ] != -1)
-		ft_close(data.p_fds[READ]);
-	if (data.p_fds[WRITE] != -1)
-		ft_dup2(data.p_fds[WRITE], WRITE);
-	if (data.p_read != -1)
-		ft_dup2(data.p_read, READ);
-	ft_exit(exe_cmd_s(data.line, 1, env));
+	int	exit_status;
+
+	set_signal_handler(&handle_sig_as_parent);
+	exit_status = ft_waitpid(pid);
+	set_signal_handler(&handle_signal);
+	return (exit_status);
 }
 
 int	exe_pipes(t_p_data data, char ***env);
@@ -40,11 +37,11 @@ int	parent_pipe(t_p_data data, char *next_p, char ***env)
 	{
 		data.line = next_p;
 		ret = exe_pipes(data, env);
-		ft_waitpid(data.pid);
+		ms_waitpid(data.pid);
 		return (ret);
 	}
 	else
-		return (ft_waitpid(data.pid));
+		return (ms_waitpid(data.pid));
 }
 
 int	exe_pipes(t_p_data data, char ***env)
@@ -63,9 +60,18 @@ int	exe_pipes(t_p_data data, char ***env)
 		data.p_fds[1] = -1;
 	}
 	data.pid = ft_fork();
-	if (data.pid == 0)
-		child_pipe(data, next_p, env);
-	return (parent_pipe(data, next_p, env));
+	if (data.pid)
+			return (parent_pipe(data, next_p, env));
+	if (next_p)
+		data.line = sub(data.line, next_p - 1);
+	if (data.p_fds[READ] != -1)
+		ft_close(data.p_fds[READ]);
+	if (data.p_fds[WRITE] != -1)
+		ft_dup2(data.p_fds[WRITE], WRITE);
+	if (data.p_read != -1)
+		ft_dup2(data.p_read, READ);
+	ft_exit(exe_cmd_s(data.line, 1, env));
+	return (1);
 }
 
 int	exe_pipeline(char *line, int is_child, char ***env)
