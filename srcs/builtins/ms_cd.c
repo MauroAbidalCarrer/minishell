@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/17 14:16:09 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/18 11:51:55 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ static int	ms_chdir(char const *prog_name, char const *path, char ***env)
 	if (!cwd)
 	{
 		perror(prog_name);
-		ft_exit(1);
+		return (1);
 	}
 	set_env_var("PWD", cwd, env);
 	free(cwd);
