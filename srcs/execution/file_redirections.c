@@ -6,18 +6,18 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/16 20:58:38 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 21:54:47 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
 //gerer EOF
-int	*heredoc(char *limit, int *p_fds)
+void	heredoc(char *limit, int *p_fds)
 {
 	char	*line;
 
-	ft_pipe(p_fds);
+	set_signal_handler(&handle_sig_as_heredoc);
 	line = readline(">");
 	while (line != NULL)
 	{
@@ -30,27 +30,44 @@ int	*heredoc(char *limit, int *p_fds)
 		free(line);
 		line = readline(">");
 	}
+	ft_exit(0);
+}
+
+int	*launch_heredoc(char *limit, int *p_fds)
+{
+	pid_t	pid;
+
+	ft_pipe(p_fds);
+	pid = ft_fork();
+	if (pid == 0)
+		heredoc(limit, p_fds);
+	if (ms_waitpid(pid))
+		return (ft_close_p(p_fds), NULL);
 	return (p_fds);
 }
 
-char	*apply_heredocs(char *cmd_s, int *p_fds)
+int	apply_heredocs(char **cmd_s, int *p_fds)
 {
 	char	*tmp;
 
 	tmp = NULL;
-	while (strstr_q(cmd_s, "<<"))
+	if (!strstr_q(*cmd_s, "<<"))
+	{
+		*cmd_s = NULL;
+		return (0);
+	}
+	while (strstr_q(*cmd_s, "<<"))
 	{
 		if (tmp)
-		{
-			ft_close(p_fds[READ]);
-			ft_close(p_fds[WRITE]);
-		}
-		tmp = strstr_q(cmd_s, "<<");
-		cmd_s = tmp + 2;
-		p_fds = heredoc(sub_argument(cmd_s), p_fds);
-		cmd_s = skip_argument(cmd_s);
+			ft_close_p(p_fds);
+		tmp = strstr_q(*cmd_s, "<<");
+		*cmd_s = tmp + 2;
+		p_fds = launch_heredoc(sub_argument(*cmd_s), p_fds);
+		if (p_fds == NULL)
+			return (1);
+		*cmd_s = skip_argument(*cmd_s);
 	}
-	return (tmp);
+	return (0);
 }
 
 int	fredi(char *pathname, int flags, int stream)

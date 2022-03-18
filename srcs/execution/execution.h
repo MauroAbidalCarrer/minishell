@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 19:50:31 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 21:18:07 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
 char	*get_path(char *name, char **env);
 
-char	*apply_heredocs(char *cmd_s, int *p_fds);
+int		apply_heredocs(char **cmd_s, int *p_fds);
 int		apply_infile(char *cmd_s, char **last_if);
 
 int		fredi(char *pathname, int flags, int stream);

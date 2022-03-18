@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 20:06:44 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 21:54:21 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	exe_pipes(t_p_data data, char ***env)
 	}
 	data.pid = ft_fork();
 	if (data.pid)
-			return (parent_pipe(data, next_p, env));
+		return (parent_pipe(data, next_p, env));
 	if (next_p)
 		data.line = sub(data.line, next_p - 1);
 	if (data.p_fds[READ] != -1)
@@ -70,8 +70,7 @@ int	exe_pipes(t_p_data data, char ***env)
 		ft_dup2(data.p_fds[WRITE], WRITE);
 	if (data.p_read != -1)
 		ft_dup2(data.p_read, READ);
-	ft_exit(exe_cmd_s(data.line, 1, env));
-	return (1);
+	return (ft_exit(exe_cmd_s(data.line, 1, env)), 1);
 }
 
 int	exe_pipeline(char *line, int is_child, char ***env)

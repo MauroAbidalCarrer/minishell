@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:05:54 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/18 20:05:57 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/18 21:45:47 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,14 @@ void	handle_sig_as_parent(int sig, siginfo_t *info, void *ucontext)
 {
 	if (sig == SIGINT)
 		printf("\n");
+	(void)info;
+	(void)ucontext;
+}
+
+void	handle_sig_as_heredoc(int sig, siginfo_t *info, void *ucontext)
+{
+	if (sig == SIGINT || sig == SIGQUIT || sig == SIGTERM)
+		ft_exit(1);
 	(void)info;
 	(void)ucontext;
 }

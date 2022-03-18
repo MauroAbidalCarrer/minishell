@@ -6,7 +6,7 @@
 #    By: maabidal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 20:08:50 by maabidal          #+#    #+#              #
-#    Updated: 2022/03/18 14:49:59 by maabidal         ###   ########.fr        #
+#    Updated: 2022/03/18 21:38:48 by maabidal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ SRCS =	ft_atoi.c\
 	straddchr.c\
 	ft_isnbr.c\
 	ft_isspace.c\
-	ft_lstsort.c
+	ft_lstsort.c\
+	file_sys_calls2.c
 
 NAME	= libft.a
 CC	= gcc
