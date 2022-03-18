@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:57:08 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/17 22:57:59 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/18 11:43:58 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ static void	replace_env_var(char **pos, char *key, char *value)
 	*pos = new_var;
 }
 
-/* NEED TO BE DELETED */
-/* This function needs to be written */
 int	delete_env_var(char *key, char ***env)
 {
 	char	**new_env;
@@ -124,7 +122,7 @@ int	delete_env_var(char *key, char ***env)
 	j = 0;
 	while ((*env)[j])
 	{
-		if ((*env)[j] != key)
+		if (ft_strchr((*env)[j], '=') + 1 != key_ptr)
 			new_env[i++] = (*env)[j];
 		j++;
 	}
