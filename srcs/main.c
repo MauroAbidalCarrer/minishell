@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/20 18:28:34 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/20 20:43:33 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_line(char *prompt)
 
 	if (isatty(READ))
 		return (readline(prompt));
-	tmp = readline(prompt);
+	tmp = get_next_line(READ);
 	if (tmp && ft_strlen(tmp) && tmp[ft_strlen(tmp) - 1] == '\n')
 		tmp[ft_strlen(tmp) - 1] = 0;
 	return (tmp);
@@ -58,6 +58,7 @@ int	main(int ac, char **av, char **env)
 		free(line);
 		line = get_line(prompt);
 	}
-	write(1, "exit\n", 5);
+	if (isatty(READ))
+		write(1, "exit\n", 5);
 	ft_exit(0);
 }
