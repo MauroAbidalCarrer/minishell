@@ -7,24 +7,26 @@ SRCS		=	builtins/ms_cd.c \
 				builtins/ms_export.c \
 				builtins/ms_pwd.c \
 				builtins/ms_unset.c \
+				builtins/quote_utils.c \
 				checker/checker.c\
 				checker/utils.c\
 				execution/cmd_exe.c\
 				execution/file_redirections.c\
 				execution/high_level.c\
 				execution/set_cmd.c\
-				parsing_utils/utils2.c\
-				parsing_utils/utils3.c\
-				parsing_utils/utils.c\
-				signals/handle_signals.c \
 				get_next_line/get_next_line.c\
 				get_next_line/get_next_line_utils.c\
+				main.c \
+				parsing_utils/env_utils.c\
+				parsing_utils/utils.c\
+				parsing_utils/utils2.c\
+				parsing_utils/utils3.c\
+				signals/handle_signals.c \
 				variable_expansion/var_expand.c \
 				wildcard/get_sorted_files.c \
 				wildcard/match.c \
 				wildcard/wild_it.c \
-				wildcard/wild_it2_it_is_back.c\
-				main.c
+				wildcard/wild_it2_it_is_back.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))

@@ -6,7 +6,7 @@
 #    By: maabidal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 20:08:50 by maabidal          #+#    #+#              #
-#    Updated: 2022/03/18 21:38:48 by maabidal         ###   ########.fr        #
+#    Updated: 2022/03/20 18:44:18 by jmaia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,20 +53,22 @@ SRCS =	ft_atoi.c\
 	ft_lstdelone.c\
 	ft_lstlast.c\
 	ft_lstnew.c\
+	\
 	file_sys_calls.c\
-	mem_sys_calls.c\
-	write_sys_calls.c\
-	ft_strcmp.c\
-	ft_str_starts_by.c\
-	ft_strnochr.c\
-	is_white.c\
-	str_equal.c\
-	process_sys_calls.c\
-	straddchr.c\
+	file_sys_calls2.c \
+	ft_arraylen.c\
 	ft_isnbr.c\
 	ft_isspace.c\
 	ft_lstsort.c\
-	file_sys_calls2.c
+	ft_strcmp.c\
+	ft_strnochr.c\
+	ft_str_starts_by.c\
+	is_white.c\
+	mem_sys_calls.c\
+	process_sys_calls.c\
+	straddchr.c\
+	str_equal.c\
+	write_sys_calls.c
 
 NAME	= libft.a
 CC	= gcc

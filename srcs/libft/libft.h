@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:05:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/20 18:16:54 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/20 18:42:29 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,20 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
-char	*straddchar(char *str, char c);
-int		i_strchr(char *str, int c);
-int		ilen_strchr(char *str, char c);
-int		str_equal(char *str1, char *str2);
-int		ft_strcmp(const char *s1, const char *s2);
-int		starts_by(char **str, char *str2);
-char	*strnochr(char *str, char c);
-int		is_white(char c);
-char	*skip_spaces(char *str);
-void	*pp_tern(int cond, void *add1, void *add2);
-char	*sub(char *start, char *end);
-int		ft_strcmp(const char *s1, const char *s2);
-int		ft_isnbr(const char *nbr);
-int		ft_isspace(char const c);
-void	ft_lstsort(t_list *lst, int (*cmp)(void *, void *));
+size_t	ft_arraylen(void **array);
 void	ft_close_p(int p_fds[2]);
+int		ft_isnbr(const char *nbr);
+int		ft_isspace(char c);
+void	ft_lstsort(t_list *lst, int (*cmp)(void *, void *));
+int		ft_strcmp(const char *s1, const char *s2);
+int		ilen_strchr(char *str, char c);
+int		is_white(char c);
+int		i_strchr(char *str, int c);
+void	*pp_tern(int cond, void *add1, void *add2);
+char	*skip_spaces(char *str);
+int		starts_by(char **str, char *str2);
+char	*straddchar(char *str, char c);
+char	*strnochr(char *str, char c);
+int		str_equal(char *str1, char *str2);
+char	*sub(char *start, char *end);
 #endif

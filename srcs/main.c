@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/20 18:18:42 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/20 18:28:34 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_line(char *prompt)
 
 	if (isatty(READ))
 		return (readline(prompt));
-	tmp = get_next_line(READ);
+	tmp = readline(prompt);
 	if (tmp && ft_strlen(tmp) && tmp[ft_strlen(tmp) - 1] == '\n')
 		tmp[ft_strlen(tmp) - 1] = 0;
 	return (tmp);

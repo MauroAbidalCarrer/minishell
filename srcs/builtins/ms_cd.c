@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/18 19:32:58 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:28:59 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,8 @@
 
 static char	*get_path_in_cdpath(char *path, char **env);
 static int	is_folder_accessible(char *path);
-static int	ms_chdir(char const *prog_name, char const *path);
+static int	ms_chdir(char const *prog_name, char const *path, char ***env);
 static char	*get_err_msg(char const *prog_name, char const *path);
-
-static void	set_env_var(char *key, char *value)
-{
-printf("template set_env_var, ket = [%s], value = [%s]\n", key, value);
-}
 
 int	ms_cd(int ac, char **av, char ***env)
 {
@@ -46,7 +41,7 @@ int	ms_cd(int ac, char **av, char ***env)
 		err = (!err && ft_write(2, ": cd: too many arguments\n", 25) == -1);
 		return (1);
 	}
-	return (ms_chdir(av[0], path));
+	return (ms_chdir(av[0], path, env));
 }
 
 static char	*get_path_in_cdpath(char *path, char **env)
@@ -85,11 +80,12 @@ static int	is_folder_accessible(char *path)
 	return (1);
 }
 
-static int	ms_chdir(char const *prog_name, char const *path)
+static int	ms_chdir(char const *prog_name, char const *path, char ***env)
 {
 	int		err;
 	char	*err_msg;
 	char	*cwd;
+	char	*old_pwd;
 
 	err = (chdir(path) == -1);
 	if (err)
@@ -101,11 +97,14 @@ static int	ms_chdir(char const *prog_name, char const *path)
 	}
 	cwd = getcwd(0, 0);
 	if (!cwd)
-	{
 		perror(prog_name);
-		ft_exit(1);
-	}
-	set_env_var("PWD", cwd);
+	if (!cwd)
+		return (1);
+	if (get_env_var("PWD", &old_pwd, *env) != 0)
+		delete_env_var("OLDPWD", env);
+	else
+		set_env_var("OLDPWD", old_pwd, env);
+	set_env_var("PWD", cwd, env);
 	free(cwd);
 	return (0);
 }

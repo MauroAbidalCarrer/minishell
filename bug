@@ -1,0 +1,2 @@
+export a="cho a && echo b"
+e$a

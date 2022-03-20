@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 12:17:32 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/18 19:32:10 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:23:55 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static void	print_env(char ***env)
 	size_t	env_size;
 	size_t	i;
 	char	**sorted_env;
+	char	*escaped_var;
+	char	*quoted_var;
 
 	if (!env || !*env)
 		return ;
@@ -64,7 +66,10 @@ static void	print_env(char ***env)
 	i = 0;
 	while (i < env_size)
 	{
-		printf("declare -x %s\n", sorted_env[i]);
+		escaped_var = escape_quote(sorted_env[i]);
+		quoted_var = quote_value(escaped_var);
+		printf("declare -x %s\n", quoted_var);
+		ft_free(quoted_var);
 		i++;
 	}
 	ft_free(sorted_env);
@@ -113,11 +118,6 @@ static int	has_valid_name(char const *var)
 	return (1);
 }
 
-static void	set_env_var(char *key, char *value)
-{
-		printf("template set_env_var, ket = [%s], value = [%s]\n", key, value);
-}
-
 static int	export_var(char *var, char ***env)
 {
 	char	*key;
@@ -127,7 +127,7 @@ static int	export_var(char *var, char ***env)
 
 	if (!ft_strchr(var, '='))
 	{
-		set_env_var(var, 0);
+		set_env_var(var, 0, env);
 		return (0);
 	}
 	size_key = (int)(ft_strchr(var, '=') - var) + 1;
@@ -138,7 +138,7 @@ static int	export_var(char *var, char ***env)
 	key[size_key - 1] = 0;
 	ft_memcpy(value, var + size_key, size_value - 1);
 	value[size_value - 1] = 0;
-	set_env_var(key, value);
+	set_env_var(key, value, env);
 	ft_free(key);
 	ft_free(value);
 	(void) env;
