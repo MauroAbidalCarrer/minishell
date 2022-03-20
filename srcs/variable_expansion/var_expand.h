@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:11 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/16 17:10:36 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/20 19:21:32 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 
 # include "main.h"
 
-char	*var_expand(char *pattern, char **env);
+char	*var_expand(char *pattern, char **env, int status_code);
 
 #endif
