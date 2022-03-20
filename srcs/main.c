@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 19:53:23 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:18:42 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int ac, char **av, char **env)
 	char	*prompt;
 	int		exit_status;
 
+	(void) exit_status;
 	g_exe_name = set_exename(av[0]);
 	exit_status = 0;
 	(void)ac;

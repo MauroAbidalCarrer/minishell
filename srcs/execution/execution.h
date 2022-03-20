@@ -6,14 +6,16 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 21:18:07 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/20 18:18:12 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
+# include <stdio.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 
 # include "libft.h"
 
