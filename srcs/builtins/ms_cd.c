@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/20 18:28:59 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/21 12:52:52 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,6 @@ static char	*get_err_msg(char const *prog_name, char const *path)
 	ft_memcpy(err_msg, prog_name, ft_strlen(prog_name));
 	ft_memcpy(err_msg + ft_strlen(prog_name), ": cd: ", 6);
 	ft_memcpy(err_msg + ft_strlen(prog_name) + 6, path, ft_strlen(path));
-	ft_memcpy(err_msg + ft_strlen(prog_name) + 6 + ft_strlen(path), 0, 1);
+	ft_memcpy(err_msg + ft_strlen(prog_name) + 6 + ft_strlen(path), "", 1);
 	return (err_msg);
 }
