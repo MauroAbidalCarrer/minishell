@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:23:27 by jmaia             #+#    #+#             */
-/*   Updated: 2021/12/06 18:27:12 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/21 11:54:15 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_dynamic_buffer	get_buffer(size_t elem_size)
 {
 	t_dynamic_buffer	buffer;
 
-	buffer.buffer = malloc(elem_size * EXPAND_LEN);
+	buffer.buffer = ft_malloc(elem_size * EXPAND_LEN);
 	buffer.i = 0;
 	buffer.len = EXPAND_LEN;
 	buffer.elem_size = elem_size;
@@ -55,11 +55,9 @@ static int	expand(t_dynamic_buffer *buffer)
 
 	new_size = buffer->elem_size * (buffer->len + EXPAND_LEN);
 	old_size = buffer->elem_size * buffer->len;
-	new_buffer = malloc(buffer->elem_size * new_size);
-	if (!new_buffer)
-		return (1);
+	new_buffer = ft_malloc(buffer->elem_size * new_size);
 	ft_memcpy(new_buffer, buffer->buffer, old_size);
-	free(buffer->buffer);
+	ft_free(buffer->buffer);
 	buffer->buffer = new_buffer;
 	buffer->len += EXPAND_LEN;
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/20 19:22:57 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/21 11:52:41 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*var_expand(char *pattern, char **env, int status_code)
 		return (0);
 	status_code_str = ft_itoa(status_code);
 	if (!status_code_str)
-		free(buffer.buffer);
+		ft_free(buffer.buffer);
 	if (!status_code_str)
 		return (0);
 	cur_c = pattern;
@@ -41,7 +41,7 @@ char	*var_expand(char *pattern, char **env, int status_code)
 			append(&buffer, cur_c++);
 	}
 	expanded_str = as_str(&buffer);
-	free(buffer.buffer);
+	ft_free(buffer.buffer);
 	ft_free(status_code_str);
 	return (expanded_str);
 }

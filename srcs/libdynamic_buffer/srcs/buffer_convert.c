@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 11:22:25 by jmaia             #+#    #+#             */
-/*   Updated: 2021/12/06 17:38:38 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/21 11:50:00 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*as_str(t_dynamic_buffer *buffer)
 	size_t	len;
 
 	len = buffer->elem_size * buffer->i;
-	str = malloc(sizeof(*str) * (len + 1));
-	if (!str)
-		return (0);
+	str = ft_malloc(sizeof(*str) * (len + 1));
 	ft_memcpy(str, buffer->buffer, sizeof(*str) * len);
 	str[len] = 0;
 	return (str);

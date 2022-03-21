@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/16 16:25:32 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/21 11:55:10 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*wild_it(char const *pattern)
 		cur_word = get_next_word(cur_word);
 	}
 	wilded_str = as_str(&buffer);
-	free(buffer.buffer);
+	ft_free(buffer.buffer);
 	return (wilded_str);
 }
 
