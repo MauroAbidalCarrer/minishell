@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 19:50:43 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:24:32 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	exe_extern_child(t_cmd cmd, char *cmd_s, char ***env)
 		ft_exit(1);
 	if (access(cmd.path, X_OK) == -1)
 	{
-		write_error(cmd.path);
+		write_error(cmd.path, NULL);
 		ft_exit(1);
 	}
 	execve(cmd.path, cmd.av, *env);
-	write_error(cmd.av[0]);
+	write_error(cmd.av[0], NULL);
 	ft_exit(1);
 }
 

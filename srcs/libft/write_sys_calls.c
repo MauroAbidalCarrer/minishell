@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:21:27 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/22 17:08:12 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:25:33 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int	small_cat(char *src, char *dst, int i)
 
 void	write_error(char *app_msg, char *exename)
 {
-	static char	_exename;
+	static char	*_exename;
 	char		buff[2048];
 	int			i;
 
 	if (exename)
 		_exename = exename;
-	i = small_cat(g_exe_name, buff, 0);
+	i = small_cat(_exename, buff, 0);
 	if (app_msg)
 	{
 		i = small_cat(app_msg, buff, i);

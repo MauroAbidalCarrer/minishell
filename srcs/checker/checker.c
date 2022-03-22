@@ -6,20 +6,20 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/17 16:57:50 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:28:02 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-char	*check_fredi(char *str)
+char	*check_fredi(char *str, char *exename)
 {
 	str = skip_spaces(str);
 	if (starts_by_f_redi(str))
 	{
 		str = starts_by_f_redi(str);
 		str = skip_spaces(str);
-		if (!check_after_fredi(str))
+		if (!check_after_fredi(str, exename))
 			return (NULL);
 		return (skip_argument(str));
 	}
@@ -28,7 +28,7 @@ char	*check_fredi(char *str)
 
 //check that file redirections are terminated
 //parentheses are considered as cmds
-char	*skip_cmd_s(char *str)
+char	*skip_cmd_s(char *str, char *exename)
 {
 	int		nb_arg;
 	int		p;
@@ -39,9 +39,9 @@ char	*skip_cmd_s(char *str)
 	p = 0;
 	while (*str && !starts_by_sep(str) && *str != ')')
 	{
-		if (!check_p_in_cmd_s(&str, &p, &nb_arg))
+		if (!check_p_in_cmd_s(&str, &p, &nb_arg, exename))
 			return (NULL);
-		tmp = check_fredi(str);
+		tmp = check_fredi(str, exename);
 		nb_arg += (skip_argument(str) != str || tmp);
 		str = tmp;
 		if (str == NULL)
@@ -54,7 +54,7 @@ char	*skip_cmd_s(char *str)
 	return (NULL);
 }
 
-char	*skip_sep(char *str, int expected)
+char	*skip_sep(char *str, int expected, char *exename)
 {
 	char	*tmp;
 
@@ -66,29 +66,29 @@ char	*skip_sep(char *str, int expected)
 		if (!expected || skip_spaces(str) - str == (long)ft_strlen(str))
 		{
 			if (*tmp == '|' && tmp[1] == '|')
-				unexpected_err_msg("||");
+				err_msg("||", exename);
 			if (*tmp == '|' && tmp[1] != '|')
-				unexpected_err_msg("|");
+				err_msg("|", exename);
 			else
-				unexpected_err_msg("&&");
+				err_msg("&&", exename);
 		}
 		return (str);
 	}
 	return (NULL);
 }
 
-int	should_exe_list(char *str)
+int	should_exe_list(char *str, char *exename)
 {
-	if (!quotes_closed(str) || !parentheses_closed(str))
+	if (!quotes_closed(str) || !parentheses_closed(str, exename))
 		return (0);
 	while (str)
 	{
-		if (skip_sep(str, 0))
+		if (skip_sep(str, 0, exename))
 			return (0);
-		str = skip_cmd_s(str);
+		str = skip_cmd_s(str, exename);
 		if (str == NULL)
 			return (0);
-		str = skip_sep(str, 1);
+		str = skip_sep(str, 1, exename);
 	}
 	return (1);
 }

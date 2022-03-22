@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 21:53:18 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:32:30 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ int	set_read(char *cmd_s)
 	if (apply_heredocs(&last_hd, p_fds))
 		return (1);
 	if (apply_infile(cmd_s, &last_if))
-		return (ft_close_p(p_fds), 1);
+	{
+		if (last_hd)
+			ft_close_p(p_fds);
+		return (1);
+	}
 	if (last_hd)
 	{
 		if (!last_if || (last_hd > last_if))
