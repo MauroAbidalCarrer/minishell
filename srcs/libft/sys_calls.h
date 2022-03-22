@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:46:06 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/17 15:52:03 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/22 17:01:59 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-extern char		*g_exe_name;
 extern t_list	*g_ptrs_lst;
 void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
@@ -45,6 +44,6 @@ void	ft_pipe(int pipefd[2]);
 int		ft_dup(int oldfd);
 void	ft_dup2(int oldfd, int newfd);
 
-void	write_error(char *append_msg);
+void	write_error(char *append_msg, char *exename);
 int		ft_write(int fd, const void *buf, size_t count);
 #endif

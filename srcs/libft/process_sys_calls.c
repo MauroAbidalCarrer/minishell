@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 19:26:29 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 19:39:01 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/22 17:06:17 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ pid_t	ft_fork(void)
 	child_pid = fork();
 	if (child_pid == -1)
 	{
-		write_error(NULL);
+		write_error(NULL, NULL);
 		ft_exit(1);
 	}
 	return (child_pid);
@@ -33,7 +33,7 @@ int	ft_waitpid(pid_t pid)
 	{
 		if (errno == EINTR)
 			return (ft_waitpid(pid));
-		write_error(NULL);
+		write_error(NULL, NULL);
 		ft_exit(1);
 	}
 	if (WIFEXITED(wstatus))
