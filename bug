@@ -4,3 +4,34 @@ e$a
 
 cd uiweorhewiu
 => Le message d'erreur est pas ok
+
+
+
+
+
+------------------
+
+Liste de tests à passer pour les expansions
+$> export a="cho a && echo b"
+$> e$a
+a && echo b
+======================
+$> touch coucou salut
+$> export a="cho a && echo *"
+$> e$
+a && echo coucou salut
+=====================
+$> touch "'"
+$> export a="cho a && echo *"
+$> e$a
+a && echo '
+=====================
+$> export a="'*'"
+$> touch "''"
+$> echo $a
+''
+====================
+$> export a="cho a && echo *"
+$> touch "'" "''"
+$> "e$a"
+(Une erreur qui te dit command not found quoi)

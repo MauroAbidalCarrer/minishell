@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/23 16:52:51 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/23 18:34:36 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
 				char **env, char *status_code, int in_dquote);
 static int	is_almost_valid_char_for_name(char c);
-static int	append_and_quote_str(t_dynamic_buffer *buffer, char *str);
+int	append_and_quote_str(t_dynamic_buffer *buffer, char *str);
 static int	append_str(t_dynamic_buffer *buffer, char *str);
 static int	append_quoted_str_and_move(t_dynamic_buffer *d_buffer, char **str);
 
@@ -39,10 +39,13 @@ char	*var_expand(char *pattern, char **env, int status_code)
 	in_dquote = 0;
 	while (*cur_c)
 	{
-		if (*cur_c == '\'')
+		if (!in_dquote && *cur_c == '\'')
 			append_quoted_str_and_move(&buffer, &cur_c);
 		else if (*cur_c == '$')
+		{
 			append_var_and_move(&buffer, &cur_c, env, status_code_str, in_dquote);
+			continue;
+		}
 		else
 			append(&buffer, cur_c++);
 		if (*cur_c == '\"')
@@ -107,7 +110,7 @@ static int	is_almost_valid_char_for_name(char c)
 
 static int	is_special_char(char c);
 
-static int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
+int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
 {
 	char	**array;
 	int		i;
