@@ -6,22 +6,25 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/21 11:52:41 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/23 16:07:48 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "var_expand.h"
 
 static int	append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
-				char **env, char *status_code);
+				char **env, char *status_code, int in_dquote);
 static int	is_almost_valid_char_for_name(char c);
+static int	append_and_quote_str(t_dynamic_buffer *buffer, char *str);
 static int	append_str(t_dynamic_buffer *buffer, char *str);
+static int	append_quoted_str_and_move(t_dynamic_buffer *d_buffer, char **str);
 
 char	*var_expand(char *pattern, char **env, int status_code)
 {
 	char				*cur_c;
 	char				*expanded_str;
 	char				*status_code_str;
+	int					in_dquote;
 	t_dynamic_buffer	buffer;
 
 	buffer = get_buffer(sizeof(char));
@@ -33,12 +36,17 @@ char	*var_expand(char *pattern, char **env, int status_code)
 	if (!status_code_str)
 		return (0);
 	cur_c = pattern;
+	in_dquote = 0;
 	while (*cur_c)
 	{
-		if (*cur_c == '$')
-			append_var_and_move(&buffer, &cur_c, env, status_code_str);
+		if (*cur_c == '\'')
+			append_quoted_str_and_move(&buffer, &cur_c);
+		else if (*cur_c == '$')
+			append_var_and_move(&buffer, &cur_c, env, status_code_str, in_dquote);
 		else
 			append(&buffer, cur_c++);
+		if (*cur_c == '\"')
+			in_dquote = !in_dquote;
 	}
 	expanded_str = as_str(&buffer);
 	ft_free(buffer.buffer);
@@ -46,8 +54,22 @@ char	*var_expand(char *pattern, char **env, int status_code)
 	return (expanded_str);
 }
 
+static int	append_quoted_str_and_move(t_dynamic_buffer *d_buffer, char **str)
+{
+	char	*quote_pos;
+	char	c;
+
+	quote_pos = ft_strchr(*str + 1, '\'');
+	c = *(quote_pos + 1);
+	*(quote_pos + 1) = 0;
+	append_str(d_buffer, *str);
+	*(quote_pos + 1) = c;
+	*str = quote_pos + 1;
+	return (0);
+}
+
 static int	append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
-				char **env, char *status_code)
+				char **env, char *status_code, int in_dquote)
 {
 	char	end_char;
 	char	*end_pos;
@@ -70,7 +92,10 @@ static int	append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
 	*cur_c = end_pos;
 	if (err)
 		return (err);
-	err = append_str(buffer, value);
+	if (!in_dquote)
+		err = append_and_quote_str(buffer, value);
+	else
+		err = append_str(buffer, value);
 	return (err);
 }
 
@@ -78,6 +103,50 @@ static int	is_almost_valid_char_for_name(char c)
 {
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 		|| (c >= '0' && c <= '9') || c == '_');
+}
+
+static int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
+{
+	char	**array;
+	int		i;
+	int		j;
+	char	quote;
+	
+	array = ft_split_white(str);
+	i = 0;
+	quote = 0;
+	while (array[i])
+	{
+		j = 0;
+		// L'idee ca serait de quote uniquement les trucs problématiques
+		// Ca sera la même dans wild_it
+		// Go faire une fonction, tu lui donnes une str, et elle quote les trucs problématiques
+		append(buffer, "'");
+		while (array[i][j])
+		{
+			if (!quote && (array[i][j] == '\'' || array[i][j] == '"'))
+			{
+				quote = array[i][j];
+				append(buffer, "'");
+				append(buffer, &array[i][j]);
+			}
+			else if (array[i][j] == quote)
+			{
+				quote = 0;
+				append(buffer, &array[i][j]);
+				append(buffer, "'");
+			}
+			else
+				append(buffer, &array[i][j]);
+			j++;
+		}
+		append(buffer, "'");
+		if (array[i + 1])
+			append(buffer, " ");
+		i++;
+	}
+	ft_free(array);
+	return (0);
 }
 
 static int	append_str(t_dynamic_buffer *buffer, char *str)

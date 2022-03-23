@@ -6,11 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/22 17:24:32 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 15:04:36 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+int	expand_all(char *str, t_env env);
 
 void	exe_extern_child(t_cmd cmd, char *cmd_s, char ***env)
 {
@@ -63,6 +65,7 @@ int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char ***env)
 	ft_dup2(saved_read, READ);
 	ft_dup2(saved_write, WRITE);
 	return (ret);
+
 }
 
 int	exe_cmd_s(char *cmd_s, int is_child, char ***env)
@@ -79,6 +82,11 @@ int	exe_cmd_s(char *cmd_s, int is_child, char ***env)
 		else
 			return (exe_list(cmd_s, is_child, env));
 	}
+	t_env	tmp_env;
+
+	tmp_env.env = env;
+	tmp_env.exit_status = 0;
+	expand_all(cmd_s, tmp_env);
 	set_acav(&cmd, cmd_s);
 	cmd.builtin = NULL;
 	if (cmd.ac > 0)

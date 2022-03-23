@@ -11,6 +11,7 @@ SRCS		=	builtins/ms_cd.c \
 				checker/checker.c\
 				checker/utils.c\
 				execution/cmd_exe.c\
+				execution/expand_all.c\
 				execution/file_redirections.c\
 				execution/high_level.c\
 				execution/set_cmd.c\
@@ -42,7 +43,9 @@ INCLUDE		=	-I srcs/\
 				-I ./srcs/execution\
 				-I ./srcs/parsing_utils\
 				-I ./srcs/get_next_line\
-				-I srcs/wildcard -I srcs/libdynamic_buffer/includes
+				-I ./srcs/variable_expansion\
+				-I ./srcs/wildcard\
+				-I ./srcs/libdynamic_buffer/includes
 
 LIBS		=	srcs/libft/libft.a\
 				srcs/libdynamic_buffer/libdynamic_buffer.a
