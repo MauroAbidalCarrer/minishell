@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 12:32:32 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/22 17:06:40 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:41:15 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_close(int fd)
 {
 	if (close(fd) == -1)
 	{
-		write_error(NULL, NULL);
+		write_error(NULL, NULL, NULL);
 		ft_exit(1);
 	}
 }
@@ -27,7 +27,7 @@ int	ft_open(const char *pathname, int flags)
 
 	fd = open(pathname, flags, CREAT_M);
 	if (fd == -1)
-		write_error((char *)pathname, NULL);
+		write_error(NULL, (char *)pathname, NULL);
 	return (fd);
 }
 
@@ -38,7 +38,7 @@ int	ft_dup(int oldfd)
 	new_fd = dup(oldfd);
 	if (new_fd == -1)
 	{
-		write_error(NULL, NULL);
+		write_error(NULL, NULL, NULL);
 		ft_exit(1);
 	}
 	return (new_fd);
@@ -48,7 +48,7 @@ void	ft_dup2(int old_fd, int new_fd)
 {
 	if (dup2(old_fd, new_fd) == -1)
 	{
-		write_error(NULL, NULL);
+		write_error(NULL, NULL, NULL);
 		ft_exit(1);
 	}
 	ft_close(old_fd);
@@ -58,7 +58,7 @@ void	ft_pipe(int p_fds[2])
 {
 	if (pipe(p_fds) == -1)
 	{
-		write_error(NULL, NULL);
+		write_error(NULL, NULL, NULL);
 		ft_exit(1);
 	}
 }

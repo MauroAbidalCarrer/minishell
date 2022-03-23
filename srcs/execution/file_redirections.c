@@ -6,47 +6,57 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/22 17:33:54 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:51:41 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
 //gerer EOF
-void	heredoc(char *limit, int *p_fds)
+void	heredoc(char *limit, char first_char, int *p_fds, t_env env)
 {
 	char	*line;
+	char	*expanded_line;
 
 	set_signal_handler(&handle_sig_as_heredoc);
 	line = readline(">");
 	while (line != NULL)
 	{
+		if (first_char != '\'' && first_char != '\"')
+		{
+			expanded_line = var_expand(line, *env.env, env.exit_status);
+			free(line);
+			line = expanded_line;
+		}
 		if (str_equal(line, limit))
 		{
-			free(line);
+			if (first_char == '\'' || first_char == '\"')
+				free(line);
 			break ;
 		}
 		ft_putstr_fd(ft_strjoin(line, "\n"), p_fds[WRITE]);
-		free(line);
+		if (first_char == '\'' || first_char == '\"')
+			free(line);
 		line = readline(">");
 	}
+	write_error(NULL, EOF_WARN, ft_strjoin(limit, EOF_WARN_END));
 	ft_exit(0);
 }
 
-int	*launch_heredoc(char *limit, int *p_fds)
+int	*launch_heredoc(char *limit, char first_char, int *p_fds, t_env env)
 {
 	pid_t	pid;
 
 	ft_pipe(p_fds);
 	pid = ft_fork();
 	if (pid == 0)
-		heredoc(limit, p_fds);
+		heredoc(limit, first_char, p_fds, env);
 	if (ms_waitpid(pid))
 		return (ft_close_p(p_fds), NULL);
 	return (p_fds);
 }
 
-int	apply_heredocs(char **cmd_s, int *p_fds)
+int	apply_heredocs(char **cmd_s, int *p_fds, t_env env)
 {
 	char	*tmp;
 
@@ -62,7 +72,7 @@ int	apply_heredocs(char **cmd_s, int *p_fds)
 			ft_close_p(p_fds);
 		tmp = strstr_q(*cmd_s, "<<");
 		*cmd_s = tmp + 2;
-		p_fds = launch_heredoc(sub_argument(*cmd_s), p_fds);
+		p_fds = launch_heredoc(sub_argument(*cmd_s), **cmd_s, p_fds, env);
 		if (p_fds == NULL)
 			return (1);
 		*cmd_s = skip_argument(*cmd_s);

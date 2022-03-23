@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:46:06 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/22 17:01:59 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:37:21 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	ft_pipe(int pipefd[2]);
 int		ft_dup(int oldfd);
 void	ft_dup2(int oldfd, int newfd);
 
-void	write_error(char *append_msg, char *exename);
+void	write_error(char *exename, char *subject, char *msg);
 int		ft_write(int fd, const void *buf, size_t count);
 #endif

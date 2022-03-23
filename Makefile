@@ -26,7 +26,7 @@ SRCS		=	builtins/ms_cd.c \
 				wildcard/get_sorted_files.c \
 				wildcard/match.c \
 				wildcard/wild_it.c \
-				wildcard/wild_it2_it_is_back.c
+				wildcard/wild_it2_it_is_back.c\
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
@@ -42,7 +42,9 @@ INCLUDE		=	-I srcs/\
 				-I ./srcs/execution\
 				-I ./srcs/parsing_utils\
 				-I ./srcs/get_next_line\
-				-I srcs/wildcard -I srcs/libdynamic_buffer/includes
+				-I srcs/wildcard\
+				-I srcs/libdynamic_buffer/includes\
+				-I srcs/variable_expansion
 
 LIBS		=	srcs/libft/libft.a\
 				srcs/libdynamic_buffer/libdynamic_buffer.a

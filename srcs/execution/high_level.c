@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 21:54:21 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/22 19:51:57 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	ms_waitpid(pid_t pid)
 	return (exit_status);
 }
 
-int	exe_pipes(t_p_data data, char ***env);
+int	exe_pipes(t_p_data data, t_env env);
 
-int	parent_pipe(t_p_data data, char *next_p, char ***env)
+int	parent_pipe(t_p_data data, char *next_p, t_env env)
 {
 	int	ret;
 
@@ -44,7 +44,7 @@ int	parent_pipe(t_p_data data, char *next_p, char ***env)
 		return (ms_waitpid(data.pid));
 }
 
-int	exe_pipes(t_p_data data, char ***env)
+int	exe_pipes(t_p_data data, t_env env)
 {
 	char	*next_p;
 
@@ -73,7 +73,7 @@ int	exe_pipes(t_p_data data, char ***env)
 	return (ft_exit(exe_cmd_s(data.line, 1, env)), 1);
 }
 
-int	exe_pipeline(char *line, int is_child, char ***env)
+int	exe_pipeline(char *line, int is_child, t_env env)
 {
 	t_p_data	data;
 
@@ -85,7 +85,7 @@ int	exe_pipeline(char *line, int is_child, char ***env)
 	return (exe_cmd_s(line, is_child, env));
 }
 
-int	exe_list(char *list, int is_child, char ***env)
+int	exe_list(char *list, int is_child, t_env env)
 {
 	char	*next_and;
 	char	*next_or;

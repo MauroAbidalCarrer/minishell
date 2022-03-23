@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:38:13 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/22 17:07:02 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:41:59 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void	*ft_malloc(size_t size)
 	tmp = malloc(size);
 	if (tmp == NULL)
 	{
-		write_error(NULL, NULL);
+		write_error(NULL, NULL, NULL);
 		ft_exit(1);
 	}
 	node = malloc(sizeof(t_list));
 	if (node == NULL)
 	{
 		free(tmp);
-		write_error(NULL, NULL);
+		write_error(NULL, NULL, NULL);
 		ft_exit(1);
 	}
 	node->content = tmp;

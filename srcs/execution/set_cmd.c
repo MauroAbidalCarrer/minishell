@@ -6,13 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/22 17:32:30 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/22 19:52:16 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	set_read(char *cmd_s)
+int	set_read(char *cmd_s, t_env env)
 {
 	int		p_fds[2];
 	char	*last_hd;
@@ -20,7 +20,7 @@ int	set_read(char *cmd_s)
 
 	last_if = NULL;
 	last_hd = cmd_s;
-	if (apply_heredocs(&last_hd, p_fds))
+	if (apply_heredocs(&last_hd, p_fds, env))
 		return (1);
 	if (apply_infile(cmd_s, &last_if))
 	{
