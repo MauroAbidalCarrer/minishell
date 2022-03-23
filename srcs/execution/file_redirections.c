@@ -6,51 +6,49 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 14:51:41 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:39:20 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
 //gerer EOF
-void	heredoc(char *limit, char first_char, int *p_fds, t_env env)
+void	heredoc(char *limit, char first_c, int *p_fds, t_env env)
 {
 	char	*line;
 	char	*expanded_line;
 
 	set_signal_handler(&handle_sig_as_heredoc);
-	line = readline(">");
+	line = get_line(">");
 	while (line != NULL)
 	{
-		if (first_char != '\'' && first_char != '\"')
+		if (first_c != '\'' && first_c != '\"')
 		{
 			expanded_line = var_expand(line, *env.env, env.exit_status);
 			free(line);
 			line = expanded_line;
 		}
-		if (str_equal(line, limit))
-		{
-			if (first_char == '\'' || first_char == '\"')
-				free(line);
-			break ;
-		}
-		ft_putstr_fd(ft_strjoin(line, "\n"), p_fds[WRITE]);
-		if (first_char == '\'' || first_char == '\"')
+		if (str_equal(line, limit) && (first_c == '\'' || first_c == '\"'))
 			free(line);
-		line = readline(">");
+		if (str_equal(line, limit))
+			ft_exit(0);
+		ft_putstr_fd(ft_strjoin(line, "\n"), p_fds[WRITE]);
+		if (first_c == '\'' || first_c == '\"')
+			free(line);
+		line = get_line(">");
 	}
 	write_error(NULL, EOF_WARN, ft_strjoin(limit, EOF_WARN_END));
 	ft_exit(0);
 }
 
-int	*launch_heredoc(char *limit, char first_char, int *p_fds, t_env env)
+int	*launch_heredoc(char *limit, char first_c, int *p_fds, t_env env)
 {
 	pid_t	pid;
 
 	ft_pipe(p_fds);
 	pid = ft_fork();
 	if (pid == 0)
-		heredoc(limit, first_char, p_fds, env);
+		heredoc(limit, first_c, p_fds, env);
 	if (ms_waitpid(pid))
 		return (ft_close_p(p_fds), NULL);
 	return (p_fds);
@@ -80,18 +78,29 @@ int	apply_heredocs(char **cmd_s, int *p_fds, t_env env)
 	return (0);
 }
 
-int	fredi(char *pathname, int flags, int stream)
+int	fredi(char *arg, t_env env, int flags, int stream)
 {
-	int	fd;
+	int		fd;
+	char	*expanded_arg;
+	long	expanded_len;
 
-	fd = ft_open(pathname, flags);
+	arg = skip_spaces(arg);
+	expanded_arg = var_expand(arg, *env.env, env.exit_status);
+	expanded_len = skip_argument(expanded_arg) - expanded_arg;
+	if (expanded_len != (long)ft_strlen(expanded_arg))
+	{
+		write_error(NULL, arg, "ambiguous redirect");
+		return (1);
+	}
+	expanded_arg = sub_argument(expanded_arg);
+	fd = ft_open(expanded_arg, flags);
 	if (fd == -1)
-		return (-1);
+		return (1);
 	ft_dup2(fd, stream);
 	return (0);
 }
 
-int	apply_infile(char *cmd_s, char **last_if)
+int	apply_infile(char *cmd_s, char **last_if, t_env env)
 {
 	while (strchr_q(cmd_s, '<'))
 	{
@@ -102,7 +111,7 @@ int	apply_infile(char *cmd_s, char **last_if)
 			continue ;
 		}
 		*last_if = cmd_s - 1;
-		if (fredi(sub_argument(cmd_s), READ_F, READ))
+		if (fredi(sub(cmd_s, skip_argument(cmd_s)), env, READ_F, READ))
 			return (1);
 		cmd_s = skip_argument(cmd_s);
 	}

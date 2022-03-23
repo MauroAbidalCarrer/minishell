@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 14:55:44 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:50:27 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@
 # define EOF_WARN "warning: here-document delimited by end-of-file (wanted `"
 # define EOF_WARN_END "')"
 
+typedef struct s_env
+{
+	char	***env;
+	int		exit_status;
+}	t_env;
+
 int		exe_list(char *list, int is_child, t_env env);
 int		ms_waitpid(pid_t pid);
 
@@ -57,15 +63,15 @@ typedef struct cmd
 int		exe_cmd_s(char *cmd_s, int is_child, t_env env);
 
 int		set_read(char *cmd_s, t_env env);
-int		set_write(char *cmd_s);
+int		set_write(char *cmd_s, t_env env);
 void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
 char	*get_path(char *name, char **env);
 
 int		apply_heredocs(char **cmd_s, int *p_fds, t_env env);
-int		apply_infile(char *cmd_s, char **last_if);
+int		apply_infile(char *cmd_s, char **last_if, t_env env);
 
-int		fredi(char *pathname, int flags, int stream);
+int		fredi(char *arg, t_env env, int flags, int stream);
 #endif
 //read
 //	here_doc

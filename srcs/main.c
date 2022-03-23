@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 14:45:43 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:29:05 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 t_list	*g_ptrs_lst;
 
-char	*get_line(char *exename)
+char	*get_line(char *prompt)
 {
 	char	*tmp;
 
 	if (isatty(READ))
-		return (readline(exename));
+		return (readline(prompt));
 	tmp = get_next_line(READ);
 	if (tmp && ft_strlen(tmp) && tmp[ft_strlen(tmp) - 1] == '\n')
 		tmp[ft_strlen(tmp) - 1] = 0;
