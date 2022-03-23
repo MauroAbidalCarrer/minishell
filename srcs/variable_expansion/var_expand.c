@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/23 16:07:48 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/23 16:52:51 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ static int	is_almost_valid_char_for_name(char c)
 		|| (c >= '0' && c <= '9') || c == '_');
 }
 
+static int	is_special_char(char c);
+
 static int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
 {
 	char	**array;
@@ -121,32 +123,50 @@ static int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
 		// L'idee ca serait de quote uniquement les trucs problématiques
 		// Ca sera la même dans wild_it
 		// Go faire une fonction, tu lui donnes une str, et elle quote les trucs problématiques
-		append(buffer, "'");
 		while (array[i][j])
 		{
-			if (!quote && (array[i][j] == '\'' || array[i][j] == '"'))
+			if (is_special_char(array[i][j]))
 			{
-				quote = array[i][j];
-				append(buffer, "'");
+				if (array[i][j] == '\'')
+					append(buffer, "\"");
+				else
+					append(buffer, "'");
 				append(buffer, &array[i][j]);
-			}
-			else if (array[i][j] == quote)
-			{
-				quote = 0;
-				append(buffer, &array[i][j]);
-				append(buffer, "'");
+				if (array[i][j] == '\'')
+					append(buffer, "\"");
+				else
+					append(buffer, "'");
 			}
 			else
 				append(buffer, &array[i][j]);
+//			if (!quote && (array[i][j] == '\'' || array[i][j] == '"'))
+//			{
+//				quote = array[i][j];
+//				append(buffer, "'");
+//				append(buffer, &array[i][j]);
+//			}
+//			else if (array[i][j] == quote)
+//			{
+//				quote = 0;
+//				append(buffer, &array[i][j]);
+//				append(buffer, "'");
+//			}
+//			else
+//				append(buffer, &array[i][j]);
 			j++;
 		}
-		append(buffer, "'");
 		if (array[i + 1])
 			append(buffer, " ");
 		i++;
 	}
 	ft_free(array);
 	return (0);
+}
+
+static int	is_special_char(char c)
+{
+	return (c == '&' || c == '|' || c == '(' || c == ')' || c == '<'
+		|| c == '>' || c == '\'' || c == '"');
 }
 
 static int	append_str(t_dynamic_buffer *buffer, char *str)
