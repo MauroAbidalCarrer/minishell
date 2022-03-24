@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:23:29 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/16 16:25:47 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/24 21:27:37 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char const	*get_next_word(char const *cur_word)
 	{
 		if (*next_word == englober)
 			englober = 0;
-		else if (*next_word == '"' || *next_word == '\'')
+		else if (!englober && (*next_word == '"' || *next_word == '\''))
 			englober = *next_word;
 		next_word++;
 	}

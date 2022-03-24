@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/23 18:34:36 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/24 21:34:15 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*var_expand(char *pattern, char **env, int status_code)
 	in_dquote = 0;
 	while (*cur_c)
 	{
+		if (*cur_c == '\"')
+			in_dquote = !in_dquote;
 		if (!in_dquote && *cur_c == '\'')
 			append_quoted_str_and_move(&buffer, &cur_c);
 		else if (*cur_c == '$')
@@ -48,8 +50,6 @@ char	*var_expand(char *pattern, char **env, int status_code)
 		}
 		else
 			append(&buffer, cur_c++);
-		if (*cur_c == '\"')
-			in_dquote = !in_dquote;
 	}
 	expanded_str = as_str(&buffer);
 	ft_free(buffer.buffer);

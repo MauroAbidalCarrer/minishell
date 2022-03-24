@@ -18,7 +18,7 @@ a && echo b
 ======================
 $> touch coucou salut
 $> export a="cho a && echo *"
-$> e$
+$> e$a
 a && echo coucou salut
 =====================
 $> touch "'"
@@ -34,4 +34,7 @@ $> echo $a
 $> export a="cho a && echo *"
 $> touch "'" "''"
 $> "e$a"
-(Une erreur qui te dit command not found quoi)
+(Une erreur qui te dit command not found avec les bons trucs quoi)
+===================
+$> touch "'" "''"
+(Les 2 fichiers apparaissent et pas seulement le premier)
