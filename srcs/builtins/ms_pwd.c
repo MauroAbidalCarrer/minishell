@@ -6,13 +6,13 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:19:42 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/18 11:50:22 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/25 16:16:40 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	ms_pwd(int ac, char **av, char ***env)
+int	ms_pwd(int ac, char **av, t_env env)
 {
 	char	*pwd;
 	char	*err_msg;

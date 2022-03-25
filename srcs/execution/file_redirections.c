@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 16:39:20 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:48:56 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,16 @@ int	fredi(char *arg, t_env env, int flags, int stream)
 	long	expanded_len;
 
 	arg = skip_spaces(arg);
-	expanded_arg = var_expand(arg, *env.env, env.exit_status);
+	expanded_arg = sub_argument(arg);
+printf("sub_arg = [%s]\n", expanded_arg);
+	expanded_arg = var_expand(expanded_arg, *env.env, env.exit_status);
+printf("expanded = [%s]\n", expanded_arg);
 	expanded_len = skip_argument(expanded_arg) - expanded_arg;
 	if (expanded_len != (long)ft_strlen(expanded_arg))
 	{
 		write_error(NULL, arg, "ambiguous redirect");
 		return (1);
 	}
-	expanded_arg = sub_argument(expanded_arg);
 	fd = ft_open(expanded_arg, flags);
 	if (fd == -1)
 		return (1);

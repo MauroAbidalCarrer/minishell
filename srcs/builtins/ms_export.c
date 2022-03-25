@@ -6,19 +6,19 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 12:17:32 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/20 18:23:55 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/25 16:20:10 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	print_env(char ***env);
+static void	print_env(t_env env);
 static void	sort_array(char **array, size_t size,
 				int (*cmp)(char const *a, char const *b));
 static int	has_valid_name(char const *var);
-static int	export_var(char *var, char ***env);
+static int	export_var(char *var, t_env env);
 
-int	ms_export(int ac, char **av, char ***env)
+int	ms_export(int ac, char **av, t_env env)
 {
 	int	i;
 	int	err;
@@ -47,7 +47,7 @@ int	ms_export(int ac, char **av, char ***env)
 	return (err);
 }
 
-static void	print_env(char ***env)
+static void	print_env(t_env env)
 {
 	size_t	env_size;
 	size_t	i;
@@ -55,13 +55,13 @@ static void	print_env(char ***env)
 	char	*escaped_var;
 	char	*quoted_var;
 
-	if (!env || !*env)
+	if (!*env.env)
 		return ;
 	env_size = 0;
-	while ((*env)[env_size])
+	while ((*env.env)[env_size])
 		env_size++;
 	sorted_env = ft_malloc(sizeof(*sorted_env) * (env_size + 1));
-	ft_memcpy(sorted_env, *env, sizeof(**env) * (env_size + 1));
+	ft_memcpy(sorted_env, *env.env, sizeof(**env.env) * (env_size + 1));
 	sort_array(sorted_env, env_size, &ft_strcmp);
 	i = 0;
 	while (i < env_size)
@@ -118,7 +118,7 @@ static int	has_valid_name(char const *var)
 	return (1);
 }
 
-static int	export_var(char *var, char ***env)
+static int	export_var(char *var, t_env env)
 {
 	char	*key;
 	char	*value;
@@ -127,7 +127,7 @@ static int	export_var(char *var, char ***env)
 
 	if (!ft_strchr(var, '='))
 	{
-		set_env_var(var, 0, env);
+		set_env_var(var, 0, env.env);
 		return (0);
 	}
 	size_key = (int)(ft_strchr(var, '=') - var) + 1;
@@ -138,7 +138,7 @@ static int	export_var(char *var, char ***env)
 	key[size_key - 1] = 0;
 	ft_memcpy(value, var + size_key, size_value - 1);
 	value[size_value - 1] = 0;
-	set_env_var(key, value, env);
+	set_env_var(key, value, env.env);
 	ft_free(key);
 	ft_free(value);
 	(void) env;

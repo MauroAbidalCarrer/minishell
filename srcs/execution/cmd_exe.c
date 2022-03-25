@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 16:13:00 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/25 16:30:11 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	exe_builtin_child(t_cmd cmd, char *cmd_s, t_env env)
 		return (1);
 	if (cmd.ac == 0)
 		return (0);
-	return ((*cmd.builtin)(cmd.ac, cmd.av, env.env));
+	return ((*cmd.builtin)(cmd.ac, cmd.av, env));
 }
 
 int	exe_builtin_pp(t_cmd cmd, char *cmd_s, t_env env)

@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 14:12:31 by jmaia             #+#    #+#             */
-/*   Updated: 2022/02/23 16:31:38 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/25 16:14:59 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int		has_new_line(int ac, char **av);
 static void		append_args_to(char *msg, int ac, char **av);
 static void		append_newline_if_needed_to(char *msg, int ac, char **av);
 
-int	ms_echo(int ac, char **av, char ***env)
+int	ms_echo(int ac, char **av, t_env env)
 {
 	char	*msg;
 	int		err;

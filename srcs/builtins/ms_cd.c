@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/21 12:52:52 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/25 16:18:03 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 static char	*get_path_in_cdpath(char *path, char **env);
 static int	is_folder_accessible(char *path);
-static int	ms_chdir(char const *prog_name, char const *path, char ***env);
+static int	ms_chdir(char const *prog_name, char const *path, t_env env);
 static char	*get_err_msg(char const *prog_name, char const *path);
 
-int	ms_cd(int ac, char **av, char ***env)
+int	ms_cd(int ac, char **av, t_env env)
 {
 	char	*path;
 	int		err;
@@ -26,7 +26,7 @@ int	ms_cd(int ac, char **av, char ***env)
 	err = 0;
 	if (ac == 1)
 	{
-		if (get_env_var("HOME", &path, *env))
+		if (get_env_var("HOME", &path, *env.env))
 		{
 			err = (!err && ft_write(2, av[0], ft_strlen(av[0])) == -1);
 			err = (!err && ft_write(2, ": cd: HOME not set\n", 19) == -1);
@@ -34,7 +34,7 @@ int	ms_cd(int ac, char **av, char ***env)
 		}
 	}
 	else if (ac == 2)
-		path = get_path_in_cdpath(av[1], *env);
+		path = get_path_in_cdpath(av[1], *env.env);
 	else
 	{
 		err = (!err && ft_write(2, av[0], ft_strlen(av[0])) == -1);
@@ -80,7 +80,7 @@ static int	is_folder_accessible(char *path)
 	return (1);
 }
 
-static int	ms_chdir(char const *prog_name, char const *path, char ***env)
+static int	ms_chdir(char const *prog_name, char const *path, t_env env)
 {
 	int		err;
 	char	*err_msg;
@@ -100,11 +100,11 @@ static int	ms_chdir(char const *prog_name, char const *path, char ***env)
 		perror(prog_name);
 	if (!cwd)
 		return (1);
-	if (get_env_var("PWD", &old_pwd, *env) != 0)
-		delete_env_var("OLDPWD", env);
+	if (get_env_var("PWD", &old_pwd, *env.env) != 0)
+		delete_env_var("OLDPWD", env.env);
 	else
-		set_env_var("OLDPWD", old_pwd, env);
-	set_env_var("PWD", cwd, env);
+		set_env_var("OLDPWD", old_pwd, env.env);
+	set_env_var("PWD", cwd, env.env);
 	free(cwd);
 	return (0);
 }

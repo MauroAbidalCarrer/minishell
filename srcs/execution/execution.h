@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 16:50:27 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/25 16:29:37 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,6 @@
 # define EOF_WARN "warning: here-document delimited by end-of-file (wanted `"
 # define EOF_WARN_END "')"
 
-typedef struct s_env
-{
-	char	***env;
-	int		exit_status;
-}	t_env;
-
 int		exe_list(char *list, int is_child, t_env env);
 int		ms_waitpid(pid_t pid);
 
@@ -51,7 +45,7 @@ typedef struct s_pipe_data
 	int		is_child;
 }	t_p_data;
 
-typedef int	(*t_builtin)(int ac, char **av, char ***env);
+typedef int	(*t_builtin)(int ac, char **av, t_env env);
 typedef struct cmd
 {
 	char		*path;
