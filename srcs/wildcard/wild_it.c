@@ -6,11 +6,12 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/23 18:14:17 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 20:40:26 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard.h"
+#include "builtins.h"
 
 static int			wild_word(char const *cur_word, int is_not_first,
 						t_dynamic_buffer *buffer);
@@ -80,8 +81,6 @@ static void	get_space(char const *str, char *space, char **space_pos)
 	*space = **space_pos;
 }
 
-int	append_and_quote_str(t_dynamic_buffer *buffer, char *str);
-
 static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 {
 	DIR		*dir;
@@ -101,7 +100,6 @@ static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 				append(buffer, " ");
 			is_first = 0;
 			append_and_quote_str(buffer, (char *) files->content);
-//			append_word(buffer, (char *) files->content);
 		}
 		files = files->next;
 	}

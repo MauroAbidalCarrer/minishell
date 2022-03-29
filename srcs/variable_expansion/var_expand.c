@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/29 12:38:54 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 22:48:19 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	is_almost_valid_char_for_name(char c);
 int	append_and_quote_str(t_dynamic_buffer *buffer, char *str);
 static int	append_str(t_dynamic_buffer *buffer, char *str);
 static int	append_quoted_str_and_move(t_dynamic_buffer *d_buffer, char **str);
+static char	*is_ambiguous(char *str, char **env);
 
 char	*var_expand(char *pattern, char **env, int status_code)
 {
@@ -25,6 +26,8 @@ char	*var_expand(char *pattern, char **env, int status_code)
 	char				*expanded_str;
 	char				*status_code_str;
 	int					in_dquote;
+	int					in_heredoc_word;
+	int					in_redir;
 	t_dynamic_buffer	buffer;
 
 	buffer = get_buffer(sizeof(char));
@@ -37,13 +40,24 @@ char	*var_expand(char *pattern, char **env, int status_code)
 		return (0);
 	cur_c = pattern;
 	in_dquote = 0;
+	in_heredoc_word = 0;
+	in_redir = 0;
 	while (*cur_c)
 	{
+		if (!ft_isspace(*cur_c) && ft_isspace(*(cur_c + 1)))
+			in_heredoc_word = 0;
 		if (*cur_c == '\"')
 			in_dquote = !in_dquote;
 		if (!in_dquote && *cur_c == '\'')
 			append_quoted_str_and_move(&buffer, &cur_c);
-		else if (*cur_c == '$')
+		if (is_ambiguous(cur_c, env))
+		{
+//			write_error(NULL, is_ambiguous(cur_c, env), "ambiguous redirect");
+			printf("(A REMOVE) bash: %s: ambiguous redirect\n", is_ambiguous(cur_c, env));
+			ft_free(buffer.buffer);
+			return (0);
+		}
+		else if (*cur_c == '$' && !in_heredoc_word)
 		{
 			append_var_and_move(&buffer, &cur_c, env, status_code_str, in_dquote);
 			continue;
@@ -55,6 +69,35 @@ char	*var_expand(char *pattern, char **env, int status_code)
 	ft_free(buffer.buffer);
 	ft_free(status_code_str);
 	return (expanded_str);
+}
+
+static char	*is_ambiguous(char *str, char **env)
+{
+	char				*cur;
+	char				*cur_expanded;
+	char				*end_space_pos;
+	char				space;
+	char				*expanded;
+
+	if ((*str != '>' && *str != '<') || (*str && *(str + 1) == '>'))
+		return (0);
+	cur = str + 1;
+	while (ft_isspace(*cur))
+		cur++;
+	end_space_pos = cur;
+	while (*end_space_pos && !ft_isspace(*end_space_pos))
+		end_space_pos++;
+	space = *end_space_pos;
+	*end_space_pos = 0;
+	expanded = var_expand(cur, env, 0);
+	*end_space_pos = space;
+	if (!*expanded)
+		return (cur);
+	cur_expanded = expanded;
+	while (*cur_expanded)
+		if (ft_isspace(*cur_expanded++))
+			return (cur);
+	return (0);
 }
 
 static int	append_quoted_str_and_move(t_dynamic_buffer *d_buffer, char **str)
@@ -111,70 +154,6 @@ static int	is_almost_valid_char_for_name(char c)
 {
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 		|| (c >= '0' && c <= '9') || c == '_');
-}
-
-static int	is_special_char(char c);
-
-int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
-{
-	char	**array;
-	int		i;
-	int		j;
-	char	quote;
-	
-	array = ft_split_white(str);
-	i = 0;
-	quote = 0;
-	while (array[i])
-	{
-		j = 0;
-		// L'idee ca serait de quote uniquement les trucs problématiques
-		// Ca sera la même dans wild_it
-		// Go faire une fonction, tu lui donnes une str, et elle quote les trucs problématiques
-		while (array[i][j])
-		{
-			if (is_special_char(array[i][j]))
-			{
-				if (array[i][j] == '\'')
-					append(buffer, "\"");
-				else
-					append(buffer, "'");
-				append(buffer, &array[i][j]);
-				if (array[i][j] == '\'')
-					append(buffer, "\"");
-				else
-					append(buffer, "'");
-			}
-			else
-				append(buffer, &array[i][j]);
-//			if (!quote && (array[i][j] == '\'' || array[i][j] == '"'))
-//			{
-//				quote = array[i][j];
-//				append(buffer, "'");
-//				append(buffer, &array[i][j]);
-//			}
-//			else if (array[i][j] == quote)
-//			{
-//				quote = 0;
-//				append(buffer, &array[i][j]);
-//				append(buffer, "'");
-//			}
-//			else
-//				append(buffer, &array[i][j]);
-			j++;
-		}
-		if (array[i + 1])
-			append(buffer, " ");
-		i++;
-	}
-	ft_free(array);
-	return (0);
-}
-
-static int	is_special_char(char c)
-{
-	return (c == '&' || c == '|' || c == '(' || c == ')' || c == '<'
-		|| c == '>' || c == '\'' || c == '"');
 }
 
 static int	append_str(t_dynamic_buffer *buffer, char *str)

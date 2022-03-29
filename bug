@@ -50,3 +50,10 @@ cat < Makefile
 (Teste d'autres trucs aussi)
 ===================
 Lancer ./minishell dans ./minishell et faire des dingueries (signaux and co)
+===================
+$> cat > $wihwiuerhweuirh
+ambigous redirect
+===================
+$> export a="salut ca va"
+$> cat > $a
+ambigous redirect

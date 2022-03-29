@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:05:54 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/29 19:21:31 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 20:36:42 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,6 @@ void	handle_signal(int sig, siginfo_t *info, void *ucontext)
 		rl_on_new_line();
 		rl_redisplay();
 	}
-}
-
-void	handle_sig_as_parent(int sig, siginfo_t *info, void *ucontext)
-{
-	(void)sig;
-	(void)info;
-	(void)ucontext;
 }
 
 void	handle_sig_as_heredoc(int sig, siginfo_t *info, void *ucontext)
