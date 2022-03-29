@@ -6,13 +6,13 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:55:23 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/17 21:57:08 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 17:12:05 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	*escape_quote(char *var)
+char	*escape_quote_and_backslach(char *var)
 {
 	char			*escaped_var;
 	int				i;
@@ -23,7 +23,7 @@ char	*escape_quote(char *var)
 	n_quotes = 0;
 	while (var[i])
 	{
-		if (var[i] == '"')
+		if (var[i] == '"' || var[i] == '\\')
 			n_quotes++;
 		i++;
 	}
@@ -33,7 +33,7 @@ char	*escape_quote(char *var)
 	j = 0;
 	while (var[i])
 	{
-		if (var[i] == '"')
+		if (var[i] == '"' || var[i] == '\\')
 			escaped_var[j++] = '\\';
 		escaped_var[j++] = var[i++];
 	}
