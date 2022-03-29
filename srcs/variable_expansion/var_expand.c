@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/24 21:34:15 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 12:38:54 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,11 @@ static int	append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
 	{
 		(*cur_c)++;
 		return (append_str(buffer, status_code));
+	}
+	if (!is_almost_valid_char_for_name(**cur_c))
+	{
+		err = append(buffer, "$");
+		return (err);
 	}
 	end_pos = *cur_c;
 	while (is_almost_valid_char_for_name(*end_pos))
