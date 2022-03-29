@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:55:23 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/29 21:05:17 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 22:51:26 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,13 @@ int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
 	int		i;
 	int		j;
 	char	quote;
-	
+
 	array = ft_split_white(str);
 	i = 0;
 	quote = 0;
 	while (array[i])
 	{
 		j = 0;
-		// L'idee ca serait de quote uniquement les trucs problématiques
-		// Ca sera la même dans wild_it
-		// Go faire une fonction, tu lui donnes une str, et elle quote les trucs problématiques
 		while (array[i][j])
 		{
 			if (is_special_char(array[i][j]))
@@ -97,20 +94,6 @@ int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
 			}
 			else
 				append(buffer, &array[i][j]);
-//			if (!quote && (array[i][j] == '\'' || array[i][j] == '"'))
-//			{
-//				quote = array[i][j];
-//				append(buffer, "'");
-//				append(buffer, &array[i][j]);
-//			}
-//			else if (array[i][j] == quote)
-//			{
-//				quote = 0;
-//				append(buffer, &array[i][j]);
-//				append(buffer, "'");
-//			}
-//			else
-//				append(buffer, &array[i][j]);
 			j++;
 		}
 		if (array[i + 1])

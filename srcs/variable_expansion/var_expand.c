@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/29 22:48:19 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 22:52:16 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
 				char **env, char *status_code, int in_dquote);
 static int	is_almost_valid_char_for_name(char c);
-int	append_and_quote_str(t_dynamic_buffer *buffer, char *str);
+int			append_and_quote_str(t_dynamic_buffer *buffer, char *str);
 static int	append_str(t_dynamic_buffer *buffer, char *str);
 static int	append_quoted_str_and_move(t_dynamic_buffer *d_buffer, char **str);
 static char	*is_ambiguous(char *str, char **env);
@@ -60,7 +60,7 @@ char	*var_expand(char *pattern, char **env, int status_code)
 		else if (*cur_c == '$' && !in_heredoc_word)
 		{
 			append_var_and_move(&buffer, &cur_c, env, status_code_str, in_dquote);
-			continue;
+			continue ;
 		}
 		else
 			append(&buffer, cur_c++);

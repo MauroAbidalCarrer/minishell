@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 17:37:11 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 22:50:43 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ int	exe_builtin_pp(t_cmd cmd, char *cmd_s, char ***env)
 	ft_dup2(saved_read, READ);
 	ft_dup2(saved_write, WRITE);
 	return (ret);
-
 }
 
 int	exe_cmd_s(char *cmd_s, int is_child, char ***env)
 {
 	t_cmd		cmd;
 	char		*n_p;
+	t_env		tmp_env;
 
 	n_p = strchr_q(cmd_s, '(');
 	if (n_p)
@@ -82,8 +82,6 @@ int	exe_cmd_s(char *cmd_s, int is_child, char ***env)
 		else
 			return (exe_list(cmd_s, is_child, env));
 	}
-	t_env	tmp_env;
-
 	tmp_env.env = env;
 	tmp_env.exit_status = 0;
 	cmd_s = expand_all(cmd_s, tmp_env);
