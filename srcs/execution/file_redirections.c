@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 17:48:56 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/29 21:11:41 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,31 +78,18 @@ int	apply_heredocs(char **cmd_s, int *p_fds, t_env env)
 	return (0);
 }
 
-int	fredi(char *arg, t_env env, int flags, int stream)
+int	fredi(char *arg, int flags, int stream)
 {
 	int		fd;
-	char	*expanded_arg;
-	long	expanded_len;
 
-	arg = skip_spaces(arg);
-	expanded_arg = sub_argument(arg);
-printf("sub_arg = [%s]\n", expanded_arg);
-	expanded_arg = var_expand(expanded_arg, *env.env, env.exit_status);
-printf("expanded = [%s]\n", expanded_arg);
-	expanded_len = skip_argument(expanded_arg) - expanded_arg;
-	if (expanded_len != (long)ft_strlen(expanded_arg))
-	{
-		write_error(NULL, arg, "ambiguous redirect");
-		return (1);
-	}
-	fd = ft_open(expanded_arg, flags);
+	fd = ft_open(arg, flags);
 	if (fd == -1)
 		return (1);
 	ft_dup2(fd, stream);
 	return (0);
 }
 
-int	apply_infile(char *cmd_s, char **last_if, t_env env)
+int	apply_infile(char *cmd_s, char **last_if)
 {
 	while (strchr_q(cmd_s, '<'))
 	{
@@ -113,7 +100,7 @@ int	apply_infile(char *cmd_s, char **last_if, t_env env)
 			continue ;
 		}
 		*last_if = cmd_s - 1;
-		if (fredi(sub(cmd_s, skip_argument(cmd_s)), env, READ_F, READ))
+		if (fredi(sub_argument(cmd_s), READ_F, READ))
 			return (1);
 		cmd_s = skip_argument(cmd_s);
 	}

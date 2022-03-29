@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/25 16:29:37 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/29 21:15:19 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ typedef struct cmd
 int		exe_cmd_s(char *cmd_s, int is_child, t_env env);
 
 int		set_read(char *cmd_s, t_env env);
-int		set_write(char *cmd_s, t_env env);
+int		set_write(char *cmd_s);
 void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
 char	*get_path(char *name, char **env);
 
 int		apply_heredocs(char **cmd_s, int *p_fds, t_env env);
-int		apply_infile(char *cmd_s, char **last_if, t_env env);
+int		apply_infile(char *cmd_s, char **last_if);
 
-int		fredi(char *arg, t_env env, int flags, int stream);
+int		fredi(char *arg, int flags, int stream);
 #endif
 //read
 //	here_doc

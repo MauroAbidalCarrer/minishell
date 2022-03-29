@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 16:13:45 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/29 21:12:29 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	set_read(char *cmd_s, t_env env)
 	last_hd = cmd_s;
 	if (apply_heredocs(&last_hd, p_fds, env))
 		return (1);
-	if (apply_infile(cmd_s, &last_if, env))
+	if (apply_infile(cmd_s, &last_if))
 	{
 		if (last_hd)
 			ft_close_p(p_fds);
@@ -39,7 +39,7 @@ int	set_read(char *cmd_s, t_env env)
 	return (0);
 }
 
-int	set_write(char *cmd_s, t_env env)
+int	set_write(char *cmd_s)
 {
 	int	flags;
 
@@ -50,7 +50,7 @@ int	set_write(char *cmd_s, t_env env)
 		if (*cmd_s == '>')
 			flags = APPEND_F;
 		cmd_s += (*cmd_s == '>');
-		if (fredi(sub_argument(cmd_s), env, flags, WRITE))
+		if (fredi(sub_argument(cmd_s), flags, WRITE))
 			return (1);
 		cmd_s = skip_argument(cmd_s);
 	}
