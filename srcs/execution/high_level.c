@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/18 21:54:21 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:06:07 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ms_waitpid(pid_t pid)
 {
-	int	exit_status;
+	int					exit_status;
 
-	set_signal_handler(&handle_sig_as_parent);
+	set_signal_handler_as_parent();
 	exit_status = ft_waitpid(pid);
 	set_signal_handler(&handle_signal);
 	return (exit_status);
