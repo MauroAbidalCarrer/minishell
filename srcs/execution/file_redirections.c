@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/29 21:11:41 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:49:38 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	heredoc(char *limit, char first_c, int *p_fds, t_env env)
 		line = get_line(">");
 	}
 	write_error(NULL, EOF_WARN, ft_strjoin(limit, EOF_WARN_END));
+	ft_close_p(p_fds);
 	ft_exit(0);
 }
 
