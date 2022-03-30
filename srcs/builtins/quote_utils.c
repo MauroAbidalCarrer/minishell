@@ -6,13 +6,15 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:55:23 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/17 21:57:08 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 22:51:26 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	*escape_quote(char *var)
+static int	is_special_char(char c);
+
+char	*escape_quote_and_backslash(char *var)
 {
 	char			*escaped_var;
 	int				i;
@@ -23,7 +25,7 @@ char	*escape_quote(char *var)
 	n_quotes = 0;
 	while (var[i])
 	{
-		if (var[i] == '"')
+		if (var[i] == '"' || var[i] == '\\')
 			n_quotes++;
 		i++;
 	}
@@ -33,7 +35,7 @@ char	*escape_quote(char *var)
 	j = 0;
 	while (var[i])
 	{
-		if (var[i] == '"')
+		if (var[i] == '"' || var[i] == '\\')
 			escaped_var[j++] = '\\';
 		escaped_var[j++] = var[i++];
 	}
@@ -61,4 +63,49 @@ char	*quote_value(char *var)
 	quoted_var[i++] = '"';
 	quoted_var[i] = 0;
 	return (quoted_var);
+}
+
+int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
+{
+	char	**array;
+	int		i;
+	int		j;
+	char	quote;
+
+	array = ft_split_white(str);
+	i = 0;
+	quote = 0;
+	while (array[i])
+	{
+		j = 0;
+		while (array[i][j])
+		{
+			if (is_special_char(array[i][j]))
+			{
+				if (array[i][j] == '\'')
+					append(buffer, "\"");
+				else
+					append(buffer, "'");
+				append(buffer, &array[i][j]);
+				if (array[i][j] == '\'')
+					append(buffer, "\"");
+				else
+					append(buffer, "'");
+			}
+			else
+				append(buffer, &array[i][j]);
+			j++;
+		}
+		if (array[i + 1])
+			append(buffer, " ");
+		i++;
+	}
+	ft_free(array);
+	return (0);
+}
+
+static int	is_special_char(char c)
+{
+	return (c == '&' || c == '|' || c == '(' || c == ')' || c == '<'
+		|| c == '>' || c == '\'' || c == '"');
 }

@@ -6,11 +6,12 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/21 11:55:10 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/29 20:40:26 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard.h"
+#include "builtins.h"
 
 static int			wild_word(char const *cur_word, int is_not_first,
 						t_dynamic_buffer *buffer);
@@ -73,7 +74,7 @@ static void	get_space(char const *str, char *space, char **space_pos)
 	{
 		if (**space_pos == englober)
 			englober = 0;
-		else if (**space_pos == '"' || **space_pos == '\'')
+		else if (!englober && (**space_pos == '"' || **space_pos == '\''))
 			englober = **space_pos;
 		(*space_pos)++;
 	}
@@ -83,11 +84,9 @@ static void	get_space(char const *str, char *space, char **space_pos)
 static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 {
 	DIR		*dir;
-	char	space_char;
 	int		is_first;
 	t_list	*files;
 
-	space_char = ' ';
 	dir = opendir(".");
 	if (!dir)
 		return (1);
@@ -98,9 +97,9 @@ static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 		if (do_match((char *) files->content, pattern))
 		{
 			if (!is_first)
-				append(buffer, &space_char);
+				append(buffer, " ");
 			is_first = 0;
-			append_word(buffer, (char *) files->content);
+			append_and_quote_str(buffer, (char *) files->content);
 		}
 		files = files->next;
 	}

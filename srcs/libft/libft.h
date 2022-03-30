@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:05:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/20 18:42:29 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/23 16:03:29 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,9 @@ void	ft_close_p(int p_fds[2]);
 int		ft_isnbr(const char *nbr);
 int		ft_isspace(char c);
 void	ft_lstsort(t_list *lst, int (*cmp)(void *, void *));
+char	**ft_split_white(char const *s);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strstr(const char *haystack, const char *needle);
 int		ilen_strchr(char *str, char c);
 int		is_white(char c);
 int		i_strchr(char *str, int c);

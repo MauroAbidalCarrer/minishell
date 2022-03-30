@@ -6,7 +6,7 @@
 #    By: maabidal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 20:08:50 by maabidal          #+#    #+#              #
-#    Updated: 2022/03/20 18:44:18 by jmaia            ###   ########.fr        #
+#    Updated: 2022/03/23 16:04:10 by jmaia            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,9 +60,11 @@ SRCS =	ft_atoi.c\
 	ft_isnbr.c\
 	ft_isspace.c\
 	ft_lstsort.c\
+	ft_split_white.c\
 	ft_strcmp.c\
 	ft_strnochr.c\
 	ft_str_starts_by.c\
+	ft_strstr.c\
 	is_white.c\
 	mem_sys_calls.c\
 	process_sys_calls.c\

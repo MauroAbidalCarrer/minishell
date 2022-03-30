@@ -6,11 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/25 16:30:11 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:25:06 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+char	*expand_all(char *str, t_env env);
 
 void	exe_extern_child(t_cmd cmd, char *cmd_s, t_env env)
 {
@@ -79,6 +81,7 @@ int	exe_cmd_s(char *cmd_s, int is_child, t_env env)
 		else
 			return (exe_list(cmd_s, is_child, env));
 	}
+	cmd_s = expand_all(cmd_s, env);
 	set_acav(&cmd, cmd_s);
 	cmd.builtin = NULL;
 	if (cmd.ac > 0)

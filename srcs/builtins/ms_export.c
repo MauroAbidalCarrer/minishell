@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 12:17:32 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/25 16:20:10 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:23:18 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	print_env(t_env env)
 	i = 0;
 	while (i < env_size)
 	{
-		escaped_var = escape_quote(sorted_env[i]);
+		escaped_var = escape_quote_and_backslash(sorted_env[i]);
 		quoted_var = quote_value(escaped_var);
 		printf("declare -x %s\n", quoted_var);
 		ft_free(quoted_var);
