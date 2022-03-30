@@ -1,3 +1,5 @@
+------ PASSER UN nm -u A LA FIN POUR LES FONCTIONS INTERDITES -----
+
 export a="cho a && echo b"
 e$a
 
