@@ -6,13 +6,15 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:55:23 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/29 22:51:26 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/30 14:46:01 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
 static int	is_special_char(char c);
+static void	append_next_char(t_dynamic_buffer *buffer, char **array, int i,
+				int j);
 
 char	*escape_quote_and_backslash(char *var)
 {
@@ -80,20 +82,7 @@ int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
 		j = 0;
 		while (array[i][j])
 		{
-			if (is_special_char(array[i][j]))
-			{
-				if (array[i][j] == '\'')
-					append(buffer, "\"");
-				else
-					append(buffer, "'");
-				append(buffer, &array[i][j]);
-				if (array[i][j] == '\'')
-					append(buffer, "\"");
-				else
-					append(buffer, "'");
-			}
-			else
-				append(buffer, &array[i][j]);
+			append_next_char(buffer, array, i, j);
 			j++;
 		}
 		if (array[i + 1])
@@ -102,6 +91,25 @@ int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
 	}
 	ft_free(array);
 	return (0);
+}
+
+static void	append_next_char(t_dynamic_buffer *buffer, char **array, int i,
+	int j)
+{
+	if (is_special_char(array[i][j]))
+	{
+		if (array[i][j] == '\'')
+			append(buffer, "\"");
+		else
+			append(buffer, "'");
+		append(buffer, &array[i][j]);
+		if (array[i][j] == '\'')
+			append(buffer, "\"");
+		else
+			append(buffer, "'");
+	}
+	else
+		append(buffer, &array[i][j]);
 }
 
 static int	is_special_char(char c)

@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:56:21 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 17:38:28 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:38:29 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,31 +69,4 @@ char	*skip_argument(char *str)
 		str++;
 	}
 	return (str);
-}
-
-char	*sub_argument(char *str)
-{
-	char	*arg;
-	char	quote;
-
-	str = skip_spaces(str);
-	str = sub(str, skip_argument(str));
-	quote = 0;
-	arg = "";
-	while (*str)
-	{
-		if (*str == '\'' || *str == '\"')
-		{
-			if (quote == 0)
-				quote = *str;
-			else if (quote == *str)
-				quote = 0;
-			else
-				arg = straddchar(arg, *str);
-		}
-		else
-			arg = straddchar(arg, *str);
-		str++;
-	}
-	return (arg);
 }

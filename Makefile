@@ -24,6 +24,7 @@ SRCS		=	builtins/ms_cd.c \
 				parsing_utils/utils3.c\
 				signals/handle_signals.c \
 				variable_expansion/var_expand.c \
+				variable_expansion/var_expand2.c \
 				wildcard/get_sorted_files.c \
 				wildcard/match.c \
 				wildcard/wild_it.c \
