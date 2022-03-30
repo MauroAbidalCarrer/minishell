@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:56:21 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/30 14:38:29 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/03/30 18:00:44 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*skip_quotes(char *str)
 {
 	if (*str == '\'' || *str == '\"')
-		str = strchr(str + 1, *str);
+		str = ft_strchr(str + 1, *str);
 	return (str);
 }
 

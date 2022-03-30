@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/29 21:12:29 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/30 18:01:20 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*get_path(char *name, char **env)
 	char	*path;
 	char	*paths;
 
-	if (strchr(name, '/'))
+	if (ft_strchr(name, '/'))
 		return (name);
 	if (get_env_var("PATH", &paths, env))
 	{
@@ -126,7 +126,7 @@ char	*get_path(char *name, char **env)
 		path = ft_strjoin(path, name);
 		if (access(path, F_OK) == 0)
 			return (path);
-		paths = strchr(paths, ':');
+		paths = ft_strchr(paths, ':');
 		paths += (paths != NULL);
 	}
 	ft_putstr_fd(ft_strjoin(name + 1, CMD_NFOUND), 2);

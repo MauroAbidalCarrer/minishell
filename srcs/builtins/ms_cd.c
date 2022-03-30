@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/25 16:18:03 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/30 18:06:06 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*get_path_in_cdpath(char *path, char **env)
 
 	if (!ft_strcmp(path, "..") || !ft_strcmp(path, "."))
 		return (path);
-	if (strchr(path, '/'))
+	if (ft_strchr(path, '/'))
 		return (path);
 	if (get_env_var("CDPATH", &paths, env))
 		return (path);
@@ -62,7 +62,7 @@ static char	*get_path_in_cdpath(char *path, char **env)
 		sub_path = ft_strjoin(sub_path, sub_path);
 		if (is_folder_accessible(sub_path))
 			return (sub_path);
-		paths = strchr(paths, ':');
+		paths = ft_strchr(paths, ':');
 		paths += (paths != NULL);
 	}
 	ft_putstr_fd(ft_strjoin(path + (*path == '/'), CMD_NFOUND), 2);

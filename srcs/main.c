@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 16:29:05 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/03/30 18:06:44 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ char	*get_line(char *prompt)
 
 char	*set_exename(char *av0)
 {
-	if (strrchr(av0, '/'))
-		av0 = strrchr(av0, '/') + 1;
+	if (ft_strrchr(av0, '/'))
+		av0 = ft_strrchr(av0, '/') + 1;
 	av0 = ft_strjoin(av0, ": ");
 	write_error(av0, NULL, NULL);
 	return (av0);
