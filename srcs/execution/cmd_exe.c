@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/30 14:41:58 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/02 18:02:20 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,24 +94,3 @@ int	exe_cmd_s(char *cmd_s, int is_child, t_env env)
 		exe_extern_child(cmd, cmd_s, env);
 	return (exe_extern_pp(cmd, cmd_s, env));
 }
-
-/*
-char	*g_exe_name;
-t_list	*g_ptrs_lst;
-int	main(int ac, char **av, char **env)
-{
-	g_exe_name = av[0];
-	if (str_equal(av[2], "parent"))
-	{
-		int	ret = exe_cmd_s(av[1], 0, env);
-		printf("ret = %d\n", ret);
-		ft_exit(ret);
-	}
-	else if (str_equal(av[2], "child"))
-	{
-		int	ret = exe_cmd_s(av[1], 1, env);
-		printf("ret = %d\n", ret);
-		ft_exit(ret);
-	}
-}
-*/

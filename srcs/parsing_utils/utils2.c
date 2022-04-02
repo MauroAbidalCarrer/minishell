@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:56:21 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/30 18:00:44 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/02 18:01:23 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,12 @@ char	*strchr_q(char *str, char needle)
 	return (NULL);
 }
 
-char	*safe_skip_q(char *str)
-{
-	if (*str == '\'' || *str == '\"')
-		str += ilen_strchr(str + 1, *str);
-	return (str);
-}
-
 char	*skip_argument(char *str)
 {
 	str = skip_spaces(str);
 	while (*str && *str != ' ')
 	{
-		str = safe_skip_q(str);
+		str = skip_quotes(str);
 		if (starts_by_sep(str) || starts_by_f_redi(str))
 			break ;
 		if (*str == '(' || *str == ')')
