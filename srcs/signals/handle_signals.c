@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:05:54 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/29 20:36:42 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/02 19:00:39 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,12 @@ void	set_signal_handler_as_parent(void)
 	sigemptyset(&set);
 	sigaddset(&set, SIGINT);
 	sigaddset(&set, SIGTERM);
+	sigaddset(&set, SIGQUIT);
 	sa.sa_handler = SIG_IGN;
 	sa.sa_mask = set;
 	sigaction(SIGINT, &sa, 0);
 	sigaction(SIGTERM, &sa, 0);
+	sigaction(SIGQUIT, &sa, 0);
 }
 
 void	handle_signal(int sig, siginfo_t *info, void *ucontext)
