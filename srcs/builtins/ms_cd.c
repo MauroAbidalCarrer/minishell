@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/30 18:06:06 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/02 04:04:34 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static char	*get_path_in_cdpath(char *path, char **env);
 static int	is_folder_accessible(char *path);
 static int	ms_chdir(char const *prog_name, char const *path, t_env env);
-static char	*get_err_msg(char const *prog_name, char const *path);
+static char	*get_err_msg(char const *path);
 
 int	ms_cd(int ac, char **av, t_env env)
 {
@@ -28,8 +28,7 @@ int	ms_cd(int ac, char **av, t_env env)
 	{
 		if (get_env_var("HOME", &path, *env.env))
 		{
-			err = (!err && ft_write(2, av[0], ft_strlen(av[0])) == -1);
-			err = (!err && ft_write(2, ": cd: HOME not set\n", 19) == -1);
+			write_error(NULL, "cd", "HOME not set");
 			return (1);
 		}
 	}
@@ -37,8 +36,7 @@ int	ms_cd(int ac, char **av, t_env env)
 		path = get_path_in_cdpath(av[1], *env.env);
 	else
 	{
-		err = (!err && ft_write(2, av[0], ft_strlen(av[0])) == -1);
-		err = (!err && ft_write(2, ": cd: too many arguments\n", 25) == -1);
+		write_error(NULL, "cd", "too many arguments");
 		return (1);
 	}
 	return (ms_chdir(av[0], path, env));
@@ -90,8 +88,8 @@ static int	ms_chdir(char const *prog_name, char const *path, t_env env)
 	err = (chdir(path) == -1);
 	if (err)
 	{
-		err_msg = get_err_msg(prog_name, path);
-		perror(err_msg);
+		err_msg = get_err_msg(path);
+		write_error(NULL, err_msg, NULL);
 		ft_free(err_msg);
 		return (err);
 	}
@@ -109,15 +107,13 @@ static int	ms_chdir(char const *prog_name, char const *path, t_env env)
 	return (0);
 }
 
-static char	*get_err_msg(char const *prog_name, char const *path)
+static char	*get_err_msg(char const *path)
 {
 	char	*err_msg;
 
-	err_msg = ft_malloc(sizeof(*err_msg) * (ft_strlen(prog_name)
-				+ ft_strlen(path) + 9));
-	ft_memcpy(err_msg, prog_name, ft_strlen(prog_name));
-	ft_memcpy(err_msg + ft_strlen(prog_name), ": cd: ", 6);
-	ft_memcpy(err_msg + ft_strlen(prog_name) + 6, path, ft_strlen(path));
-	ft_memcpy(err_msg + ft_strlen(prog_name) + 6 + ft_strlen(path), "", 1);
+	err_msg = ft_malloc(sizeof(*err_msg) * (ft_strlen(path) + 7));
+	ft_memcpy(err_msg, "cd: ", 4);
+	ft_memcpy(err_msg + 4, path, ft_strlen(path));
+	ft_memcpy(err_msg + 4 + ft_strlen(path), "", 1);
 	return (err_msg);
 }
