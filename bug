@@ -1,4 +1,30 @@
 ------ PASSER UN nm -u A LA FIN POUR LES FONCTIONS INTERDITES -----
+------------ Posix vs Basic -----------
+$> bash
+$> export pouet="salut ca va"
+$> echo coucou > $pouet
+bash: $pouet: ambigous redirect
+$> exit
+$> bash --posix
+$> export pouet="salut ca va"
+$> echo coucou > $pouet
+$> ls | grep salut
+salut ca va
+--------------------
+$> touch test
+$> chmod 000 test
+$> bash << EOF
+export a=a > test
+echo salut
+EOF
+bash: line 1: test: Permission denied
+coucou
+$> bash --posix << EOF
+export a=a > test
+echo salut
+EOF
+bash: line 1: test: Permission denied
+--------------------
 
 export a="cho a && echo b"
 e$a
