@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:55:23 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/30 14:46:01 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/02 18:19:55 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,9 @@ int	append_and_quote_str(t_dynamic_buffer *buffer, char *str)
 	char	**array;
 	int		i;
 	int		j;
-	char	quote;
 
 	array = ft_split_white(str);
 	i = 0;
-	quote = 0;
 	while (array[i])
 	{
 		j = 0;

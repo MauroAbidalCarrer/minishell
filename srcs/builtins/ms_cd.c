@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/02 04:04:34 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/02 18:19:24 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ static char	*get_err_msg(char const *path);
 int	ms_cd(int ac, char **av, t_env env)
 {
 	char	*path;
-	int		err;
 
-	err = 0;
 	if (ac == 1)
 	{
 		if (get_env_var("HOME", &path, *env.env))
