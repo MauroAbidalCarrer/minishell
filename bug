@@ -82,7 +82,7 @@ $> valgrind --track-fds=yes ./minishell
 cat < Makefile
 (Teste d'autres trucs aussi)
 ===================
-Lancer ./minishell dans ./minishell et faire des dingueries (signaux and co)
+Lancer ./minishell dans ./minishell et faire des dingueries (signaux and co, C-c, C-\)
 ===================
 $> cat > $wihwiuerhweuirh
 ambigous redirect
