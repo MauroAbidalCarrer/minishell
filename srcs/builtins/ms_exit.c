@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:48:39 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/25 16:32:30 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/04 12:19:17 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	ms_exit(int ac, char **av, t_env env)
 	(void) env;
 	if (ac == 1)
 		ft_exit(env.exit_status);
-	err = (ft_write(2, "exit\n", 5) == -1);
+	if (isatty(0))
+		err = (ft_write(2, "exit\n", 5) == -1);
 	if (!ft_isnbr(av[1]))
 	{
 		err = (!err && ft_write(2, av[0], ft_strlen(av[0])) == -1);
