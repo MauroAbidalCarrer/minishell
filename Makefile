@@ -5,6 +5,7 @@ SRCS		=	builtins/ms_cd.c \
 				builtins/ms_env.c \
 				builtins/ms_exit.c \
 				builtins/ms_export.c \
+				builtins/ms_export2.c \
 				builtins/ms_pwd.c \
 				builtins/ms_unset.c \
 				builtins/quote_utils.c \

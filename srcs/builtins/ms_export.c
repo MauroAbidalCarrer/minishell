@@ -6,11 +6,13 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 12:17:32 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/30 14:23:18 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/05 08:47:41 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
+char		*get_msg_err(char *arg);
 
 static void	print_env(t_env env);
 static void	sort_array(char **array, size_t size,
@@ -20,8 +22,9 @@ static int	export_var(char *var, t_env env);
 
 int	ms_export(int ac, char **av, t_env env)
 {
-	int	i;
-	int	err;
+	char	*err_msg;
+	int		i;
+	int		err;
 
 	if (ac == 1)
 	{
@@ -35,10 +38,9 @@ int	ms_export(int ac, char **av, t_env env)
 		if (!has_valid_name(av[i]))
 		{
 			err = 1;
-			ft_write(2, av[0], ft_strlen(av[0]));
-			ft_write(2, ": export: `", 11);
-			ft_write(2, av[i], ft_strlen(av[i]));
-			ft_write(2, "': not a valid identifier\n", 26);
+			err_msg = get_msg_err(av[i]);
+			write_error(NULL, "export", err_msg);
+			ft_free(err_msg);
 		}
 		else
 			export_var(av[i], env);
