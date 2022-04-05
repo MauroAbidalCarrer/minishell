@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 16:56:37 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/05 15:29:07 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/05 21:22:32 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,16 @@ static int	append_str_and_escape_dquote(t_dynamic_buffer *buffer, char *str)
 		cur_c++;
 	}
 	return (err);
+}
+
+void	update_heredoc_status(char *str, t_heredoc_status *heredoc_status)
+{
+	if (!ft_strncmp(str, "<<", 2))
+		*heredoc_status = BEFORE_DELIMITER;
+	else if (*heredoc_status == BEFORE_DELIMITER && !ft_isspace(*str)
+		&& *str != '<')
+		*heredoc_status = IN_DELIMITER;
+	else if (*heredoc_status == IN_DELIMITER && (ft_isspace(*str)
+			|| *str == '&' || *str == '|'))
+		*heredoc_status = NOT_IN_HEREDOC;
 }
