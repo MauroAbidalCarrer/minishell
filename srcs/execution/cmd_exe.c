@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 16:53:08 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 22:03:22 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,12 @@ char	*expand_all(char *str, t_env env);
 
 static void	exe_extern_child(t_cmd cmd, char *cmd_s, t_env env, int **r_pipes)
 {
-	if (set_read(cmd_s, r_pipes, 1) || set_write(cmd_s))
+	int	ret;
+
+	if (set_streams(cmd_s, r_pipes))
 		ft_exit(1);
-	if (cmd.ac == 0)
-		ft_exit(0);
-	cmd.path = get_path(cmd.av[0], *env.env);
-	if (cmd.path == NULL)
-		ft_exit(127);
-	if (access(cmd.path, X_OK) == -1)
-	{
-		write_error(NULL, cmd.path, NULL);
-		ft_exit(1);
-	}
+	if (set_path(cmd.av[0], *t_env.env, &ret, &cmd.path))
+		return (ret);
 	execve(cmd.path, cmd.av, *env.env);
 	write_error(NULL, cmd.av[0], NULL);
 	ft_exit(1);
@@ -48,8 +42,6 @@ static int	exe_builtin_child(t_cmd cmd, char *cmd_s, t_env env, int **r_pipes)
 {
 	if (set_read(cmd_s, r_pipes, 1) || set_write(cmd_s))
 		return (1);
-	if (cmd.ac == 0)
-		return (0);
 	return ((*cmd.builtin)(cmd.ac, cmd.av, env));
 }
 

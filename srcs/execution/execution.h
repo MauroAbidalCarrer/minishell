@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 15:53:02 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 21:24:59 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 
 # include "main.h"
 # include "libft.h"
@@ -56,13 +58,12 @@ typedef struct cmd
 
 int		exe_cmd_s(char *cmd_s, int is_child, t_env env, int **r_pipes);
 
-int		set_read(char *cmd_s, int **r_pipes, int is_child);
-int		set_write(char *cmd_s);
+int		set_streams(char*cmd_s, int **r_pipes, int is_child);
 void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
-char	*get_path(char *name, char **env);
+typedef struct stat	t_stat;
+typedef enum e_type{reg, dir, other, error}	t_type;
+int		set_path(char *name, char **env);
 
 int		*mk_heredocs(char *list, t_env env);
-
-int		fredi(char *arg, int flags, int stream);
 #endif
