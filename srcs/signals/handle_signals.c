@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:05:54 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/04 22:34:42 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:02:04 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	handle_signal(int sig, siginfo_t *info, void *ucontext)
 void	handle_sig_as_heredoc(int sig, siginfo_t *info, void *ucontext)
 {
 	if (sig == SIGINT || sig == SIGQUIT || sig == SIGTERM)
+	{
+		printf("\n");
 		ft_exit(1);
+	}
 	(void)info;
 	(void)ucontext;
 }
