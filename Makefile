@@ -105,4 +105,7 @@ relibs	:
 
 reall	: relibs re
 
-.PHONY	:	all clean cleanlibs cleanall fclean fcleanlibs fcleanall re relibs reall FORCE
+
+bonus	:	$(NAME)
+
+.PHONY	:	all clean cleanlibs cleanall fclean fcleanlibs fcleanall re relibs reall FORCE bonus
