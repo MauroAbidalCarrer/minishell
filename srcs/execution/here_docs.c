@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:15:17 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 16:36:00 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:08:36 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	fill_heredocs(char *list, int **pipes, t_env env)
 	while (strstr_q(list, "<<"))
 	{
 		list = strstr_q(list, "<<") + 2;
+		list = skip_spaces(list);
 		heredoc(sub_argument(list), *list, pipes[0][WRITE], env);
 		ft_close_p(*pipes);
 		ft_free(*pipes);
