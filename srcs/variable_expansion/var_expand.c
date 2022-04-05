@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/30 17:20:52 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/04 14:54:11 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ int	process_pattern(t_dynamic_buffer *buffer, t_env env, char *pattern)
 	in_dquote = 0;
 	while (*pattern)
 	{
-		if (!ft_isspace(*pattern) && ft_isspace(*(pattern + 1)))
-			in_heredoc = 0;
-		if (*pattern == '\"')
-			in_dquote = !in_dquote;
-		if (!in_dquote && *pattern == '\'')
-			append_quoted_str_and_move(buffer, &pattern);
 		if (is_ambiguous(pattern, env))
 		{
 			write_error(NULL, is_ambiguous(pattern, env), "ambiguous redirect");
 			ft_free(buffer->buffer);
 			return (1);
 		}
-		else if (*pattern == '$' && !in_heredoc)
+		if (!ft_isspace(*pattern) && ft_isspace(*(pattern + 1)))
+			in_heredoc = 0;
+		if (*pattern == '\"')
+			in_dquote = !in_dquote;
+		if (*pattern == '$' && !in_heredoc)
 			append_var_and_move(buffer, &pattern, env, in_dquote);
+		else if (!in_dquote && *pattern == '\'')
+			append_quoted_str_and_move(buffer, &pattern);
 		else
 			append(buffer, pattern++);
 	}

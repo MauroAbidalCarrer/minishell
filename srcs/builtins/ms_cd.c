@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/02 18:19:24 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/04 12:50:40 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ms_cd(int ac, char **av, t_env env)
 {
 	char	*path;
 
-	if (ac == 1)
+	if (ac == 1 || !ft_strcmp(av[1], ""))
 	{
 		if (get_env_var("HOME", &path, *env.env))
 		{
