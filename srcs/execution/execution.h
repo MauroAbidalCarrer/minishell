@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/29 21:15:19 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:53:02 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define EOF_WARN "warning: here-document delimited by end-of-file (wanted `"
 # define EOF_WARN_END "')"
 
-int		exe_list(char *list, int is_child, t_env env);
+int		exe_list(char *list, int is_child, t_env env, int **r_pipes);
 int		ms_waitpid(pid_t pid);
 
 typedef struct s_pipe_data
@@ -54,23 +54,15 @@ typedef struct cmd
 	t_builtin	builtin;
 }	t_cmd;
 
-int		exe_cmd_s(char *cmd_s, int is_child, t_env env);
+int		exe_cmd_s(char *cmd_s, int is_child, t_env env, int **r_pipes);
 
-int		set_read(char *cmd_s, t_env env);
+int		set_read(char *cmd_s, int **r_pipes, int is_child);
 int		set_write(char *cmd_s);
 void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
 char	*get_path(char *name, char **env);
 
-int		apply_heredocs(char **cmd_s, int *p_fds, t_env env);
-int		apply_infile(char *cmd_s, char **last_if);
+int		*mk_heredocs(char *list, t_env env);
 
 int		fredi(char *arg, int flags, int stream);
 #endif
-//read
-//	here_doc
-//	in_files
-//	apply furthest between here_doc and in_files
-//write
-//	out files
-//command

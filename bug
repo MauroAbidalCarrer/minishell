@@ -90,3 +90,12 @@ ambigous redirect
 $> export a="salut ca va"
 $> cat > $a
 ambigous redirect
+
+
+===================
+il ne doit pas y avoir d'expansion pour les argmments heredoc
+<<$a doit reer <<$a plutot que <<<val de a
+<<'salut'
+"" permission denied a la place de not found
+double free when Ctrl-C in herdoc
+test pour les putains de heredocs: false && (true || cat <<o) && cat <<o

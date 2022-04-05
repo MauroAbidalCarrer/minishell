@@ -6,35 +6,33 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/02 18:02:01 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:05:15 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-int	set_read(char *cmd_s, t_env env)
+int	set_read(char *cmd_s, int **r_pipes, int is_child)
 {
-	int		p_fds[2];
-	char	*last_hd;
-	char	*last_if;
-
-	last_if = NULL;
-	last_hd = cmd_s;
-	if (apply_heredocs(&last_hd, p_fds, env))
-		return (1);
-	if (apply_infile(cmd_s, &last_if))
+	while (strchr_q(cmd_s, '<'))
 	{
-		if (last_hd)
-			ft_close_p(p_fds);
-		return (1);
+		cmd_s = strchr_q(cmd_s, '<') + 1;
+		if (*cmd_s == '<')
+		{
+			ft_dup2(**r_pipes, READ);
+			(*r_pipes)++;
+			cmd_s++;
+		}
+		else if (fredi(sub_argument(cmd_s), READ_F, READ))
+			return (1);
 	}
-	if (last_hd)
+	if (is_child)
 	{
-		if (!last_if || (last_hd > last_if))
-			ft_dup2(p_fds[READ], READ);
-		else
-			ft_close(p_fds[READ]);
-		ft_close(p_fds[WRITE]);
+		while (**r_pipes != -1)
+		{
+			ft_close(**r_pipes);
+			(*r_pipes)++;
+		}
 	}
 	return (0);
 }

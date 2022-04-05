@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:05:54 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/02 19:17:34 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/04 22:34:42 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,14 @@ void	handle_sig_as_heredoc(int sig, siginfo_t *info, void *ucontext)
 		ft_exit(1);
 	(void)info;
 	(void)ucontext;
+}
+
+int	ms_waitpid(pid_t pid)
+{
+	int					exit_status;
+
+	set_signal_handler_as_parent();
+	exit_status = ft_waitpid(pid);
+	set_signal_handler(&handle_signal);
+	return (exit_status);
 }
