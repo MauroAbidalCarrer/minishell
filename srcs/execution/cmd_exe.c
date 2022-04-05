@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 15:54:56 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:53:08 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,11 @@ static int	exe_builtin_pp(t_cmd cmd, char *cmd_s, t_env env, int **r_pipes)
 
 	saved_read = dup(READ);
 	saved_write = dup(WRITE);
-
 	if (set_read(cmd_s, r_pipes, 0) || set_write(cmd_s))
 		ret = 1;
 	else if (cmd.ac == 0)
 		ret = 0;
-	else 
+	else
 		ret = (*cmd.builtin)(cmd.ac, cmd.av, env);
 	ft_dup2(saved_read, READ);
 	ft_dup2(saved_write, WRITE);

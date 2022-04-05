@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:15:17 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 15:37:54 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:36:00 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	*get_read_pipes(int **pipes)
 	nb_heredocs = 0;
 	while (pipes[nb_heredocs])
 		nb_heredocs++;
-printf("nb pipes  at end = %d\n", nb_heredocs);
 	r_pipes = ft_malloc(sizeof(int) * (nb_heredocs + 1));
 	r_pipes[nb_heredocs] = -1;
 	while (--nb_heredocs >= 0)
@@ -83,7 +82,6 @@ int	**mk_pipes(char *list)
 		list = strstr_q(list, "<<") + 2;
 		nb_p++;
 	}
-printf("nb_pipes = %d\n", nb_p);
 	pipes = ft_malloc(sizeof(int *) * (nb_p + 1));
 	pipes[nb_p] = NULL;
 	while (--nb_p >= 0)
@@ -105,10 +103,8 @@ int	*mk_heredocs(char *list, t_env env)
 		fill_heredocs(list, pipes, env);
 	if (ms_waitpid(pid))
 	{
-printf("closing pipes\n");
 		while (*pipes)
 		{
-printf("closing %d-%d\n", pipes[0][READ], pipes[0][WRITE]);
 			ft_close_p(*pipes);
 			ft_free(*pipes);
 			pipes++;

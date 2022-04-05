@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 16:25:45 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:55:09 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	parent_pipe(t_p_data data, char *next_p, t_env env, int **r_pipes)
 {
 	int	ret;
 
+	r_pipes = hd_offs(data.line, next_p, r_pipes);
 	if (data.p_read != -1)
 		ft_close(data.p_read);
 	data.p_read = data.p_fds[READ];
@@ -65,7 +66,7 @@ static int	exe_pipes(t_p_data data, t_env env, int **r_pipes)
 	}
 	data.pid = ft_fork();
 	if (data.pid)
-		return (parent_pipe(data, next_p, env, hd_offs(data.line, next_p, r_pipes)));
+		return (parent_pipe(data, next_p, env, r_pipes));
 	if (next_p)
 		data.line = sub(data.line, next_p - 1);
 	if (data.p_fds[READ] != -1)
@@ -103,14 +104,14 @@ int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
 	{
 		ret = exe_pipeline(sub(list, next_and), 0, env, r_pipes);
 		if (!ret)
-			return (exe_list(sub(next_and + 2, end), 0, env, hd_offs(list, next_and, r_pipes)));
+			return (exe_list(sub(next_and + 2, end), 0, env, r_pipes));
 		return (ret);
 	}
 	else if ((next_or && !next_and) || (next_or && next_and > next_or))
 	{
 		ret = exe_pipeline(sub(list, next_or), 0, env, r_pipes);
 		if (ret)
-			return (exe_list(sub(next_or + 2, end), 0, env, hd_offs(list, next_and, r_pipes)));
+			return (exe_list(sub(next_or + 2, end), 0, env, r_pipes));
 		return (0);
 	}
 	return (exe_pipeline(list, is_child, env, r_pipes));
