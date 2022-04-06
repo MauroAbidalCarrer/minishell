@@ -6,11 +6,13 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:48:39 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/05 15:33:29 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/06 15:54:33 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
+static int	is_long(char *nbr);
 
 int	ms_exit(int ac, char **av, t_env env)
 {
@@ -21,7 +23,7 @@ int	ms_exit(int ac, char **av, t_env env)
 		ft_write(2, "exit\n", 5);
 	if (ac == 1)
 		ft_exit(env.exit_status);
-	if (!ft_isnbr(av[1]))
+	if (!ft_isnbr(av[1]) || !is_long(av[1]))
 	{
 		err_msg = ft_malloc(sizeof(char) * (28 + ft_strlen(av[1])));
 		ft_memcpy(err_msg, av[1], ft_strlen(av[1]));
@@ -38,5 +40,29 @@ int	ms_exit(int ac, char **av, t_env env)
 		return (1);
 	}
 	ft_exit(ft_atoi(av[1]));
+	return (1);
+}
+
+static int	is_long(char *nbr)
+{
+	int		i;
+	int		n_digits;
+	char	*start_nbr;
+
+	i = 0;
+	n_digits = 0;
+	start_nbr = 0;
+	while (nbr[i])
+	{
+		if (ft_isdigit(nbr[i]))
+		{
+			if (start_nbr == 0)
+				start_nbr = nbr + i;
+			n_digits++;
+		}
+		i++;
+	}
+	if (n_digits > 19 || ft_strncmp(start_nbr, "9223372036854775808", 19) > 0)
+		return (0);
 	return (1);
 }
