@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/06 16:36:21 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/06 18:21:00 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*is_ambiguous(char *str, t_env env, t_heredoc_status heredoc_status)
 	char				*end_space_pos;
 	char				space;
 	char				*expanded;
+	int					in_squote;
 
 	if ((*str != '>' && *str != '<') || *(str + 1) == '>'
 		|| heredoc_status != NOT_IN_HEREDOC)
@@ -72,8 +73,13 @@ char	*is_ambiguous(char *str, t_env env, t_heredoc_status heredoc_status)
 	while (ft_isspace(*str))
 		str++;
 	end_space_pos = str;
-	while (*end_space_pos && !ft_isspace(*end_space_pos))
+	in_squote = 0;
+	while (*end_space_pos && (!ft_isspace(*end_space_pos) || in_squote))
+	{
+		if (*end_space_pos == '\'')
+			in_squote = !in_squote;
 		end_space_pos++;
+	}
 	space = *end_space_pos;
 	*end_space_pos = 0;
 	expanded = var_expand(str, env);
