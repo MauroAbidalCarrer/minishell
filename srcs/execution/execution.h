@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 21:24:59 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:29:41 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
 typedef struct stat	t_stat;
 typedef enum e_type{reg, dir, other, error}	t_type;
-int		set_path(char *name, char **env);
+int		set_path(char *name, char **env, int *ret, char **path);
 
 int		*mk_heredocs(char *list, t_env env);
 #endif

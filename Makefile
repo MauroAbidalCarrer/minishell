@@ -12,13 +12,13 @@ SRCS		=	builtins/ms_cd.c \
 				checker/utils.c\
 				execution/cmd_exe.c\
 				execution/expand_all.c\
-				execution/file_redirections.c\
+				execution/set_streams.c\
 				execution/high_level.c\
 				execution/set_cmd.c\
 				execution/here_docs.c\
 				get_next_line/get_next_line.c\
 				get_next_line/get_next_line_utils.c\
-				main.c \
+				main.c\
 				parsing_utils/env_utils.c\
 				parsing_utils/utils.c\
 				parsing_utils/utils2.c\

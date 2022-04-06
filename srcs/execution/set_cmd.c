@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 21:58:59 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:54:54 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,49 +70,47 @@ t_type	type_of(char *pathname)
 		return (write_error(NULL, pathname, NULL), error);
 	if (S_ISREG(f_stat.st_mode))
 		return (reg);
-	if (s_ISDIR(f_stat.st_mode))
+	if (S_ISDIR(f_stat.st_mode))
 		return (dir);
 	return (other);
 }
 
-static char	*get_path(char *name, char **env, char **path)
+static int get_path(char *name, char **env, char **path)
 {
 	char	*paths;
-	t_stat	stat;
 
 	if (get_env_var("PATH", &paths, env))
 	{
 		ft_putstr_fd(ft_strjoin(name, CMD_NFOUND), 2);
-		return (NULL);
+		return (1);
 	}
 	name = ft_strjoin("/", name);
 	while (paths)
 	{
 		*path = ft_substr(paths, 0, ilen_strchr(paths, ':'));
 		*path = ft_strjoin(*path, name);
-		if (access(*path, F_OK) == 0 && type_of(*path))
-			return (*path);
+		if (access(*path, F_OK) == 0 && type_of(*path) == reg)
+			return (0);
 		paths = ft_strchr(paths, ':');
 		paths += (paths != NULL);
 	}
 	ft_putstr_fd(ft_strjoin(name + 1, CMD_NFOUND), 2);
-	return (NULL);
+	return (1);
 }
 
-//S_ISREG
-//stats
-//st_stats
 int	set_path(char *name, char **env, int *ret, char **path)
 {
-	if (get_path(name, env, path))
-			return (*ret = 127, 1);
+	if (strchr(name, '/'))
+		*path = name;
+	else if (get_path(name, env, path))
+		return (*ret = 127, 1);
 	if (type_of(*path) == dir)
 	{
 		write_error(NULL, *path, "Is a directory");
 		*ret = 126;
 		return (1);
 	}
-	if (type_of(*path) != dir)
+	if (type_of(*path) == other)
 	{
 		write_error(NULL, *path, "Is not a regular file");
 		*ret = 126;
