@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/05 21:51:48 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/06 16:36:21 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	process_pattern(t_dynamic_buffer *buffer, t_env env, char *pattern)
 	while (*pattern)
 	{
 		update_heredoc_status(pattern, &heredoc_status);
-		if (is_ambiguous(pattern, env, heredoc_status))
+		if (!in_dquote && is_ambiguous(pattern, env, heredoc_status))
 		{
 			write_error(NULL, is_ambiguous(pattern, env, heredoc_status),
 				"ambiguous redirect");
