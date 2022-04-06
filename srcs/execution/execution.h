@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/06 15:29:41 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:00:12 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int		exe_cmd_s(char *cmd_s, int is_child, t_env env, int **r_pipes);
 int		set_streams(char*cmd_s, int **r_pipes, int is_child);
 void	set_acav(t_cmd *cmd, char *cmd_s);
 void	set_builtin(t_cmd *cmd);
-typedef struct stat	t_stat;
 typedef enum e_type{reg, dir, other, error}	t_type;
 int		set_path(char *name, char **env, int *ret, char **path);
 

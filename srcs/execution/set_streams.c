@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 14:41:24 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/06 16:10:41 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:59:47 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	in_fredi(char *cmd_s, int **r_pipes)
 	return (fredi(sub_argument(cmd_s), READ_F, READ));
 }
 
-static int out_fredi(char *cmd_s)
+static int	out_fredi(char *cmd_s)
 {
 	if (*cmd_s == '>')
 	{
@@ -79,5 +79,5 @@ int	set_streams(char *cmd_s, int **r_pipes, int is_child)
 		cmd_s += (*cmd_s == '<' || *cmd_s == '>');
 	}
 	close_rest_of_r_pipes(r_pipes, is_child);
-	return(0);
+	return (0);
 }

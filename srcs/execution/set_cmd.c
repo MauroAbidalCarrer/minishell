@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/06 15:54:54 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/06 17:00:58 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	set_builtin(t_cmd *cmd)
 
 t_type	type_of(char *pathname)
 {
-	t_stat f_stat;
+	struct stat	f_stat;
 
 	if (stat(pathname, &f_stat) == -1)
 		return (write_error(NULL, pathname, NULL), error);
@@ -75,7 +75,7 @@ t_type	type_of(char *pathname)
 	return (other);
 }
 
-static int get_path(char *name, char **env, char **path)
+static int	get_path(char *name, char **env, char **path)
 {
 	char	*paths;
 
