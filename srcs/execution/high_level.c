@@ -6,13 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 16:55:09 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:56:09 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static int	**hd_offs(char *beg_list, char *end_list, int **r_pipes)
+static int	**skip_hds(char *beg_list, char *end_list, int **r_pipes)
 {
 	char	*sub_list;
 
@@ -32,7 +32,7 @@ static int	parent_pipe(t_p_data data, char *next_p, t_env env, int **r_pipes)
 {
 	int	ret;
 
-	r_pipes = hd_offs(data.line, next_p, r_pipes);
+	r_pipes = skip_hds(data.line, next_p, r_pipes);
 	if (data.p_read != -1)
 		ft_close(data.p_read);
 	data.p_read = data.p_fds[READ];
@@ -105,14 +105,14 @@ int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
 		ret = exe_pipeline(sub(list, next_and), 0, env, r_pipes);
 		if (!ret)
 			return (exe_list(sub(next_and + 2, end), 0, env, r_pipes));
-		return (ret);
+		return (skip_hds(next_and + 2, end, r_pipes), ret);
 	}
 	else if ((next_or && !next_and) || (next_or && next_and > next_or))
 	{
 		ret = exe_pipeline(sub(list, next_or), 0, env, r_pipes);
 		if (ret)
 			return (exe_list(sub(next_or + 2, end), 0, env, r_pipes));
-		return (0);
+		return (skip_hds(next_or + 2, end, r_pipes), 0);
 	}
 	return (exe_pipeline(list, is_child, env, r_pipes));
 }
