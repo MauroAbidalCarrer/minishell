@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/07 19:48:39 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/07 20:05:54 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	**skip_hds(char *beg_list, char *end_list, int **r_pipes)
 	char	*sub_list;
 
 	sub_list = sub(beg_list, end_list);
+printf("sub list = [%s]\n", sub_list);
 	while (strstr_q(sub_list, "<<"))
 	{
 		sub_list = strstr_q(sub_list, "<<") + 2;
@@ -114,7 +115,7 @@ int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
 			skip_hds(next_op + 2, nextnext_op, r_pipes);
 			return (exe_list(nextnext_op + 2, is_child, env, r_pipes));
 		}
-		skip_hds(next_op + 2, next_op + ft_strlen(next_op + 2), r_pipes);
+		skip_hds(next_op + 2, next_op + 2 + ft_strlen(next_op + 2), r_pipes);
 		return (ret);
 	}
 	return (exe_pipeline(list, is_child, env, r_pipes));
