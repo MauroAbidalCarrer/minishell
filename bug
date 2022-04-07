@@ -101,7 +101,15 @@ test pour les putains de heredocs: false && (true || cat <<o) && cat <<o
 "<'"
 ===================
 <' '
-
-==============
+==================
 -control operators gone wrong
 -split le chek en deux etapes, dabord pour les heredocs, ensuite faire les heredocs, check le reste, exe le reste
+===================
+cat << end
+$"SALUT"
+end
+===================
+cat << end
+'
+end
+===================
