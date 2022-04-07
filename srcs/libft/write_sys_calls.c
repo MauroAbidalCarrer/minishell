@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 16:21:27 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 14:42:32 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:44:56 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_write(int fd, const void *buf, size_t count)
 	int	result;
 
 	result = write(fd, buf, count);
-	if (result == -1)
+	if (result == -1 && fd != 2)
 		write_error(NULL, NULL, NULL);
 	return (result);
 }

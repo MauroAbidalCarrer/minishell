@@ -5,6 +5,7 @@ SRCS		=	builtins/ms_cd.c \
 				builtins/ms_env.c \
 				builtins/ms_exit.c \
 				builtins/ms_export.c \
+				builtins/ms_export2.c \
 				builtins/ms_pwd.c \
 				builtins/ms_unset.c \
 				builtins/quote_utils.c \
@@ -26,6 +27,7 @@ SRCS		=	builtins/ms_cd.c \
 				signals/handle_signals.c \
 				variable_expansion/var_expand.c \
 				variable_expansion/var_expand2.c \
+				variable_expansion/var_expand3.c \
 				wildcard/get_sorted_files.c \
 				wildcard/match.c \
 				wildcard/wild_it.c \
@@ -105,4 +107,7 @@ relibs	:
 
 reall	: relibs re
 
-.PHONY	:	all clean cleanlibs cleanall fclean fcleanlibs fcleanall re relibs reall FORCE
+
+bonus	:	$(NAME)
+
+.PHONY	:	all clean cleanlibs cleanall fclean fcleanlibs fcleanall re relibs reall FORCE bonus

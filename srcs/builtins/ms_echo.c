@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 14:12:31 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/30 14:23:47 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:46:53 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ms_echo(int ac, char **av, t_env env)
 	msg[0] = 0;
 	append_args_to(msg, ac, av);
 	append_newline_if_needed_to(msg, ac, av);
-	err = ft_write(1, msg, ft_strlen(msg));
+	err = ft_write(1, msg, ft_strlen(msg)) == -1;
 	ft_free(msg);
 	return (err);
 }

@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 10:57:08 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/18 11:43:58 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/04 16:12:59 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	get_env_var(char *key, char **dst, char **env)
 		j = 0;
 		while (env[i][j] && key[j] && env[i][j] == key[j])
 		{
-			if (key[j + 1] == 0)
+			if (key[j + 1] == 0 && env[i][j + 1] == '=')
 			{
 				*dst = env[i] + j + 2;
 				return (0);

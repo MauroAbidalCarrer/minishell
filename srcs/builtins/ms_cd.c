@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:51 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/04 12:50:40 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/05 15:08:00 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ static char	*get_err_msg(char const *path);
 int	ms_cd(int ac, char **av, t_env env)
 {
 	char	*path;
+	int		err;
 
-	if (ac == 1 || !ft_strcmp(av[1], ""))
+	if (ac == 1)
 	{
-		if (get_env_var("HOME", &path, *env.env))
+		err = get_env_var("HOME", &path, *env.env);
+		if (err)
 		{
 			write_error(NULL, "cd", "HOME not set");
 			return (1);
@@ -37,13 +39,16 @@ int	ms_cd(int ac, char **av, t_env env)
 		write_error(NULL, "cd", "too many arguments");
 		return (1);
 	}
-	return (ms_chdir(av[0], path, env));
+	if (ft_strcmp(path, ""))
+		return (ms_chdir(av[0], path, env));
+	return (0);
 }
 
 static char	*get_path_in_cdpath(char *path, char **env)
 {
-	char	*sub_path;
+	char	*full_path;
 	char	*paths;
+	char	*sub_path;
 
 	if (!ft_strcmp(path, "..") || !ft_strcmp(path, "."))
 		return (path);
@@ -54,14 +59,15 @@ static char	*get_path_in_cdpath(char *path, char **env)
 	sub_path = ft_strjoin("/", path);
 	while (paths)
 	{
-		sub_path = ft_substr(paths, 0, ilen_strchr(paths, ':'));
-		sub_path = ft_strjoin(sub_path, sub_path);
-		if (is_folder_accessible(sub_path))
-			return (sub_path);
+		full_path = ft_substr(paths, 0, ilen_strchr(paths, ':'));
+		full_path = ft_strjoin(full_path, sub_path);
+		if (is_folder_accessible(full_path))
+			printf("%s\n", full_path);
+		if (is_folder_accessible(full_path))
+			return (full_path);
 		paths = ft_strchr(paths, ':');
 		paths += (paths != NULL);
 	}
-	ft_putstr_fd(ft_strjoin(path + (*path == '/'), CMD_NFOUND), 2);
 	return (path);
 }
 

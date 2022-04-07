@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/04 14:54:11 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/07 12:18:39 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,24 @@ char	*var_expand(char *pattern, t_env env)
 
 int	process_pattern(t_dynamic_buffer *buffer, t_env env, char *pattern)
 {
-	int	in_heredoc;
-	int	in_dquote;
+	t_heredoc_status	heredoc_status;
+	int					in_dquote;
 
-	in_heredoc = 0;
+	heredoc_status = NOT_IN_HEREDOC;
 	in_dquote = 0;
 	while (*pattern)
 	{
-		if (is_ambiguous(pattern, env))
+		update_heredoc_status(pattern, &heredoc_status);
+		if (!in_dquote && is_ambiguous(pattern, env, heredoc_status))
 		{
-			write_error(NULL, is_ambiguous(pattern, env), "ambiguous redirect");
+			write_error(NULL, is_ambiguous(pattern, env, heredoc_status),
+				"ambiguous redirect");
 			ft_free(buffer->buffer);
 			return (1);
 		}
-		if (!ft_isspace(*pattern) && ft_isspace(*(pattern + 1)))
-			in_heredoc = 0;
 		if (*pattern == '\"')
 			in_dquote = !in_dquote;
-		if (*pattern == '$' && !in_heredoc)
+		if (*pattern == '$' && heredoc_status == NOT_IN_HEREDOC)
 			append_var_and_move(buffer, &pattern, env, in_dquote);
 		else if (!in_dquote && *pattern == '\'')
 			append_quoted_str_and_move(buffer, &pattern);
@@ -58,33 +58,31 @@ int	process_pattern(t_dynamic_buffer *buffer, t_env env, char *pattern)
 	return (0);
 }
 
-char	*is_ambiguous(char *str, t_env env)
+char	*is_ambiguous(char *str, t_env env, t_heredoc_status heredoc_status)
 {
 	char				*cur;
-	char				*cur_expanded;
-	char				*end_space_pos;
-	char				space;
-	char				*expanded;
+	t_ambiguous_state	ambiguous_state;
 
-	if ((*str != '>' && *str != '<') || *(str + 1) == '>' || *(str + 1) == '<')
+	if ((*str != '>' && *str != '<') || *(str + 1) == '>'
+		|| heredoc_status != NOT_IN_HEREDOC)
 		return (0);
-	cur = str + 1;
-	while (ft_isspace(*cur))
+	while (ft_isspace(*++str))
+		;
+	cur = str;
+	ambiguous_state = HAS_NO_NORMAL_CHARACTERS;
+	while (*cur && !ft_isspace(*cur) && ambiguous_state != IS_AMBIGUOUS)
+	{
+		if (*cur == '\'' || *cur == '"')
+			cur = ft_strchr(cur + 1, *cur);
+		if (*cur == '\'' || *cur == '"')
+			ambiguous_state = HAS_NORMAL_CHARACTERS;
+		update_ambiguous_state(&ambiguous_state, &cur, env);
 		cur++;
-	end_space_pos = cur;
-	while (*end_space_pos && !ft_isspace(*end_space_pos))
-		end_space_pos++;
-	space = *end_space_pos;
-	*end_space_pos = 0;
-	expanded = var_expand(cur, env);
-	*end_space_pos = space;
-	if (!*expanded)
-		return (cur);
-	cur_expanded = expanded;
-	while (*cur_expanded)
-		if (ft_isspace(*cur_expanded++))
-			return (cur);
-	return (0);
+	}
+	if (ambiguous_state != HAS_NORMAL_CHARACTERS)
+		return (str);
+	else
+		return (0);
 }
 
 int	append_quoted_str_and_move(t_dynamic_buffer *d_buffer, char **str)
@@ -114,7 +112,8 @@ int	append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
 		(*cur_c)++;
 		return (append_str(buffer, status_code_str));
 	}
-	if (!is_almost_valid_char_for_name(**cur_c))
+	if (!is_almost_valid_char_for_name(**cur_c)
+		&& *(*cur_c + 1) != '\'' && *(*cur_c + 1) != '"')
 	{
 		err = append(buffer, "$");
 		return (err);
