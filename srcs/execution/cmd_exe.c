@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/06 15:31:41 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/07 14:50:52 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	exe_extern_child(t_cmd cmd, char *cmd_s, t_env env, int **r_pipes)
 
 	if (set_streams(cmd_s, r_pipes, 1))
 		ft_exit(1);
+	if (cmd.ac == 0)
+		ft_exit(0);
 	if (set_path(cmd.av[0], *env.env, &ret, &cmd.path))
 		ft_exit(ret);
 	execve(cmd.path, cmd.av, *env.env);
@@ -41,6 +43,8 @@ static void	exe_builtin_child(t_cmd cmd, char *cmd_s, t_env env, int **r_pipes)
 {
 	if (set_streams(cmd_s, r_pipes, 1))
 		ft_exit(1);
+	if (cmd.ac == 0)
+		ft_exit(0);
 	ft_exit((*cmd.builtin)(cmd.ac, cmd.av, env));
 }
 
@@ -52,15 +56,17 @@ static int	exe_builtin_pp(t_cmd cmd, char *cmd_s, t_env env, int **r_pipes)
 
 	saved_read = dup(READ);
 	saved_write = dup(WRITE);
+	ret = 0;
 	if (set_streams(cmd_s, r_pipes, 0))
 		ret = 1;
-	else
+	else if (cmd.ac != 0)
 		ret = (*cmd.builtin)(cmd.ac, cmd.av, env);
 	ft_dup2(saved_read, READ);
 	ft_dup2(saved_write, WRITE);
 	return (ret);
 }
 
+//ac can be equal to 0 if there are only redirections
 int	exe_cmd_s(char *cmd_s, int is_child, t_env env, int **r_pipes)
 {
 	t_cmd		cmd;
@@ -77,7 +83,8 @@ int	exe_cmd_s(char *cmd_s, int is_child, t_env env, int **r_pipes)
 	}
 	cmd_s = expand_all(cmd_s, env);
 	set_acav(&cmd, cmd_s);
-	set_builtin(&cmd);
+	if (cmd.ac != 0)
+		set_builtin(&cmd);
 	if (cmd.builtin && is_child)
 		exe_builtin_child(cmd, cmd_s, env, r_pipes);
 	if (cmd.builtin && !is_child)
