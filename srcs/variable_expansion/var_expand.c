@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/06 18:21:00 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/07 12:18:39 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,37 +60,29 @@ int	process_pattern(t_dynamic_buffer *buffer, t_env env, char *pattern)
 
 char	*is_ambiguous(char *str, t_env env, t_heredoc_status heredoc_status)
 {
-	char				*cur_expanded;
-	char				*end_space_pos;
-	char				space;
-	char				*expanded;
-	int					in_squote;
+	char				*cur;
+	t_ambiguous_state	ambiguous_state;
 
 	if ((*str != '>' && *str != '<') || *(str + 1) == '>'
 		|| heredoc_status != NOT_IN_HEREDOC)
 		return (0);
-	str++;
-	while (ft_isspace(*str))
-		str++;
-	end_space_pos = str;
-	in_squote = 0;
-	while (*end_space_pos && (!ft_isspace(*end_space_pos) || in_squote))
+	while (ft_isspace(*++str))
+		;
+	cur = str;
+	ambiguous_state = HAS_NO_NORMAL_CHARACTERS;
+	while (*cur && !ft_isspace(*cur) && ambiguous_state != IS_AMBIGUOUS)
 	{
-		if (*end_space_pos == '\'')
-			in_squote = !in_squote;
-		end_space_pos++;
+		if (*cur == '\'' || *cur == '"')
+			cur = ft_strchr(cur + 1, *cur);
+		if (*cur == '\'' || *cur == '"')
+			ambiguous_state = HAS_NORMAL_CHARACTERS;
+		update_ambiguous_state(&ambiguous_state, &cur, env);
+		cur++;
 	}
-	space = *end_space_pos;
-	*end_space_pos = 0;
-	expanded = var_expand(str, env);
-	*end_space_pos = space;
-	if (!*expanded)
+	if (ambiguous_state != HAS_NORMAL_CHARACTERS)
 		return (str);
-	cur_expanded = expanded;
-	while (*cur_expanded)
-		if (ft_isspace(*cur_expanded++))
-			return (str);
-	return (0);
+	else
+		return (0);
 }
 
 int	append_quoted_str_and_move(t_dynamic_buffer *d_buffer, char **str)

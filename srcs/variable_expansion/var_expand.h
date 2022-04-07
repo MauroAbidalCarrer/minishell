@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:11 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/05 21:17:44 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/07 12:17:38 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ typedef enum e_heredoc_status
 	IN_DELIMITER
 }	t_heredoc_status;
 
+typedef enum e_ambiguous_state
+{
+	HAS_NO_NORMAL_CHARACTERS,
+	HAS_NORMAL_CHARACTERS,
+	IS_AMBIGUOUS
+}	t_ambiguous_state;
+
 char	*get_line(char *prompt);
 
 char	*var_expand(char *pattern, t_env env);
@@ -40,6 +47,9 @@ int		append_var_and_move2(t_dynamic_buffer *buffer, t_env env,
 int		is_almost_valid_char_for_name(char c);
 int		append_str(t_dynamic_buffer *buffer, char *str);
 void	update_heredoc_status(char *str, t_heredoc_status *heredoc_status);
+
+void	update_ambiguous_state(t_ambiguous_state *ambiguous_state,
+			char **cur, t_env env);
 
 int		append_and_quote_str(t_dynamic_buffer *buffer, char *str);
 
