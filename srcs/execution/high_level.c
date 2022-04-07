@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/07 19:43:52 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/07 19:48:39 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	exe_pipeline(char *line, int is_child, t_env env, int **r_pipes)
 	if (strchr_qp(line, '|'))
 		return (exe_pipes(data, env, r_pipes));
 	ret = exe_cmd_s(line, is_child, env, r_pipes);
-	skip_hds(line, line + ft_strlen(line) - 1, r_pipes);
+	skip_hds(line, line + ft_strlen(line), r_pipes);
 	return (ret);
 }
 
