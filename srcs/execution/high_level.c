@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/07 18:18:28 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/07 19:43:52 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,20 +98,16 @@ int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
 	char	*next_op;
 	char	*nextnext_op;
 
-//printf("exe_list[%s]\n", list);
 	next_op = strstr_qp(list, "||");
-	if (strstr_qp(list, "&&") != NULL && (next_op == NULL || strstr_qp(list, "&&") < next_op))
+	if (strstr_qp(list, "&&") != NULL
+		&& (next_op == NULL || strstr_qp(list, "&&") < next_op))
 		next_op = strstr_qp(list, "&&");
 	if (next_op)
 	{
-//printf("found op [%s]\n", next_op);
 		ret = exe_pipeline(sub(list, next_op), is_child, env, r_pipes);
-//printf("ret = %d\n", ret);
 		if ((ret != 0) == (*next_op == '|'))
 			return (exe_list(next_op + 2, is_child, env, r_pipes));
-//printf("ret did not match op\n");
 		nextnext_op = tern(*next_op == '|', "&&", "||");
-//printf("op op = [%s]\n", nextnext_op);
 		if (strstr_qp(next_op + 2, nextnext_op))
 		{
 			nextnext_op = strstr_qp(next_op + 2, nextnext_op);
@@ -121,6 +117,5 @@ int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
 		skip_hds(next_op + 2, next_op + ft_strlen(next_op + 2), r_pipes);
 		return (ret);
 	}
-//printf("no operator list = [%s]\n", list);
 	return (exe_pipeline(list, is_child, env, r_pipes));
 }
