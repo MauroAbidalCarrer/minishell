@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/06 17:00:58 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:27:54 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,23 +104,23 @@ int	set_path(char *name, char **env, int *ret, char **path)
 		*path = name;
 	else if (get_path(name, env, path))
 		return (*ret = 127, 1);
+	if (type_of(*path) == error)
+	{
+		if (access(*path, F_OK) == -1)
+			return (*ret = 127, 1);
+		return (*ret = 126, 1);
+	}
 	if (type_of(*path) == dir)
 	{
 		write_error(NULL, *path, "Is a directory");
-		*ret = 126;
-		return (1);
+		return (*ret = 126, 1);
 	}
 	if (type_of(*path) == other)
 	{
 		write_error(NULL, *path, "Is not a regular file");
-		*ret = 126;
-		return (1);
+		return (*ret = 126, 1);
 	}
 	if (access(*path, X_OK) == -1)
-	{
-		write_error(NULL, *path, NULL);
-		*ret = 126;
-		return (1);
-	}
+		return (write_error(NULL, *path, NULL), *ret = 126, 1);
 	return (0);
 }

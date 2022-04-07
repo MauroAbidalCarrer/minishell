@@ -103,7 +103,5 @@ test pour les putains de heredocs: false && (true || cat <<o) && cat <<o
 <' '
 
 ==============
--cat <<end && sleep 1 && cat <<end
- //le deuxieme cat ne fait rien... nanni?
--no such file or directory printed 3 times
+-control operators gone wrong
 -split le chek en deux etapes, dabord pour les heredocs, ensuite faire les heredocs, check le reste, exe le reste

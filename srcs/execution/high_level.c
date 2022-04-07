@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/07 15:10:05 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:18:28 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,28 @@ static int	exe_pipes(t_p_data data, t_env env, int **r_pipes)
 {
 	char	*next_p;
 
-	next_p = strchr_qp(data.line, '|');
+	next_p = strchr_qp(data.line, '|') + (strchr_qp(data.line, '|') != NULL);
 	if (next_p)
-	{
-		next_p++;
 		ft_pipe(data.p_fds);
-	}
 	else
 	{
 		data.p_fds[0] = -1;
 		data.p_fds[1] = -1;
 	}
 	data.pid = ft_fork();
-	if (data.pid)
-		return (parent_pipe(data, next_p, env, r_pipes));
-	if (next_p)
-		data.line = sub(data.line, next_p - 1);
-	if (data.p_fds[READ] != -1)
-		ft_close(data.p_fds[READ]);
-	if (data.p_fds[WRITE] != -1)
-		ft_dup2(data.p_fds[WRITE], WRITE);
-	if (data.p_read != -1)
-		ft_dup2(data.p_read, READ);
-	return (ft_exit(exe_cmd_s(data.line, 1, env, r_pipes)), 1);
+	if (!data.pid)
+	{
+		if (next_p)
+			data.line = sub(data.line, next_p - 1);
+		if (data.p_fds[READ] != -1)
+			ft_close(data.p_fds[READ]);
+		if (data.p_fds[WRITE] != -1)
+			ft_dup2(data.p_fds[WRITE], WRITE);
+		if (data.p_read != -1)
+			ft_dup2(data.p_read, READ);
+		ft_exit(exe_cmd_s(data.line, 1, env, r_pipes));
+	}
+	return (parent_pipe(data, next_p, env, r_pipes));
 }
 
 static int	exe_pipeline(char *line, int is_child, t_env env, int **r_pipes)
@@ -93,39 +92,35 @@ static int	exe_pipeline(char *line, int is_child, t_env env, int **r_pipes)
 	return (ret);
 }
 
-void	print_hd_count(int **r_pipes)
-{
-	int	i;
-
-	i = 0;
-	while (r_pipes[0][i] != -1)
-		i++;
-	printf("nb pipes = %d\n", i);
-}
-
 int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
 {
-	char	*next_and;
-	char	*next_or;
-	char	*end;
 	int		ret;
+	char	*next_op;
+	char	*nextnext_op;
 
-	next_and = strstr_qp(list, "&&");
-	next_or = strstr_qp(list, "||");
-	end = list + ft_strlen(list);
-	if ((!next_or && next_and) || (next_and && next_and < next_or))
+//printf("exe_list[%s]\n", list);
+	next_op = strstr_qp(list, "||");
+	if (strstr_qp(list, "&&") != NULL && (next_op == NULL || strstr_qp(list, "&&") < next_op))
+		next_op = strstr_qp(list, "&&");
+	if (next_op)
 	{
-		ret = exe_pipeline(sub(list, next_and), 0, env, r_pipes);
-		if (!ret)
-			return (exe_list(sub(next_and + 2, end), 0, env, r_pipes));
-		return (skip_hds(next_and + 2, end, r_pipes), ret);
+//printf("found op [%s]\n", next_op);
+		ret = exe_pipeline(sub(list, next_op), is_child, env, r_pipes);
+//printf("ret = %d\n", ret);
+		if ((ret != 0) == (*next_op == '|'))
+			return (exe_list(next_op + 2, is_child, env, r_pipes));
+//printf("ret did not match op\n");
+		nextnext_op = tern(*next_op == '|', "&&", "||");
+//printf("op op = [%s]\n", nextnext_op);
+		if (strstr_qp(next_op + 2, nextnext_op))
+		{
+			nextnext_op = strstr_qp(next_op + 2, nextnext_op);
+			skip_hds(next_op + 2, nextnext_op, r_pipes);
+			return (exe_list(nextnext_op + 2, is_child, env, r_pipes));
+		}
+		skip_hds(next_op + 2, next_op + ft_strlen(next_op + 2), r_pipes);
+		return (ret);
 	}
-	else if ((next_or && !next_and) || (next_or && next_and > next_or))
-	{
-		ret = exe_pipeline(sub(list, next_or), 0, env, r_pipes);
-		if (ret)
-			return (exe_list(sub(next_or + 2, end), 0, env, r_pipes));
-		return (skip_hds(next_or + 2, end, r_pipes), 0);
-	}
+//printf("no operator list = [%s]\n", list);
 	return (exe_pipeline(list, is_child, env, r_pipes));
 }

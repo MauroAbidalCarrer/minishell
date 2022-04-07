@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 20:05:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 16:03:29 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/07 17:24:32 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,5 @@ char	*straddchar(char *str, char c);
 char	*strnochr(char *str, char c);
 int		str_equal(char *str1, char *str2);
 char	*sub(char *start, char *end);
+char	*tern(int cond, char *a, char *b);
 #endif

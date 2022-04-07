@@ -6,7 +6,7 @@
 #    By: maabidal <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 20:08:50 by maabidal          #+#    #+#              #
-#    Updated: 2022/03/23 16:04:10 by jmaia            ###   ########.fr        #
+#    Updated: 2022/04/07 17:24:06 by maabidal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRCS =	ft_atoi.c\
 	ft_lstlast.c\
 	ft_lstnew.c\
 	\
+	tern.c\
 	file_sys_calls.c\
 	file_sys_calls2.c \
 	ft_arraylen.c\
