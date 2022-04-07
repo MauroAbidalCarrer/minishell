@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 21:48:39 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/06 15:54:33 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/07 15:01:35 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ static int	is_long(char *nbr)
 		}
 		i++;
 	}
-	if (n_digits > 19 || ft_strncmp(start_nbr, "9223372036854775808", 19) > 0)
+	if (n_digits > 19 || ft_strncmp(start_nbr, "9223372036854775808", 19) > 0
+		|| (ft_strncmp(start_nbr, "9223372036854775808", 19) == 0
+			&& (start_nbr == nbr || *(start_nbr - 1) != '-')))
 		return (0);
 	return (1);
 }
