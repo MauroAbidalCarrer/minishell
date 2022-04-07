@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/06 16:56:09 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/07 15:10:05 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,26 @@ static int	exe_pipes(t_p_data data, t_env env, int **r_pipes)
 static int	exe_pipeline(char *line, int is_child, t_env env, int **r_pipes)
 {
 	t_p_data	data;
+	int			ret;
 
 	data.line = line;
 	data.is_child = is_child;
 	data.p_read = -1;
 	if (strchr_qp(line, '|'))
 		return (exe_pipes(data, env, r_pipes));
-	return (exe_cmd_s(line, is_child, env, r_pipes));
+	ret = exe_cmd_s(line, is_child, env, r_pipes);
+	skip_hds(line, line + ft_strlen(line) - 1, r_pipes);
+	return (ret);
+}
+
+void	print_hd_count(int **r_pipes)
+{
+	int	i;
+
+	i = 0;
+	while (r_pipes[0][i] != -1)
+		i++;
+	printf("nb pipes = %d\n", i);
 }
 
 int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
