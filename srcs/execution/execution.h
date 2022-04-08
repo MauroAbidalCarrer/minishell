@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/06 17:00:12 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 13:46:45 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 # include "parsing_utils.h"
 # include "builtins.h"
+# include "var_expand.h"
 
 # define READ 0
 # define WRITE 1

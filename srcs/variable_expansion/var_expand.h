@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:11 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/07 12:17:38 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/08 13:47:14 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ void	update_heredoc_status(char *str, t_heredoc_status *heredoc_status);
 
 void	update_ambiguous_state(t_ambiguous_state *ambiguous_state,
 			char **cur, t_env env);
+
+char	*var_expand_in_heredoc(char *pattern, t_env env);
+
+void	append_exit_status(t_dynamic_buffer *buffer, t_env env);
+void	append_env_var_and_move_in_heredoc_mode(t_dynamic_buffer *buffer,
+			char **pattern, t_env env);
 
 int		append_and_quote_str(t_dynamic_buffer *buffer, char *str);
 
