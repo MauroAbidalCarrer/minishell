@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 18:27:44 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/08 18:07:18 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 19:07:55 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ char	*join(char *s1, char *s2);
 char	*r_join(char *s1, char *s2, size_t len);
 char	*alloc_line(size_t len);
 size_t	n_index(char *str);
-char	*get_next_line_heredoc();
+char	*get_next_line_heredoc(void);
 #endif
