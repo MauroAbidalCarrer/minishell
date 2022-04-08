@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:15:17 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/08 18:31:28 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:55:48 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	heredoc(char *limit, char first_c, int p_write, t_env env)
 			return (free(line));
 		if (first_c != '\'' && first_c != '\"')
 		{
-			expanded_line = var_expand(line, env);
+			expanded_line = var_expand_in_heredoc(line, env);
 			free(line);
 			line = expanded_line;
 		}
