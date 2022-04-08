@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/07 14:50:52 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 14:54:38 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ int	exe_cmd_s(char *cmd_s, int is_child, t_env env, int **r_pipes)
 	}
 	cmd_s = expand_all(cmd_s, env);
 	set_acav(&cmd, cmd_s);
-	if (cmd.ac != 0)
-		set_builtin(&cmd);
+	set_builtin(&cmd);
 	if (cmd.builtin && is_child)
 		exe_builtin_child(cmd, cmd_s, env, r_pipes);
 	if (cmd.builtin && !is_child)

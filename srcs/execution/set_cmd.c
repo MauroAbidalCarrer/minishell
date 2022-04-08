@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/07 15:27:54 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 14:54:31 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ void	set_acav(t_cmd *cmd, char *cmd_s)
 
 void	set_builtin(t_cmd *cmd)
 {
+	if (cmd->ac == 0)
+	{
+		cmd->builtin = NULL;
+		return ;
+	}
 	if (str_equal(cmd->av[0], "echo"))
 		cmd->builtin = &ms_echo;
 	else if (str_equal(cmd->av[0], "cd"))

@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/07 20:07:31 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/07 20:08:51 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	**skip_hds(char *beg_list, char *end_list, int **r_pipes)
 	char	*sub_list;
 
 	sub_list = sub(beg_list, end_list);
-printf("sub list = [%s]\n", sub_list);
 	while (strstr_q(sub_list, "<<"))
 	{
 		sub_list = strstr_q(sub_list, "<<") + 2;
