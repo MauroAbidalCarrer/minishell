@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 16:17:47 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/06 17:00:12 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:52:39 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 # define EOF_WARN "warning: here-document delimited by end-of-file (wanted `"
 # define EOF_WARN_END "')"
 
-int		exe_list(char *list, int is_child, t_env env, int **r_pipes);
+int		**skip_hds(char *beg_list, char *end_list, int **r_pipes);
+void	exe_list(char *list, int is_child, t_env *env, int **r_pipes);
 int		ms_waitpid(pid_t pid);
 
 typedef struct s_pipe_data

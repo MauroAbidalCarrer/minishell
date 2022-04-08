@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 16:49:26 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/08 14:54:38 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:52:57 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	exe_extern_pp(t_cmd cmd, char *cmd_s, t_env env, int **r_pipes)
 	pid = ft_fork();
 	if (!pid)
 		exe_extern_child(cmd, cmd_s, env, r_pipes);
+	skip_hds(cmd_s, cmd_s + ft_strlen(cmd_s), r_pipes);
 	return (ms_waitpid(pid));
 }
 
@@ -76,10 +77,10 @@ int	exe_cmd_s(char *cmd_s, int is_child, t_env env, int **r_pipes)
 	if (n_p)
 	{
 		cmd_s = sub(n_p + 1, to_ending_par(n_p));
+		exe_list(cmd_s, is_child, &env, r_pipes);
 		if (is_child)
-			ft_exit(exe_list(cmd_s, is_child, env, r_pipes));
-		else
-			return (exe_list(cmd_s, is_child, env, r_pipes));
+			ft_exit(env.exit_status);
+		return (env.exit_status);
 	}
 	cmd_s = expand_all(cmd_s, env);
 	set_acav(&cmd, cmd_s);

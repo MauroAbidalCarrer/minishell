@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/05 15:59:45 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:17:35 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	handle_input(t_env env, char *exename)
 			r_pipes = mk_heredocs(line, env);
 			if (r_pipes != NULL)
 			{
-				env.exit_status = exe_list(line, 0, env, &r_pipes);
+				exe_list(line, 0, &env, &r_pipes);
 				while (*r_pipes != -1)
 					ft_close(*(r_pipes++));
 			}

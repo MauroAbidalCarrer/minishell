@@ -18,6 +18,7 @@ SRCS		=	builtins/ms_cd.c \
 				execution/set_cmd.c\
 				execution/here_docs.c\
 				get_next_line/get_next_line.c\
+				get_next_line/util.c\
 				get_next_line/get_next_line_utils.c\
 				main.c\
 				parsing_utils/env_utils.c\

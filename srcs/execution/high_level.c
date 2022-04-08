@@ -6,18 +6,18 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/07 20:08:51 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:53:52 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static int	**skip_hds(char *beg_list, char *end_list, int **r_pipes)
+int	**skip_hds(char *beg_list, char *end_list, int **r_pipes)
 {
 	char	*sub_list;
 
 	sub_list = sub(beg_list, end_list);
-	while (strstr_q(sub_list, "<<"))
+	while (strstr_q(sub_list, "<<") )
 	{
 		sub_list = strstr_q(sub_list, "<<") + 2;
 		ft_close(**r_pipes);
@@ -26,12 +26,10 @@ static int	**skip_hds(char *beg_list, char *end_list, int **r_pipes)
 	return (r_pipes);
 }
 
-static int	exe_pipes(t_p_data data, t_env env, int **r_pipes);
+static void	exe_pipes(t_p_data data, t_env *env, int **r_pipes);
 
-static int	parent_pipe(t_p_data data, char *next_p, t_env env, int **r_pipes)
+static void	parent_pipe(t_p_data data, char *next_p, t_env *env, int **r_pipes)
 {
-	int	ret;
-
 	r_pipes = skip_hds(data.line, next_p, r_pipes);
 	if (data.p_read != -1)
 		ft_close(data.p_read);
@@ -41,15 +39,14 @@ static int	parent_pipe(t_p_data data, char *next_p, t_env env, int **r_pipes)
 	if (next_p)
 	{
 		data.line = next_p;
-		ret = exe_pipes(data, env, r_pipes);
+		exe_pipes(data, env, r_pipes);
 		ms_waitpid(data.pid);
-		return (ret);
 	}
 	else
-		return (ms_waitpid(data.pid));
+		env->exit_status = ms_waitpid(data.pid);
 }
 
-static int	exe_pipes(t_p_data data, t_env env, int **r_pipes)
+static void	exe_pipes(t_p_data data, t_env *env, int **r_pipes)
 {
 	char	*next_p;
 
@@ -72,29 +69,30 @@ static int	exe_pipes(t_p_data data, t_env env, int **r_pipes)
 			ft_dup2(data.p_fds[WRITE], WRITE);
 		if (data.p_read != -1)
 			ft_dup2(data.p_read, READ);
-		ft_exit(exe_cmd_s(data.line, 1, env, r_pipes));
+		ft_exit(exe_cmd_s(data.line, 1, *env, r_pipes));
 	}
-	return (parent_pipe(data, next_p, env, r_pipes));
+	parent_pipe(data, next_p, env, r_pipes);
 }
 
-static int	exe_pipeline(char *line, int is_child, t_env env, int **r_pipes)
+static void	exe_pipeline(char *line, int is_child, t_env *env, int **r_pipes)
 {
 	t_p_data	data;
-	int			ret;
 
+//printf("pipeline on [%s]\n", line);
 	data.line = line;
 	data.is_child = is_child;
 	data.p_read = -1;
 	if (strchr_qp(line, '|'))
-		return (exe_pipes(data, env, r_pipes));
-	ret = exe_cmd_s(line, is_child, env, r_pipes);
-	skip_hds(line, line + ft_strlen(line), r_pipes);
-	return (ret);
+		exe_pipes(data, env, r_pipes);
+	else
+	{
+		env->exit_status = exe_cmd_s(line, is_child, *env, r_pipes);
+		//skip_hds(line, line + ft_strlen(line), r_pipes);
+	}
 }
 
-int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
+void	exe_list(char *list, int is_child, t_env *env, int **r_pipes)
 {
-	int		ret;
 	char	*next_op;
 	char	*nextnext_op;
 
@@ -104,18 +102,26 @@ int	exe_list(char *list, int is_child, t_env env, int **r_pipes)
 		next_op = strstr_qp(list, "&&");
 	if (next_op)
 	{
-		ret = exe_pipeline(sub(list, next_op), is_child, env, r_pipes);
-		if ((ret != 0) == (*next_op == '|'))
-			return (exe_list(next_op + 2, is_child, env, r_pipes));
-		nextnext_op = tern(*next_op == '|', "&&", "||");
-		if (strstr_qp(next_op + 2, nextnext_op))
+		exe_pipeline(sub(list, next_op), is_child, env, r_pipes);
+//printf("finished pipeline, exit status = %d\n", env->exit_status);
+		if ((env->exit_status != 0) == (*next_op == '|'))
 		{
-			nextnext_op = strstr_qp(next_op + 2, nextnext_op);
-			skip_hds(next_op + 2, nextnext_op, r_pipes);
-			return (exe_list(nextnext_op + 2, is_child, env, r_pipes));
+//printf("called\n");
+			exe_list(next_op + 2, is_child, env, r_pipes);
 		}
-		skip_hds(next_op + 2, next_op + ft_strlen(next_op), r_pipes);
-		return (ret);
+		else
+		{
+			nextnext_op = tern(*next_op == '|', "&&", "||");
+			if (strstr_qp(next_op + 2, nextnext_op))
+			{
+				nextnext_op = strstr_qp(next_op + 2, nextnext_op);
+				skip_hds(next_op + 2, nextnext_op, r_pipes);
+				exe_list(nextnext_op + 2, is_child, env, r_pipes);
+			}
+			else
+				skip_hds(next_op + 2, next_op + ft_strlen(next_op), r_pipes);
+		}
 	}
-	return (exe_pipeline(list, is_child, env, r_pipes));
+	else
+		exe_pipeline(list, is_child, env, r_pipes);
 }
