@@ -3,111 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/06 18:23:03 by maabidal          #+#    #+#             */
-/*   Updated: 2022/01/04 18:05:52 by maabidal         ###   ########.fr       */
+/*   Created: 2021/11/25 12:01:52 by jmaia             #+#    #+#             */
+/*   Updated: 2021/12/02 10:51:53 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"get_next_line.h"
+#include "get_next_line.h"
 
-ssize_t	ff_read(int fd, char *dest, char *s_buff)
+static char	*ft_strdup_or_null_if_empty(char *s)
 {
-	ssize_t	r_size;
-	ssize_t	len;
-	ssize_t	i;
+	char			*dup;
+	unsigned int	i;
+	size_t			len_s;
 
-	r_size = read(fd, dest, BUFFER_SIZE);
-	if (r_size < 0)
-		return (-1);
-	dest[r_size] = 0;
-	len = r_size;
-	if (n_index(dest))
-		len = n_index(dest);
-	i = len - 1;
-	while (++i < r_size)
-		s_buff[i - len] = dest[i];
-	s_buff[i - len] = 0;
-	dest[len] = 0;
-	return (len);
+	if (*s == 0)
+		return (0);
+	len_s = 0;
+	i = 0;
+	while (s[i++])
+		len_s++;
+	dup = malloc(sizeof(*dup) * (len_s + 1));
+	if (dup == 0)
+		return (0);
+	i = 0;
+	while (i < sizeof(*dup) * (len_s + 1))
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	return (dup);
 }
 
-char	*get_rest(size_t len, int fd, char *s_buff)
+static t_file	init_file(int fd)
 {
-	char	*bit;
-	char	*rest;
-	ssize_t	bit_len;
+	t_file	file;
 
-	bit = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (bit == NULL)
-		return (NULL);
-	bit_len = ff_read(fd, bit, s_buff);
-	if (bit_len == -1 || (len == 0 && bit_len == 0))
-	{
-		free(bit);
-		return (NULL);
-	}
-	len += bit_len;
-	if (bit_len < BUFFER_SIZE || n_index(bit))
-	{
-		rest = r_join(alloc_line(len) + len - 1, bit, bit_len);
-		free(bit);
-		return (rest);
-	}
-	rest = r_join(get_rest(len, fd, s_buff), bit, bit_len);
-	free(bit);
-	return (rest);
+	file.fd = fd;
+	file.i = BUFFER_SIZE;
+	file.real_size = BUFFER_SIZE;
+	file.is_end = 0;
+	return (file);
 }
 
-char	*get_head(char *prev)
-{	
-	ssize_t	i;
-	char	*head;
+t_file	*get_file(t_infinite_tab *files, int fd)
+{
+	unsigned int	i;
+	t_file			file;
 
-	if (prev == NULL)
-		return (NULL);
-	head = prev;
-	while (head - prev < BUFFER_SIZE - 1 && !*head)
-		head++;
-	prev = head;
-	i = n_index(head);
-	if (!i)
-		i = ft_strlen(head);
-	head = malloc(sizeof(char) * (i + 1));
-	if (head == NULL)
-		return (NULL);
-	head[i] = 0;
-	while (--i >= 0)
+	if (files->tab == 0)
 	{
-		head[i] = prev[i];
-		prev[i] = 0;
+		files->i = 0;
+		files->size = 0;
+		files->elem_size = sizeof(t_file);
+		files->tab = malloc(sizeof(*files->tab) * files->elem_size);
+		if (files->tab == 0)
+			return (0);
+		((t_file *) &files->tab[0])->fd = -2;
+		files->count = 0;
 	}
-	return (head);
+	i = 0;
+	while (((t_file *) &files->tab[i * files->elem_size])->fd != -2)
+	{
+		if (((t_file *) &files->tab[i * files->elem_size])->fd == fd)
+			return ((t_file *) &files->tab[i * files->elem_size]);
+		i++;
+	}
+	file = init_file(fd);
+	append_elem(files, &file + 0 * files->count++);
+	((t_file *)(&files->tab[files->i * files->elem_size]))->fd = -2;
+	return ((t_file *) &files->tab[i * files->elem_size]);
+}
+
+static void	free_infinite_tab(t_infinite_tab *tab, t_infinite_tab *files)
+{
+	free(tab->tab);
+	free(tab);
+	if (files->count == 0)
+	{
+		free(files->tab);
+		files->tab = 0;
+	}
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*prev_reads[1024];
-	char		*head;
-	char		*rest;
-	char		*line;
+	static t_infinite_tab	files = {.tab = 0};
+	t_backpack				backpack;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || fd >= 1024)
-		return (NULL);
-	if (prev_reads[fd] == NULL)
-		prev_reads[fd] = alloc_line(BUFFER_SIZE);
-	head = get_head(prev_reads[fd]);
-	if (head == NULL)
-		return (free_prev(prev_reads + fd));
-	if (n_index(head))
-		return (head);
-	rest = get_rest(ft_strlen(head), fd, prev_reads[fd]);
-	line = NULL;
-	if (rest != NULL)
-		line = r_join(rest, head, ft_strlen(head)) + 1;
-	else
-		free_prev(prev_reads + fd);
-	free(head);
-	return (line);
+	backpack = get_backpack(&files, fd);
+	if (backpack.is_bad_backpack)
+		return (0);
+	while (!backpack.c->is_end && backpack.c->c != '\n')
+	{
+		free(backpack.c);
+		backpack.c = get_next_char(backpack.file, &files);
+		if (backpack.c->is_end)
+			continue ;
+		backpack.err = append_elem(backpack.line, &backpack.c->c);
+		if (backpack.err == e_err)
+		{
+			free(backpack.c);
+			free_infinite_tab(backpack.line, &files);
+			return (0);
+		}
+	}
+	free(backpack.c);
+	backpack.return_line = ft_strdup_or_null_if_empty(backpack.line->tab);
+	free_infinite_tab(backpack.line, &files);
+	return (backpack.return_line);
 }
