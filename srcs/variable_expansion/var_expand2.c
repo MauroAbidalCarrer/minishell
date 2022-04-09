@@ -6,13 +6,13 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 16:56:37 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/05 21:22:32 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/09 10:28:40 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "var_expand.h"
 
-static int	append_str_and_escape_dquote(t_dynamic_buffer *buffer, char *str);
+static void	append_str_and_escape_dquote(t_dynamic_buffer *buffer, char *str);
 
 int	append_var_and_move2(t_dynamic_buffer *buffer, t_env env,
 				char **cur_c, int in_dquote)
@@ -35,7 +35,7 @@ int	append_var_and_move2(t_dynamic_buffer *buffer, t_env env,
 	if (!in_dquote)
 		err = append_and_quote_str(buffer, value);
 	else
-		err = append_str_and_escape_dquote(buffer, value);
+		append_str_and_escape_dquote(buffer, value);
 	return (err);
 }
 
@@ -45,33 +45,28 @@ int	is_almost_valid_char_for_name(char c)
 		|| (c >= '0' && c <= '9') || c == '_');
 }
 
-int	append_str(t_dynamic_buffer *buffer, char *str)
+void	append_str(t_dynamic_buffer *buffer, char *str)
 {
 	char	*cur_c;
-	int		err;
 
 	cur_c = str;
-	err = 0;
-	while (*cur_c && !err)
-		err = append(buffer, cur_c++);
-	return (err);
+	while (*cur_c)
+		append(buffer, cur_c++);
 }
 
-static int	append_str_and_escape_dquote(t_dynamic_buffer *buffer, char *str)
+static void	append_str_and_escape_dquote(t_dynamic_buffer *buffer, char *str)
 {
 	char	*cur_c;
-	int		err;
 
 	cur_c = str;
-	err = 0;
-	while (*cur_c && !err)
+	while (*cur_c)
 	{
 		if (*cur_c == '"')
 		{
 			append(buffer, "\"");
 			append(buffer, "'");
 		}
-		err = append(buffer, cur_c);
+		append(buffer, cur_c);
 		if (*cur_c == '"')
 		{
 			append(buffer, "'");
@@ -79,7 +74,6 @@ static int	append_str_and_escape_dquote(t_dynamic_buffer *buffer, char *str)
 		}
 		cur_c++;
 	}
-	return (err);
 }
 
 void	update_heredoc_status(char *str, t_heredoc_status *heredoc_status)

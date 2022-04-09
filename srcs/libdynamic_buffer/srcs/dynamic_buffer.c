@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 23:23:27 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/21 11:54:15 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/09 10:29:55 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,11 @@ t_dynamic_buffer	get_buffer(size_t elem_size)
 	return (buffer);
 }
 
-int	append(t_dynamic_buffer *buffer, void *elem)
+void	append(t_dynamic_buffer *buffer, void *elem)
 {
-	int	err;
-
 	if (buffer->i == buffer->len)
-	{
-		err = expand(buffer);
-		if (err)
-			return (err);
-	}
+		expand(buffer);
 	ft_memcpy(get_elem_ptr(buffer, buffer->i++), elem, buffer->elem_size);
-	return (0);
 }
 
 static void	*get_elem_ptr(t_dynamic_buffer *buffer, unsigned long i)
@@ -47,7 +40,7 @@ static void	*get_elem_ptr(t_dynamic_buffer *buffer, unsigned long i)
 	return (ptr);
 }
 
-static int	expand(t_dynamic_buffer *buffer)
+static void	expand(t_dynamic_buffer *buffer)
 {
 	void	*new_buffer;
 	size_t	new_size;
@@ -60,5 +53,4 @@ static int	expand(t_dynamic_buffer *buffer)
 	ft_free(buffer->buffer);
 	buffer->buffer = new_buffer;
 	buffer->len += EXPAND_LEN;
-	return (0);
 }

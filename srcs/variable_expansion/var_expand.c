@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/09 10:15:06 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/09 10:30:45 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,20 @@ int	append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
 				t_env env, int in_dquote)
 {
 	char	*status_code_str;
-	int		err;
 
 	status_code_str = ft_itoa(env.exit_status);
 	*cur_c += 1;
 	if (**cur_c == '?')
 	{
 		(*cur_c)++;
-		return (append_str(buffer, status_code_str));
+		append_str(buffer, status_code_str);
+		return (0);
 	}
 	if (!is_almost_valid_char_for_name(**cur_c)
 		&& **cur_c != '\'' && **cur_c != '"')
 	{
-		err = append(buffer, "$");
-		return (err);
+		append(buffer, "$");
+		return (0);
 	}
 	return (append_var_and_move2(buffer, env, cur_c, in_dquote));
 }
