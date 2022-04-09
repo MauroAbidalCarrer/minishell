@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:11 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/08 13:47:14 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/09 10:27:24 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		append_var_and_move(t_dynamic_buffer *buffer, char **cur_c,
 int		append_var_and_move2(t_dynamic_buffer *buffer, t_env env,
 			char **cur_c, int in_dquote);
 int		is_almost_valid_char_for_name(char c);
-int		append_str(t_dynamic_buffer *buffer, char *str);
+void	append_str(t_dynamic_buffer *buffer, char *str);
 void	update_heredoc_status(char *str, t_heredoc_status *heredoc_status);
 
 void	update_ambiguous_state(t_ambiguous_state *ambiguous_state,

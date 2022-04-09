@@ -6,19 +6,19 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/03/29 20:40:26 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/09 10:29:37 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard.h"
 #include "builtins.h"
 
-static int			wild_word(char const *cur_word, int is_not_first,
-						t_dynamic_buffer *buffer);
-static void			get_space(char const *str, char *space, char **space_pos);
-static int			append_pattern(t_dynamic_buffer *buffer,
-						char const *pattern);
-static int			append_word(t_dynamic_buffer *buffer, char const *word);
+static int	wild_word(char const *cur_word, int is_not_first,
+				t_dynamic_buffer *buffer);
+static void	get_space(char const *str, char *space, char **space_pos);
+static int	append_pattern(t_dynamic_buffer *buffer,
+				char const *pattern);
+static void	append_word(t_dynamic_buffer *buffer, char const *word);
 
 char	*wild_it(char const *pattern)
 {
@@ -28,8 +28,6 @@ char	*wild_it(char const *pattern)
 	int					is_not_first;
 
 	buffer = get_buffer(sizeof(char));
-	if (!buffer.buffer)
-		return (0);
 	cur_word = pattern;
 	is_not_first = 0;
 	while (cur_word)
@@ -59,7 +57,7 @@ static int	wild_word(char const *cur_word, int is_not_first,
 		|| ft_strchr(cur_word, '\''))
 		err = append_pattern(buffer, cur_word);
 	else
-		err = append_word(buffer, cur_word);
+		append_word(buffer, cur_word);
 	*space_pos = space;
 	return (err);
 }
@@ -108,17 +106,14 @@ static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 	return (closedir(dir) != 0);
 }
 
-static int	append_word(t_dynamic_buffer *buffer, char const *word)
+static void	append_word(t_dynamic_buffer *buffer, char const *word)
 {
-	int			err;
 	char const	*cur_c;
 
-	err = 0;
 	cur_c = word;
-	while (*cur_c && !err)
+	while (*cur_c)
 	{
-		err |= append(buffer, (char *) cur_c);
+		append(buffer, (char *) cur_c);
 		cur_c++;
 	}
-	return (err);
 }
