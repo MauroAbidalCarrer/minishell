@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:40:09 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/09 20:01:16 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:19:53 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@ int	ft_isspace(char c)
 	return ((c >= '\t' && c <= '\r') || c == ' ');
 }
 
-int	str_iswhite(char *str)
+int	_str(char *str)
 {
 	while (*str)
 	{

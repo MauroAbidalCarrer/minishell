@@ -6,13 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:38:13 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/09 18:45:23 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:15:41 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	**mem_man()
+t_list	**mem_man(void)
 {
 	static t_list	**ptrs;
 

@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:10:03 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/09 19:01:58 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:17:00 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@
 
 # ifndef T_ENV
 #  define T_ENV
+
 typedef struct s_env
 {
 	char	***env;
 	int		exit_status;
 }	t_env;
 # endif
+
 extern t_env	*g_env;
 
 typedef void	(*t_sig_handler)(int, siginfo_t *, void *);

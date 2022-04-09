@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:15:17 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/09 19:47:17 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:22:36 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ static void	heredoc(char *limit, char *full_limiter, int p_write, t_env env)
 	while (line != NULL)
 	{
 		if (str_equal(line, limit))
-		{
-			ft_free(full_limiter);
-			free(line);
-			return ;
-		}
+			return (free(line));
 		if (!strchr(full_limiter, '\"') && !strchr(full_limiter, '\"'))
 		{
 			expanded_line = var_expand_in_heredoc(line, env);
@@ -39,17 +35,20 @@ static void	heredoc(char *limit, char *full_limiter, int p_write, t_env env)
 		line = get_next_line_heredoc();
 	}
 	write_error(NULL, EOF_WARN, ft_strjoin(limit, EOF_WARN_END));
-	ft_free(full_limiter);
 }
 
 static void	fill_heredocs(char *list, int **pipes, t_env env)
 {
+	char	*full_limiter;
+
 	set_signal_handler(&handle_sig_as_heredoc);
 	while (strstr_q(list, "<<"))
 	{
 		list = strstr_q(list, "<<") + 2;
 		list = skip_spaces(list);
-		heredoc(sub_argument(list), sub(list, skip_argument(list)), pipes[0][WRITE], env);
+		full_limiter = sub(list, skip_argument(list));
+		heredoc(sub_argument(list), full_limiter, pipes[0][WRITE], env);
+		ft_free(full_limiter);
 		ft_close_p(*pipes);
 		ft_free(*pipes);
 		pipes++;

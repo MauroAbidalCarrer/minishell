@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/08 18:53:52 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:24:31 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	**skip_hds(char *beg_list, char *end_list, int **r_pipes)
 	char	*sub_list;
 
 	sub_list = sub(beg_list, end_list);
-	while (strstr_q(sub_list, "<<") )
+	while (strstr_q(sub_list, "<<"))
 	{
 		sub_list = strstr_q(sub_list, "<<") + 2;
 		ft_close(**r_pipes);
@@ -78,17 +78,13 @@ static void	exe_pipeline(char *line, int is_child, t_env *env, int **r_pipes)
 {
 	t_p_data	data;
 
-//printf("pipeline on [%s]\n", line);
 	data.line = line;
 	data.is_child = is_child;
 	data.p_read = -1;
 	if (strchr_qp(line, '|'))
 		exe_pipes(data, env, r_pipes);
 	else
-	{
 		env->exit_status = exe_cmd_s(line, is_child, *env, r_pipes);
-		//skip_hds(line, line + ft_strlen(line), r_pipes);
-	}
 }
 
 void	exe_list(char *list, int is_child, t_env *env, int **r_pipes)
@@ -103,24 +99,17 @@ void	exe_list(char *list, int is_child, t_env *env, int **r_pipes)
 	if (next_op)
 	{
 		exe_pipeline(sub(list, next_op), is_child, env, r_pipes);
-//printf("finished pipeline, exit status = %d\n", env->exit_status);
 		if ((env->exit_status != 0) == (*next_op == '|'))
+			return (exe_list(next_op + 2, is_child, env, r_pipes), );
+		nextnext_op = tern(*next_op == '|', "&&", "||");
+		if (strstr_qp(next_op + 2, nextnext_op))
 		{
-//printf("called\n");
-			exe_list(next_op + 2, is_child, env, r_pipes);
+			nextnext_op = strstr_qp(next_op + 2, nextnext_op);
+			skip_hds(next_op + 2, nextnext_op, r_pipes);
+			exe_list(nextnext_op + 2, is_child, env, r_pipes);
 		}
 		else
-		{
-			nextnext_op = tern(*next_op == '|', "&&", "||");
-			if (strstr_qp(next_op + 2, nextnext_op))
-			{
-				nextnext_op = strstr_qp(next_op + 2, nextnext_op);
-				skip_hds(next_op + 2, nextnext_op, r_pipes);
-				exe_list(nextnext_op + 2, is_child, env, r_pipes);
-			}
-			else
-				skip_hds(next_op + 2, next_op + ft_strlen(next_op), r_pipes);
-		}
+			skip_hds(next_op + 2, next_op + ft_strlen(next_op), r_pipes);
 	}
 	else
 		exe_pipeline(list, is_child, env, r_pipes);

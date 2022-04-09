@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:05:54 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/09 19:38:27 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 20:26:41 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	set_signal_handler(t_sig_handler sig_handler)
 	sigaction(SIGINT, &sa, 0);
 	sigaction(SIGQUIT, &sa, 0);
 }
-
 
 void	handle_sig_as_parent(int sig, siginfo_t *info, void *ucontext)
 {
