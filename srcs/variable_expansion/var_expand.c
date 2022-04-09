@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 16:44:02 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/07 19:56:45 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/09 10:15:06 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*var_expand(char *pattern, t_env env)
 	t_dynamic_buffer	buffer;
 
 	buffer = get_buffer(sizeof(char));
-	if (!buffer.buffer)
-		return (0);
 	err = process_pattern(&buffer, env, pattern);
 	if (err)
 		return (0);
