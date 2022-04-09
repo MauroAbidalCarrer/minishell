@@ -6,11 +6,13 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/09 18:47:34 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:57:15 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
+
+t_env	*g_env;
 
 char	*get_line(char *prompt)
 {
@@ -48,6 +50,7 @@ void	handle_input(t_env env, char *exename)
 	char	*prompt;
 	int		*r_pipes;
 
+	g_env = &env;
 	prompt = "";
 	if (isatty(READ))
 		prompt = exename;

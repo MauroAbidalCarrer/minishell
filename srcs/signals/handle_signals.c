@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:05:54 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/05 17:02:04 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 19:38:27 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,25 @@ void	set_signal_handler(t_sig_handler sig_handler)
 	sigemptyset(&set);
 	sigaddset(&set, SIGINT);
 	sigaddset(&set, SIGQUIT);
+	if (sig_handler == &handle_sig_as_parent)
+		sigaddset(&set, SIGTERM);
 	sa.sa_sigaction = sig_handler;
 	sa.sa_mask = set;
 	sa.sa_flags = SA_SIGINFO;
+	if (sig_handler == &handle_sig_as_parent)
+		sa.sa_flags = 0;
+	if (sig_handler == &handle_sig_as_parent)
+		sigaction(SIGTERM, &sa, 0);
 	sigaction(SIGINT, &sa, 0);
 	sigaction(SIGQUIT, &sa, 0);
 }
 
-void	set_signal_handler_as_parent(void)
-{
-	struct sigaction	sa;
-	sigset_t			set;
 
-	sigemptyset(&set);
-	sigaddset(&set, SIGINT);
-	sigaddset(&set, SIGTERM);
-	sigaddset(&set, SIGQUIT);
-	sa.sa_handler = SIG_IGN;
-	sa.sa_mask = set;
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, 0);
-	sigaction(SIGTERM, &sa, 0);
-	sigaction(SIGQUIT, &sa, 0);
+void	handle_sig_as_parent(int sig, siginfo_t *info, void *ucontext)
+{
+	g_env->exit_status = 128 + sig;
+	(void)info;
+	(void)ucontext;
 }
 
 void	handle_signal(int sig, siginfo_t *info, void *ucontext)
@@ -61,11 +58,12 @@ void	handle_signal(int sig, siginfo_t *info, void *ucontext)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+	g_env->exit_status = 128 + sig;
 }
 
 void	handle_sig_as_heredoc(int sig, siginfo_t *info, void *ucontext)
 {
-	if (sig == SIGINT || sig == SIGQUIT || sig == SIGTERM)
+	if (sig == SIGINT || sig == SIGTERM)
 	{
 		printf("\n");
 		ft_exit(1);
@@ -78,7 +76,7 @@ int	ms_waitpid(pid_t pid)
 {
 	int					exit_status;
 
-	set_signal_handler_as_parent();
+	set_signal_handler(&handle_sig_as_parent);
 	exit_status = ft_waitpid(pid);
 	set_signal_handler(&handle_signal);
 	return (exit_status);

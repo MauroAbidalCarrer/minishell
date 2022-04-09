@@ -6,11 +6,22 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 12:40:09 by jmaia             #+#    #+#             */
-/*   Updated: 2021/12/06 18:01:34 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/09 20:01:16 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isspace(char c)
 {
 	return ((c >= '\t' && c <= '\r') || c == ' ');
+}
+
+int	str_iswhite(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isspace(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }

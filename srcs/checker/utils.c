@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 16:22:40 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/30 18:06:14 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/09 20:00:56 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	check_p_in_cmd_s(char **str, int *p, int *nb_arg, char *exename)
 {
 	if (**str == '(')
 	{
+		if (str[0][1] == ')' || str_iswhite(sub(str[0] + 1, to_ending_par(*str))))
+			return (err_msg(")", exename), 0);
 		if (*p)
 			return (err_msg("(", exename), 0);
 		if (!should_exe_list(sub(*str + 1, to_ending_par(*str)), exename))
