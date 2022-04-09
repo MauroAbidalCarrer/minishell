@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 11:41:43 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/08 19:14:35 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 09:27:10 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	exe_list(char *list, int is_child, t_env *env, int **r_pipes)
 	{
 		exe_pipeline(sub(list, next_op), is_child, env, r_pipes);
 		if ((env->exit_status != 0) == (*next_op == '|'))
-			return (exe_list(next_op + 2, is_child, env, r_pipes), );
+			return (exe_list(next_op + 2, is_child, env, r_pipes));
 		nextnext_op = tern(*next_op == '|', "&&", "||");
 		if (strstr_qp(next_op + 2, nextnext_op))
 		{
