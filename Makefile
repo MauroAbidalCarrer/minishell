@@ -38,9 +38,11 @@ SRCS		=	builtins/ms_cd.c \
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))
+DEPS		=	$(OBJS:%.o=%.d)
+
 
 CC			=	cc
-CFLAGS		=	-g3 -Wall -Werror -Wextra
+CFLAGS		=	-g3 -Wall -Werror -Wextra -MMD
 INCLUDE		=	-I srcs/\
 				-I srcs/execution\
 				-I ./srcs/builtins\
@@ -61,6 +63,7 @@ LIBS_EXT	=	-lreadline
 
 all		:	$(NAME)
 
+-include $(DEPS)
 build/%.o	:	srcs/%.c
 	@if [ ! -d $(dir $@) ]; then\
 		mkdir -p $(dir $@);\

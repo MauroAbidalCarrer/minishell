@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 15:46:06 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 14:37:21 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:15:35 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define CREAT_M 420
 # define CREAT_F  577
 # define APPEND_F  1089
+# define ADD_FRONT 0
+# define FREE 1
 
 typedef struct s_list
 {
@@ -32,7 +34,6 @@ typedef struct s_list
 extern t_list	*g_ptrs_lst;
 void	*ft_malloc(size_t size);
 void	ft_free(void *ptr);
-void	ft_freeall(void);
 int		ft_remove(void *add);
 pid_t	ft_fork(void);
 int		ft_waitpid(pid_t pid);

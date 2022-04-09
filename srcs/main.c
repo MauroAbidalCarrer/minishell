@@ -6,13 +6,11 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 14:47:35 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/08 18:17:35 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:47:34 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-
-t_list	*g_ptrs_lst;
 
 char	*get_line(char *prompt)
 {

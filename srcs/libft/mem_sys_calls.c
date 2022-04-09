@@ -6,17 +6,32 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:38:13 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/23 14:41:59 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:45:23 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+t_list	**mem_man()
+{
+	static t_list	**ptrs;
+
+	if (ptrs == NULL)
+	{
+		ptrs = malloc(sizeof(t_list *));
+		if (ptrs == NULL)
+			write_error(NULL, NULL, NULL);
+		*ptrs = NULL;
+	}
+	return (ptrs);
+}
 
 //on ne peut pas utiliser lst_new puisaue lstnew utilise ft_malloc
 void	*ft_malloc(size_t size)
 {
 	void	*tmp;
 	t_list	*node;
+	t_list	**ptrs;
 
 	tmp = malloc(size);
 	if (tmp == NULL)
@@ -32,59 +47,51 @@ void	*ft_malloc(size_t size)
 		ft_exit(1);
 	}
 	node->content = tmp;
-	ft_lstadd_front(&g_ptrs_lst, node);
+	ptrs = mem_man();
+	if (ptrs == NULL)
+		return (free(tmp), free(node), exit(1), NULL);
+	ft_lstadd_front(ptrs, node);
 	return (tmp);
 }
 
 //pas besoin de verifier que le premier node n'est pas NULL
 //car l'address est censee etre presente dans la grace a ft_malloc
-int	ft_remove(void *add)
+void	ft_free(void *add)
 {
 	t_list	*node;
 	t_list	*prev;
 
 	prev = NULL;
-	node = g_ptrs_lst;
+	node = *mem_man();
 	while (node && node->content != add)
 	{
 		prev = node;
 		node = node->next;
 	}
 	if (!node)
-		return (1);
+		return ;
 	if (prev)
 		prev->next = node->next;
 	else
-		g_ptrs_lst = node->next;
+		*mem_man() = node->next;
 	free(node);
-	return (0);
-}
-
-void	ft_free(void *add)
-{
-	int	err;
-
-	err = ft_remove(add);
-	if (!err)
-		free(add);
-}
-
-void	free_all(void)
-{
-	t_list	*next;
-
-	while (g_ptrs_lst)
-	{
-		next = g_ptrs_lst->next;
-		free(g_ptrs_lst->content);
-		free(g_ptrs_lst);
-		g_ptrs_lst = next;
-	}
+	free(add);
 }
 
 void	ft_exit(int status)
 {
-	free_all();
+	t_list	*next;
+
+	if (mem_man() == NULL)
+		exit(1);
+	while (*mem_man())
+	{
+		next = (*mem_man())->next;
+		free((*mem_man())->content);
+		free(*mem_man());
+		*mem_man() = next;
+	}
+	free(mem_man());
 	exit(status);
 }
 
