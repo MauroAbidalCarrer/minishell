@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/09 10:29:37 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/11 10:42:35 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	wild_word(char const *cur_word, int is_not_first,
 		append(buffer, &space_char);
 	get_space(cur_word, &space, &space_pos);
 	*space_pos = 0;
+	err = 0;
 	if (ft_strchr(cur_word, '*') || ft_strchr(cur_word, '"')
 		|| ft_strchr(cur_word, '\''))
 		err = append_pattern(buffer, cur_word);
