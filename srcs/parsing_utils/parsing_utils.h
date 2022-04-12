@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 15:53:49 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/02 18:22:35 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/12 15:31:05 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ char	*skip_quotes(char *str);
 char	*sub_argument(char *str);
 char	*skip_argument(char *str);
 int		get_env_var(char *key, char **dst, char **env);
+int		str_is_empty(char *str);
 #endif

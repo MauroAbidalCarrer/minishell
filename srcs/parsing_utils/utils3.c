@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 08:46:59 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/30 14:38:32 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/12 15:00:09 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,15 @@ char	*sub_argument(char *str)
 		str++;
 	}
 	return (arg);
+}
+
+int	str_is_empty(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isspace(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }

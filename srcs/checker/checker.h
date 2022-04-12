@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 19:07:56 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/22 17:21:02 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/12 15:10:01 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 # include "libft.h"
 # include "parsing_utils.h"
 # define ERR_PRE "syntax error near unexpected token `"
+
+# ifndef T_ENV
+#  define T_ENV
+
+typedef struct s_env
+{
+	char	***env;
+	int		exit_status;
+}	t_env;
+# endif
+
+extern t_env	*g_env;
 
 void	err_msg(char *err, char *exename);
 

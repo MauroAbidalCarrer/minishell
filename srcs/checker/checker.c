@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 16:22:33 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/11 13:11:06 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/12 15:07:49 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,26 @@ char	*skip_sep(char *str, int expected, char *exename)
 
 int	should_exe_list(char *str, char *exename)
 {
-	if (!quotes_closed(str) || !parentheses_closed(str, exename))
+	if (str_is_empty(str))
 		return (0);
+	if (!quotes_closed(str) || !parentheses_closed(str, exename))
+	{
+		g_env->exit_status = 2;
+		return (0);
+	}
 	while (str)
 	{
 		if (skip_sep(str, 0, exename))
+		{
+			g_env->exit_status = 2;
 			return (0);
+		}
 		str = skip_cmd_s(str, exename);
 		if (str == NULL)
+		{
+			g_env->exit_status = 2;
 			return (0);
+		}
 		str = skip_sep(str, 1, exename);
 	}
 	return (1);
