@@ -1,8 +1,0 @@
-cat << eof""
--should not expand in heredoc
-
-Ctrl-C should set exit status at 130
-
-print segfault error of childs 
-
-() should return "unexpected token"
