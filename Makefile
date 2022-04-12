@@ -32,9 +32,10 @@ SRCS		=	builtins/ms_cd.c \
 				variable_expansion/var_expand3.c \
 				variable_expansion/var_expand_in_heredoc.c \
 				wildcard/get_sorted_files.c \
+				wildcard/test_if_wildcard_ambiguous.c \
 				wildcard/match.c \
 				wildcard/wild_it.c \
-				wildcard/wild_it2_it_is_back.c\
+				wildcard/wild_it2_it_is_back.c
 
 _OBJS		=	${SRCS:.c=.o}
 OBJS		=	$(addprefix build/, $(_OBJS))

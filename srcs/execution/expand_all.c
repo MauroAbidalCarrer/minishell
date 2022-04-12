@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 15:01:57 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/09 10:16:53 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/12 22:34:11 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*expand_all(char *str, t_env env)
 	char	*expanded_str;
 
 	expanded_str = var_expand(str, env);
-	if (expanded_str)
-		expanded_str = wild_it(expanded_str);
+	expanded_str = wild_it(expanded_str);
 	return (expanded_str);
 }

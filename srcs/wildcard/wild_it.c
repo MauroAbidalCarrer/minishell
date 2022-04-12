@@ -6,105 +6,112 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:38:36 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/11 10:42:35 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/12 22:34:59 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wildcard.h"
 #include "builtins.h"
 
-static int	wild_word(char const *cur_word, int is_not_first,
-				t_dynamic_buffer *buffer);
-static void	get_space(char const *str, char *space, char **space_pos);
+static void	get_separator(char const *str, char *space, char **space_pos);
 static int	append_pattern(t_dynamic_buffer *buffer,
 				char const *pattern);
 static void	append_word(t_dynamic_buffer *buffer, char const *word);
 
-char	*wild_it(char const *pattern)
+char	*wild_it(char *pattern)
 {
 	char				*wilded_str;
-	char const			*cur_word;
+	char				*cur_word;
 	t_dynamic_buffer	buffer;
-	int					is_not_first;
 
 	buffer = get_buffer(sizeof(char));
-	cur_word = pattern;
-	is_not_first = 0;
-	while (cur_word)
+	if (pattern && !test_if_wildcard_ambiguous(pattern))
 	{
-		wild_word(cur_word, is_not_first++, &buffer);
-		cur_word = get_next_word(cur_word);
+		cur_word = pattern;
+		while (cur_word)
+		{
+			if (ft_isspace(*cur_word) || *cur_word == '<' || *cur_word == '>')
+				append(&buffer, cur_word++);
+			else
+			{
+				wild_word(cur_word, &buffer);
+				cur_word = get_next_word(cur_word);
+			}
+		}
 	}
 	wilded_str = as_str(&buffer);
 	ft_free(buffer.buffer);
 	return (wilded_str);
 }
 
-static int	wild_word(char const *cur_word, int is_not_first,
-				t_dynamic_buffer *buffer)
+// Returns number of words
+int	wild_word(char const *cur_word, t_dynamic_buffer *buffer)
 {
-	char	space;
-	char	space_char;
-	char	*space_pos;
-	int		err;
+	char	separator;
+	char	*separator_pos;
+	int		n_words;
 
-	space_char = ' ';
-	if (is_not_first)
-		append(buffer, &space_char);
-	get_space(cur_word, &space, &space_pos);
-	*space_pos = 0;
-	err = 0;
+	get_separator(cur_word, &separator, &separator_pos);
+	*separator_pos = 0;
+	n_words = 1;
 	if (ft_strchr(cur_word, '*') || ft_strchr(cur_word, '"')
 		|| ft_strchr(cur_word, '\''))
-		err = append_pattern(buffer, cur_word);
+		n_words = append_pattern(buffer, cur_word);
 	else
 		append_word(buffer, cur_word);
-	*space_pos = space;
-	return (err);
+	*separator_pos = separator;
+	return (n_words);
 }
 
-static void	get_space(char const *str, char *space, char **space_pos)
+static void	get_separator(char const *str, char *separator,
+	char **separator_pos)
 {
 	char	englober;
 
 	englober = 0;
-	*space_pos = (char *) str;
-	while (**space_pos && (!ft_isspace(**space_pos) || englober))
+	*separator_pos = (char *) str;
+	while (**separator_pos
+		&& ((!ft_isspace(**separator_pos)
+				&& **separator_pos != '<' && **separator_pos != '>')
+			|| englober))
 	{
-		if (**space_pos == englober)
+		if (**separator_pos == englober)
 			englober = 0;
-		else if (!englober && (**space_pos == '"' || **space_pos == '\''))
-			englober = **space_pos;
-		(*space_pos)++;
+		else if (!englober && (**separator_pos == '"'
+				|| **separator_pos == '\''))
+			englober = **separator_pos;
+		(*separator_pos)++;
 	}
-	*space = **space_pos;
+	*separator = **separator_pos;
 }
 
 static int	append_pattern(t_dynamic_buffer *buffer, char const *pattern)
 {
 	DIR		*dir;
-	int		is_first;
+	int		n_matches;
 	t_list	*files;
 
 	dir = opendir(".");
 	if (!dir)
-		return (1);
+		return (-1);
 	files = get_sorted_files(dir);
-	is_first = 1;
+	n_matches = 0;
 	while (files)
 	{
 		if (do_match((char *) files->content, pattern))
 		{
-			if (!is_first)
+			if (n_matches++ != 0)
 				append(buffer, " ");
-			is_first = 0;
-			append_and_quote_str(buffer, (char *) files->content);
+			append_full_quoted_word(buffer, (char *) files->content);
 		}
 		files = files->next;
 	}
-	if (is_first)
+	if (n_matches == 0)
 		append_word(buffer, pattern);
-	return (closedir(dir) != 0);
+	if (n_matches == 0)
+		n_matches = 1;
+	closedir(dir);
+	return (n_matches);
 }
 
 static void	append_word(t_dynamic_buffer *buffer, char const *word)
