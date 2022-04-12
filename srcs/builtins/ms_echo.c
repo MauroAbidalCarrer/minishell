@@ -6,7 +6,7 @@
 /*   By: jmaia <jmaia@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 14:12:31 by jmaia             #+#    #+#             */
-/*   Updated: 2022/04/04 16:46:53 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/11 14:43:50 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	count_nl_options(int ac, char **av)
 	count = 0;
 	while (j < ac)
 	{
-		if (av[j][0] != '-')
+		if (av[j][0] != '-' || !av[j][1])
 			return (count);
 		i = 1;
 		while (av[j][i])
