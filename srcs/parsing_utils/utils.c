@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:05:09 by maabidal          #+#    #+#             */
-/*   Updated: 2022/03/17 10:57:24 by jmaia            ###   ########.fr       */
+/*   Updated: 2022/04/11 12:01:57 by maabidal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*to_ending_par(char *str)
 	while (count)
 	{
 		++str;
+		str = skip_quotes(str);
 		count += (*str == '(');
 		count -= (*str == ')');
 	}
