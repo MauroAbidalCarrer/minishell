@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 17:15:17 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/09 20:22:36 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/13 19:00:28 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void	heredoc(char *limit, char *full_limiter, int p_write, t_env env)
 	{
 		if (str_equal(line, limit))
 			return (free(line));
-		if (!strchr(full_limiter, '\"') && !strchr(full_limiter, '\"'))
+		if (!ft_strchr(full_limiter, '\"') && !ft_strchr(full_limiter, '\"'))
 		{
 			expanded_line = var_expand_in_heredoc(line, env);
 			free(line);
 			line = expanded_line;
 		}
 		ft_putstr_fd(ft_strjoin(line, "\n"), p_write);
-		if (strchr(full_limiter, '\"') || strchr(full_limiter, '\"'))
+		if (ft_strchr(full_limiter, '\"') || ft_strchr(full_limiter, '\"'))
 			free(line);
 		line = get_next_line_heredoc();
 	}

@@ -6,7 +6,7 @@
 /*   By: maabidal <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 17:08:08 by maabidal          #+#    #+#             */
-/*   Updated: 2022/04/08 14:54:31 by maabidal         ###   ########.fr       */
+/*   Updated: 2022/04/13 19:00:01 by jmaia            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static int	get_path(char *name, char **env, char **path)
 
 int	set_path(char *name, char **env, int *ret, char **path)
 {
-	if (strchr(name, '/'))
+	if (ft_strchr(name, '/'))
 		*path = name;
 	else if (get_path(name, env, path))
 		return (*ret = 127, 1);
